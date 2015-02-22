@@ -1,10 +1,17 @@
 rb-chrome (Alpha)
 =================
 
-A Chromium shell for developing desktop apps in Ruby.
+A framework for developing desktop apps with all your favorite technologies.
 
-rb-chrome is similar is spirit to node-webkit, or atom-shell. That is, it allows you to develop your
-application's UI like a web app, while giving you access to the underlying system like a native app.
+&#x2713; Ruby <br/>
+&#x2713; JavaScript <br/>
+&#x2713; HTML <br/>
+&#x2713; SVG <br/>
+&#x2713; CSS <br/>
+
+rb-chrome is similar is spirit to node-webkit, or atom-shell. It provides a Chromium shell for your
+application's UI. This lets you develop your UI like a web app, while giving you access to the underlying
+system like a native app.
 
 rb-chrome intends to support multiple modes of operation. Currently only a client-server mode is
 availabe. In client-server mode, your Ruby code runs in a web server process, and your UI

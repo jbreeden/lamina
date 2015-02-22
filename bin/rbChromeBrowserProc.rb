@@ -1,0 +1,29 @@
+require 'rbChrome'
+require 'optparse'
+require 'ipc'
+
+$RB_CHROME_OPTIONS = {
+  url: "www.google.com"
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: rb-chrome"
+
+  opts.on("--url URL", "The url to load on startup") do |url|
+    $RB_CHROME_OPTIONS[:url] = url
+  end
+
+  opts.on("--ipc-port PORT", "The port to provide IPC services on") do |port|
+    $RB_CHROME_OPTIONS[:ipc_port] = port
+  end
+end.parse(ARGV)
+
+IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
+
+RbChrome::Browser.url = $RB_CHROME_OPTIONS[:url]
+
+if File.exists? "./browser.rb"
+  require "./browser.rb"
+end
+
+RbChrome::Browser.open

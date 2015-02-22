@@ -1,0 +1,28 @@
+[0219/224035:ERROR:renderer_main.cc(207)] Running without renderer sandbox
+[0219/224038:ERROR:singleton_hwnd.cc(43)] Cannot create windows on non-UI thread!
+[0219/224059:ERROR:renderer_main.cc(207)] Running without renderer sandbox
+[0219/224100:WARNING:message_in_transit_queue.cc(18)] Destroying nonempty message queue
+[0219/224100:ERROR:ipc_channel_win.cc(460)] pipe error: 232
+[0219/224102:ERROR:singleton_hwnd.cc(43)] Cannot create windows on non-UI thread!
+[0219/224103:INFO:CONSOLE(0)] "
+%cStop!", source: undefined (0)
+[0219/224103:INFO:CONSOLE(0)] "
+%cThis is a browser feature intended for developers. If someone told you to copy-paste something here to enable a Facebook feature or "hack" someone's account, it is a scam and will give them access to your Facebook account.", source: undefined (0)
+[0219/224103:INFO:CONSOLE(0)] "
+%cFor more information, see https://www.facebook.com/selfxss.", source: undefined (0)
+[0219/224103:INFO:CONSOLE(0)] "
+%c", source: undefined (0)
+[0219/224130:WARNING:content_browser_client.cc(567)] No browser info matching frame process id 4 and routing id 4
+[0219/224130:WARNING:content_browser_client.cc(567)] No browser info matching frame process id 4 and routing id 4
+[0219/224130:WARNING:content_browser_client.cc(567)] No browser info matching frame process id 4 and routing id 4
+[0219/224130:WARNING:content_browser_client.cc(567)] No browser info matching frame process id 4 and routing id 4
+[0219/224212:WARNING:message_in_transit_queue.cc(18)] Destroying nonempty message queue
+[0219/224212:WARNING:message_in_transit_queue.cc(18)] Destroying nonempty message queue
+[0219/224212:WARNING:message_in_transit_queue.cc(18)] Destroying nonempty message queue
+[0219/224212:WARNING:message_in_transit_queue.cc(18)] Destroying nonempty message queue
+[0220/105322:ERROR:renderer_main.cc(207)] Running without renderer sandbox
+[0220/105324:ERROR:singleton_hwnd.cc(43)] Cannot create windows on non-UI thread!
+[0220/105504:WARNING:message_in_transit_queue.cc(18)] Destroying nonempty message queue
+[0220/171027:ERROR:renderer_main.cc(207)] Running without renderer sandbox
+[0220/171029:ERROR:singleton_hwnd.cc(43)] Cannot create windows on non-UI thread!
+[0220/171049:WARNING:message_in_transit_queue.cc(18)] Destroying nonempty message queue

@@ -1,0 +1,46 @@
+require 'drb'
+
+module IPC
+
+  def uri
+    @uri
+  end
+
+  def self.listen(port)
+    @listening ||= false
+    raise "IPC service already started" if @listening
+    @uri = "druby://localhost:#{port}"
+
+    DRb.start_service(@uri, Services)
+
+    @listening = true
+  end
+
+  def self.juliet
+    @juliet ||= nil
+  end
+
+  def self.add_juliet_port(port, exit_code = 1)
+    @juliets ||= []
+    @juliets.push DRbObject.new_with_uri("druby://localhost:#{port}")
+    Thread.new do
+      begin
+        loop do
+          @juliets.each do |juliet|
+            juliet.ping
+          end
+          sleep 1
+        end
+      rescue DRb::DRbError => ex
+        exit exit_code
+      end
+    end
+  end
+
+  # Services module's singleton methods are exposed to other processes via drb
+  module Services
+    def self.ping
+      # Do nothing. Client will raise DRbError if this process is dead
+    end
+  end
+end

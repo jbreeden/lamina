@@ -23,6 +23,7 @@ module IPC
   def self.add_juliet_port(port, exit_code = 1)
     @juliets ||= []
     @juliets.push DRbObject.new_with_uri("druby://localhost:#{port}")
+    return if @juliets.length > 1
     Thread.new do
       begin
         loop do

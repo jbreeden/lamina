@@ -1,7 +1,3 @@
-![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
-
-(TODO MVC as a desktop app on rb-chrome)
-
 rb-chrome (Alpha)
 =================
 
@@ -69,8 +65,12 @@ end
 Running a Sample
 ----------------
 
-The samples directory in this repo contains a bare-bones client-server application you can run with rb-chrome.
-(It's actually just the Polymer version of TODO MVC).
+The samples directory in this repo contains a demo of [TODO MVC](http://todomvc.com/) running as a desktop app.
+
+It looks like this...
+
+![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
+
 
 rb-chrome has not been properly gemified yet, so for now you run the sample with the following steps
 
@@ -95,4 +95,4 @@ web and desktop versions of the same app more difficult.
 Platform Support
 ----------------
 
-Windows only at the moment.
+Windows only at the moment. Also expects `ruby` to be on your path.

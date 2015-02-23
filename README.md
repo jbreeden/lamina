@@ -1,4 +1,4 @@
-rb-chrome (Alpha)
+rb-chrome (alpha)
 =================
 
 A framework for developing desktop apps with web technologies.

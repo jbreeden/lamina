@@ -1,3 +1,7 @@
+![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
+
+(TODO MVC as a desktop app on rb-chrome)
+
 rb-chrome (Alpha)
 =================
 
@@ -12,14 +16,6 @@ A framework for developing desktop apps with web technologies.
 rb-chrome is similar in spirit to node-webkit, or atom-shell. It provides a Chromium shell for your
 application's UI. This lets you develop your UI like a web app, while giving you access to the underlying
 system like a native app.
-
-Currently only a client-server mode is availabe. In client-server mode, your Ruby code runs in a web server,
-and your UI talks to it by the usual means (ajax, web sockets, etc). The browser and server are both started 
-automatically when you run `rb-chrome` in the directory containing your application. rb-chrome takes care
-of associating the processes so that if the browser is closed by the user or OS, the server exits as well.
-
-A server-less mode is in development. In this mode your ruby code will execute in the same process as
-the browser. This eliminates the need for a web server, but does involve learning some new APIs.
 
 App Structure
 -------------
@@ -70,10 +66,6 @@ get '/' do
 end
 ```
 
-If you run `rb-chrome` in your app's directory, you might see something like this:
-
-![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
-
 Running a Sample
 ----------------
 
@@ -87,6 +79,18 @@ rb-chrome has not been properly gemified yet, so for now you run the sample with
 - Run `rake runtime:release:build`
 - `cd` into the samples/sinatra/ directory
 - Run `rb-chrome`
+
+Application Types
+-----------------
+
+Currently only a client-server app type is availabe. In a client-server app, your Ruby code runs in a web server,
+and your UI talks to it by the usual means (ajax, web sockets, etc). The browser and server are both started 
+automatically when you run `rb-chrome` in the directory containing your application. rb-chrome takes care
+of associating the processes so that if the browser is closed by the user or OS, the server exits as well.
+
+A server-less app type is in development. With a server-less app your ruby code will execute in the same process as
+the browser. This eliminates the need for a web server, but does increase complexity and can make sharing code between
+web and desktop versions of the same app more difficult.
 
 Platform Support
 ----------------

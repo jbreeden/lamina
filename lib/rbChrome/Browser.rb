@@ -6,7 +6,7 @@ module RbChrome
     ffi_lib 'rbChrome'
 
     class << self
-      attr_accessor :url, :window_title, :cache_path
+      attr_accessor :url, :window_title, :cache_path, :remote_debugging_port
     end
 
     self.window_title = "rb-chrome"
@@ -18,6 +18,7 @@ module RbChrome
       self.rb_chrome_set_url self.url
       self.rb_chrome_set_window_title self.window_title
       self.rb_chrome_set_cache_path self.cache_path
+      self.rb_chrome_set_remote_debugging_port(self.remote_debugging_port) if self.remote_debugging_port
       self.rb_chrome_start
     end
 
@@ -48,5 +49,6 @@ module RbChrome
     attach_function :rb_chrome_set_sub_process, [:string], :void
     attach_function :rb_chrome_set_window_title, [:string], :void
     attach_function :rb_chrome_set_cache_path, [:string], :void
+    attach_function :rb_chrome_set_remote_debugging_port, [:int], :void
   end
 end

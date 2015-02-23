@@ -1,4 +1,4 @@
-﻿Build started 2/22/2015 8:28:05 PM.
+﻿Build started 2/22/2015 9:29:21 PM.
      1>Project "C:\projects\rb-chrome\cef_binary_3.2171.1979_windows32\rbChrome\rbChrome.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\projects\rb-chrome\cef_binary_3.2171.1979_windows32\rbChrome\\include" /I"C:\projects\rb-chrome\cef_binary_3.2171.1979_windows32\rbChrome\\..\\" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D RELEASE /D BUILDING_RB_CHROME_DLL /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\rbChrome.cpp
@@ -129,4 +129,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.83
+Time Elapsed 00:00:02.19

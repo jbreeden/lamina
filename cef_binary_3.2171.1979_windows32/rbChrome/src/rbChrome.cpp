@@ -20,6 +20,7 @@ using namespace std;
 string appUrl = "";
 string subProcessName = "";
 string windowTitle = "";
+string cachePath = "";
 
 #ifdef _WIN32
 #define CEF_USE_SANDBOX
@@ -39,6 +40,10 @@ extern "C" {
 
    EXPORT void rb_chrome_set_window_title(char* window_title) {
       windowTitle = window_title;
+   }
+
+   EXPORT void rb_chrome_set_cache_path(char* cache_path) {
+      cachePath = cache_path;
    }
 
    EXPORT int rb_chrome_start() {
@@ -79,6 +84,10 @@ extern "C" {
       // Specify CEF global settings here.
       CefSettings settings;
       CefString(&settings.browser_subprocess_path).FromASCII(subProcessName.c_str());
+
+      if (cachePath.length() > 0) {
+         CefString(&settings.cache_path).FromASCII(cachePath.c_str());
+      }
 
 #if !defined(CEF_USE_SANDBOX)
       settings.no_sandbox = true;

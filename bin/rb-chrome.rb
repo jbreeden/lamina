@@ -1,6 +1,7 @@
 lib_dir = "#{File.dirname(__FILE__)}/../lib"
 
 require 'socket'
+require 'fileutils'
 
 def get_free_port
   dummy_server = TCPServer.new 0

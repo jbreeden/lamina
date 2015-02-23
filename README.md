@@ -72,7 +72,7 @@ end
 
 If you run `rb-chrome` in your app's directory, you might see something like this:
 
-![alt tag](https://raw.github.com/jbreeden/rb-chrome/images/sample.jpeg)
+![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
 
 Running a Sample
 ----------------

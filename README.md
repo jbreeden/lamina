@@ -1,4 +1,4 @@
-rb-chrome (Alpha)
+rb-chrome (alpha)
 =================
 
 A framework for developing desktop apps with web technologies.
@@ -71,12 +71,13 @@ It looks like this...
 
 ![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
 
-
 rb-chrome has not been properly gemified yet, so for now you run the sample with the following steps
 
 - Download or clone this repo
 - Put the bin/ directory on your path
 - Run `rake runtime:release:build`
+- `cd` into the samples/sinatra/public/ directory
+- Run `bower update`
 - `cd` into the samples/sinatra/ directory
 - Run `rb-chrome`
 

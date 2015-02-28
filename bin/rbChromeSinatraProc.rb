@@ -2,6 +2,8 @@ require 'rbChrome'
 require 'optparse'
 require 'ipc'
 
+client_script = ARGV[ARGV.length - 1]
+
 $RB_CHROME_OPTIONS = {}
 
 OptionParser.new do |opts|
@@ -21,4 +23,4 @@ end.parse(ARGV)
 IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
 IPC.die_with($RB_CHROME_OPTIONS[:browser_port])
 
-require "./server.rb"
+require client_script

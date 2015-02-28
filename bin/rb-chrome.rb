@@ -3,6 +3,12 @@ lib_dir = "#{File.dirname(__FILE__)}/../lib"
 require 'socket'
 require 'fileutils'
 
+if ARGV.length > 0
+  app_dir = ARGV[0]
+else
+  app_dir = "."
+end
+
 def get_free_port
   dummy_server = TCPServer.new 0
   port = dummy_server.addr[1]
@@ -28,16 +34,17 @@ server_command =
   "#{server_proc_path} " +
   "--port #{proc_info[:server_port]} " +
   "--ipc-port #{proc_info[:server_ipc_port]} " +
-  "--browser-port #{proc_info[:browser_ipc_port]} "
+  "--browser-port #{proc_info[:browser_ipc_port]} " +
+  "#{app_dir}/server.rb"
 
 browser_command =
   "rubyw -I #{lib_dir} " +
   "#{browser_proc_path} " +
   "--url http://localhost:#{proc_info[:server_port]} " +
-  "--ipc-port #{proc_info[:browser_ipc_port]} "
+  "--ipc-port #{proc_info[:browser_ipc_port]} " +
+  "#{app_dir}/browser.rb"
 
 server_pid = spawn server_command
 browser_pid = spawn browser_command
 
 Process.wait(server_pid)
-Process.wait(browser_pid)

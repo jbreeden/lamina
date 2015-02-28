@@ -2,6 +2,8 @@ require 'rbChrome'
 require 'optparse'
 require 'ipc'
 
+client_script = ARGV[ARGV.length - 1]
+
 $RB_CHROME_OPTIONS = {
   url: "www.google.com"
 }
@@ -22,8 +24,8 @@ IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
 
 RbChrome::Browser.url = $RB_CHROME_OPTIONS[:url]
 
-if File.exists? "./browser.rb"
-  require "./browser.rb"
+if File.exists? client_script
+  require client_script
 end
 
 RbChrome::Browser.open

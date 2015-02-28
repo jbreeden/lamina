@@ -18,7 +18,6 @@
 			allCompleted: false,
 			ready: function() {
 				this.asyncMethod(function() {
-					console.log("Reading storage: " + JSON.stringify(this.storage.value))
 					this.items = this.storage.value || [];
 				});
 			},
@@ -28,13 +27,11 @@
 				});
 			},
 			itemsChanged: function() {
-				console.log('Items changed');
 				this.completedCount = this.items.filter(this.filters.completed).length;
 				this.activeCount = this.items.length - this.completedCount;
 				this.allCompleted = this.completedCount && !this.activeCount;
 				this.filterItems();
 				if (this.storage) {
-					console.log('Saving items: ' + JSON.stringify(this.items));
 					this.storage.value = this.items;
 					this.storage.save();
 				}

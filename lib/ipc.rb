@@ -16,11 +16,7 @@ module IPC
     @listening = true
   end
 
-  def self.juliet
-    @juliet ||= nil
-  end
-
-  def self.add_juliet_port(port, exit_code = 1)
+  def self.die_with(port, exit_code = 1)
     @juliets ||= []
     @juliets.push DRbObject.new_with_uri("druby://localhost:#{port}")
     return if @juliets.length > 1

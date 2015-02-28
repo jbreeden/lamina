@@ -13,12 +13,12 @@ OptionParser.new do |opts|
     $RB_CHROME_OPTIONS[:ipc_port] = port
   end
 
-  opts.on("--juliet-port PORT", "The port of the juliet process") do |port|
-    $RB_CHROME_OPTIONS[:juliet_port] = port
+  opts.on("--browser-port PORT", "The IPC port of the browser process") do |port|
+    $RB_CHROME_OPTIONS[:browser_port] = port
   end
 end.parse(ARGV)
 
 IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
-IPC.add_juliet_port($RB_CHROME_OPTIONS[:juliet_port])
+IPC.die_with($RB_CHROME_OPTIONS[:browser_port])
 
 require "./server.rb"

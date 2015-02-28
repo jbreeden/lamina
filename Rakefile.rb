@@ -64,3 +64,7 @@ namespace :runtime do
     build_task('Debug')
   end
 end
+
+task :clean do
+  sh "git clean -fdX"
+end

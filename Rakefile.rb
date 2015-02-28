@@ -66,5 +66,5 @@ namespace :runtime do
 end
 
 task :clean do
-  sh "git clean -fdX"
+  sh "git clean -fd"
 end

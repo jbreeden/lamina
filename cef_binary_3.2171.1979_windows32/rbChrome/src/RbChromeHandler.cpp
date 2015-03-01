@@ -4,8 +4,11 @@
 #include "include/base/cef_bind.h"
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
+#include "FFIBridge.h"
 
 using namespace std;
+
+extern FFIBridge ffiBridge;
 
 namespace {
 
@@ -30,6 +33,10 @@ RbChromeHandler* RbChromeHandler::GetInstance() {
 
 void RbChromeHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
    CEF_REQUIRE_UI_THREAD();
+
+   // Set the frame window title bar
+   CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+   SetWindowText(hwnd, ffiBridge.windowTitle.c_str());
 
    // Add to the list of existing browsers.
    browser_list_.push_back(browser);
@@ -103,4 +110,10 @@ void RbChromeHandler::CloseAllBrowsers(bool force_close) {
    BrowserList::const_iterator it = browser_list_.begin();
    for (; it != browser_list_.end(); ++it)
       (*it)->GetHost()->CloseBrowser(force_close);
+}
+
+void RbChromeHandler::ExecuteJavaScript(char* script) {
+   auto firstBrowser = (*this->browser_list_.begin());
+   auto mainFrame = firstBrowser->GetMainFrame();
+   mainFrame->ExecuteJavaScript(script, mainFrame->GetURL(), 0);
 }

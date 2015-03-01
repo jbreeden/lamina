@@ -22,6 +22,18 @@ module RbChrome
       self.rb_chrome_start
     end
 
+    def self.execute_javascript(script)
+      self.rb_chrome_execute_javascript(script)
+    end
+
+    def self.enable_page_titles
+      self.rb_chrome_use_page_titles(true)
+    end
+
+    def self.disable_page_titles
+      self.rb_chrome_use_page_titles(false)
+    end
+
     private
 
     def self.check_open_preconditions
@@ -29,7 +41,7 @@ module RbChrome
     end
 
     # rb-chrome uses random port numbers when starting the web server.
-    # This has the unfortunate effect of breaking (sorta) localstorage.
+    # This has the unfortunate effect of (sort of) breaking localstorage.
     # Localstorage database files are named and looked up by the origin
     # of the web page - which includes the port number. So, we'll
     # rename any localhost localstorage files according to the current
@@ -37,18 +49,24 @@ module RbChrome
     def self.update_localstorage
       current_port = self.url[/(localhost|127\.0\.0\.1):([0-9]+)/, 2]
       return unless self.cache_path && current_port
-      Dir["#{self.cache_path}/Local Storage/*.localstorage*"].each do |db|
-        if db =~ /localhost/
-          File.rename(db, db.gsub(/[0-9]+.localstorage/, "#{current_port}.localstorage"))
+      Dir["#{self.cache_path}/Local Storage/*.localstorage*"].each do |path|
+        if path =~ /localhost/ && !path.include?("_#{current_port}.localstorage")
+          File.rename(path, path.gsub(/[0-9]+.localstorage/, "#{current_port}.localstorage"))
         end
       end
     end
 
+    # Setting `blocking: true` means this function will release the GVL (or GIL)
+    # This is required for the IPC thread to continue receiving messages.
+    # This also means that no ruby code can be executed on the CEF message
+    # loop without acquiring the GVL, and subsequently releasing it again.
     attach_function :rb_chrome_start, [], :int, blocking: true
     attach_function :rb_chrome_set_url, [:string], :void
     attach_function :rb_chrome_set_sub_process, [:string], :void
     attach_function :rb_chrome_set_window_title, [:string], :void
     attach_function :rb_chrome_set_cache_path, [:string], :void
     attach_function :rb_chrome_set_remote_debugging_port, [:int], :void
+    attach_function :rb_chrome_execute_javascript, [:string], :void
+    attach_function :rb_chrome_use_page_titles, [:bool], :void
   end
 end

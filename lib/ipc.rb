@@ -1,4 +1,5 @@
 require 'drb'
+require 'timeout'
 
 module IPC
 
@@ -24,20 +25,28 @@ module IPC
       begin
         loop do
           @juliets.each do |juliet|
-            juliet.ping
+            timeout (2) do
+              juliet.ping
+            end
           end
           sleep 1
         end
-      rescue DRb::DRbError => ex
+      rescue Exception => ex
         exit exit_code
       end
     end
   end
 
+  def self.get_proc(port)
+    DRbObject.new_with_uri("druby://localhost:#{port}")
+  end
+
   # Services module's singleton methods are exposed to other processes via drb
   module Services
     def self.ping
-      # Do nothing. Client will raise DRbError if this process is dead
+      # Do nothing. Client will raise DRbError if this process is dead.
+      # Client may also use a timeout (From `require 'timeout'`) in
+      # case this process is blocking this thread for some reason
     end
   end
 end

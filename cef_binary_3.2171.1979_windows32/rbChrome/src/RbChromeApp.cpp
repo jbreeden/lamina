@@ -1,7 +1,8 @@
 #include "RbChromeHandler.h"
 #include "RbChromeApp.h"
+#include "FFIBridge.h"
 
-extern string windowTitle;
+extern FFIBridge ffiBridge;
 
 RbChromeApp::RbChromeApp() {
 }
@@ -14,7 +15,7 @@ void RbChromeApp::OnContextInitialized() {
 #if defined(OS_WIN)
    // On Windows we need to specify certain flags that will be passed to
    // CreateWindowEx().
-   window_info.SetAsPopup(NULL, windowTitle);
+   window_info.SetAsPopup(NULL, ffiBridge.windowTitle);
 #endif
 
    // RbChromeHandler implements browser-level callbacks.

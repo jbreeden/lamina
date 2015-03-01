@@ -12,16 +12,15 @@
 #include "include/wrapper/cef_helpers.h"
 #include "include/cef_client.h"
 #include "include/cef_sandbox_win.h"
+#include "include/cef_runnable.h"
 #include "rbChrome.h"
+#include "RbChromeHandler.h"
 #include "RbChromeApp.h"
+#include "FFIBridge.h"
 
 using namespace std;
 
-string appUrl = "";
-string subProcessName = "";
-string windowTitle = "";
-string cachePath = "";
-int remoteDebuggingPort = 0;
+FFIBridge ffiBridge;
 
 #ifdef _WIN32
 #define CEF_USE_SANDBOX
@@ -32,23 +31,32 @@ extern "C" {
 #endif
 
    EXPORT void rb_chrome_set_url(char* url) {
-      appUrl = url;
+      ffiBridge.appUrl = url;
    }
 
    EXPORT void rb_chrome_set_sub_process(char* sub_process_name) {
-      subProcessName = sub_process_name;
+      ffiBridge.subProcessName = sub_process_name;
    }
 
    EXPORT void rb_chrome_set_window_title(char* window_title) {
-      windowTitle = window_title;
+      ffiBridge.windowTitle = window_title;
    }
 
    EXPORT void rb_chrome_set_cache_path(char* cache_path) {
-      cachePath = cache_path;
+      ffiBridge.cachePath = cache_path;
    }
 
    EXPORT void rb_chrome_set_remote_debugging_port(int port) {
-      remoteDebuggingPort = port;
+      ffiBridge.remoteDebuggingPort = port;
+   }
+
+   EXPORT void rb_chrome_execute_javascript(char* script) {
+      auto handler = RbChromeHandler::GetInstance();
+      CefPostTask(TID_UI, NewCefRunnableMethod(handler, &RbChromeHandler::ExecuteJavaScript, script));
+   }
+
+   EXPORT void rb_chrome_use_page_titles(bool enabled) {
+      ffiBridge.usePageTitles = enabled;
    }
 
    EXPORT int rb_chrome_start() {
@@ -71,7 +79,7 @@ extern "C" {
       // SimpleApp implements application-level callbacks. It will create the first
       // browser instance in OnContextInitialized() after CEF has initialized.
       CefRefPtr<RbChromeApp> app(new RbChromeApp);
-      app.get()->url = appUrl;
+      app.get()->url = ffiBridge.appUrl;
       
 #ifdef DEBUG
       cout << "APP URL: " << app.get()->url << endl;
@@ -88,13 +96,13 @@ extern "C" {
 
       // Specify CEF global settings here.
       CefSettings settings;
-      CefString(&settings.browser_subprocess_path).FromASCII(subProcessName.c_str());
+      CefString(&settings.browser_subprocess_path).FromASCII(ffiBridge.subProcessName.c_str());
 
-      if (cachePath.length() > 0) {
-         CefString(&settings.cache_path).FromASCII(cachePath.c_str());
+      if (ffiBridge.cachePath.length() > 0) {
+         CefString(&settings.cache_path).FromASCII(ffiBridge.cachePath.c_str());
       }
 
-      settings.remote_debugging_port = remoteDebuggingPort;
+      settings.remote_debugging_port = ffiBridge.remoteDebuggingPort;
 
 #if !defined(CEF_USE_SANDBOX)
       settings.no_sandbox = true;

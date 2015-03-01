@@ -20,12 +20,16 @@ OptionParser.new do |opts|
   end
 end.parse(ARGV)
 
+module IPC::Services
+  def self.execute_javascript(script)
+    RbChrome::Browser.execute_javascript script
+  end
+end
+
 IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
 
 RbChrome::Browser.url = $RB_CHROME_OPTIONS[:url]
-
 if File.exists? client_script
   require client_script
 end
-
 RbChrome::Browser.open

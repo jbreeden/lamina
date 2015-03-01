@@ -18,8 +18,14 @@
 			allCompleted: false,
 			ready: function() {
 				this.asyncMethod(function() {
-					this.items = this.storage.value || [];
+					this.loadItems();
 				});
+				window.addEventListener('storage', function (event) {
+					this.items = JSON.parse(event.newValue);
+				}.bind(this));
+			},
+			loadItems: function () {
+				this.items = this.storage.value || [];
 			},
 			filterChanged: function() {
 				this.asyncMethod(function() {

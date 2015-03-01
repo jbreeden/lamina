@@ -97,6 +97,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\FFIBridge.h" />
     <ClInclude Include="include\rbChrome.h" />
     <ClInclude Include="include\RbChromeApp.h" />
     <ClInclude Include="include\RbChromeHandler.h" />

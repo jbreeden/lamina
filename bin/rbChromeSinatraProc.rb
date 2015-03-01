@@ -21,6 +21,14 @@ OptionParser.new do |opts|
 end.parse(ARGV)
 
 IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
+
+# This is sufficient, regardless of the number of windows opened, and
+# the order in which they're opened/closed. Chromium uses a process-per-site
+# process model by default, where all script-connected windows for a given site
+# live in the same process. So the browser process for this rb-chrome
+# app will always be the same.
+#
+# http://www.chromium.org/developers/design-documents/process-models
 IPC.die_with($RB_CHROME_OPTIONS[:browser_port])
 
 require client_script

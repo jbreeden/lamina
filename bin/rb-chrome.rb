@@ -98,5 +98,5 @@ else
   server_pid = spawn server_command
   puts "starting browser"
   browser_pid = spawn browser_command
-  Process.wait(browser_pid)
+  Process.wait(server_pid)
 end

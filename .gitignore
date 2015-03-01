@@ -1,4 +1,6 @@
 runtime
+server_lock
+.rbchromedata
 **/Debug/
 **/out/
 *.obj
@@ -17,4 +19,5 @@ runtime
 **/cache/Dictionaries
 **/cache/GPUCache
 **/cache/index
+**/cache/IndexedDB
 **/*.opensdf

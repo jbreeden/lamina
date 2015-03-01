@@ -50,9 +50,9 @@ extern "C" {
       ffiBridge.remoteDebuggingPort = port;
    }
 
-   EXPORT void rb_chrome_execute_javascript(char* script) {
+   EXPORT void rb_chrome_execute_javascript(char* script, char* window_pattern, bool firstMatch) {
       auto handler = RbChromeHandler::GetInstance();
-      CefPostTask(TID_UI, NewCefRunnableMethod(handler, &RbChromeHandler::ExecuteJavaScript, script));
+      CefPostTask(TID_UI, NewCefRunnableMethod(handler, &RbChromeHandler::ExecuteJavaScript, script, window_pattern, firstMatch));
    }
 
    EXPORT void rb_chrome_use_page_titles(bool enabled) {

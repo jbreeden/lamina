@@ -22,8 +22,18 @@ module RbChrome
       self.rb_chrome_start
     end
 
-    def self.execute_javascript(script)
-      self.rb_chrome_execute_javascript(script)
+    # Accepts an options hash with
+    #   script: The JavaScript to exec, as a string
+    #   window_pattern: A regex used to select windows to run the script in by name (default is /.*/)
+    #   firstMatch: Script only run in first matching window if true (default is false)
+    def self.execute_javascript(options)
+      options[:window_pattern] = /.*/ unless options.has_key?(:window_pattern)
+      options[:firstMatch] = false unless options.has_key?(:firstMatch)
+      self.rb_chrome_execute_javascript(
+        options[:script],
+        options[:window_pattern].source,
+        options[:firstMatch]
+      )
     end
 
     def self.enable_page_titles
@@ -66,7 +76,7 @@ module RbChrome
     attach_function :rb_chrome_set_window_title, [:string], :void
     attach_function :rb_chrome_set_cache_path, [:string], :void
     attach_function :rb_chrome_set_remote_debugging_port, [:int], :void
-    attach_function :rb_chrome_execute_javascript, [:string], :void
+    attach_function :rb_chrome_execute_javascript, [:string, :string, :bool], :void
     attach_function :rb_chrome_use_page_titles, [:bool], :void
   end
 end

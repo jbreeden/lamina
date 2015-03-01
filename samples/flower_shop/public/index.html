@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html layout horizontal>
+<head>
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="js/watch.js"></script>
+  <link rel="import" href="bower_components/polymer/polymer.html"/>
+  <link rel="import" href="elements/fl-layout.html"/>
+  <link rel="import" href="elements/volatile-storage.html"/>
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      display: block;
+      background-color: #424242;
+      margin: 0;
+      padding: 0;
+    }
+    fl-layout {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Unfortunate side-effect of paper-dialog implementation
+       is that it cannot be styled within the containing element.
+       (Because it is moved out of the shadow DOM)
+       So, we style here. Two sets of styles, one for Chrome
+       (with /deep/ for shadow dom), and one for other browsers */
+    #reportNameDialogWrapper{
+      font-family: helvetica, sans-serif;
+      text-align: center;
+    }
+    html /deep/ #reportNameDialogWrapper {
+      font-family: helvetica, sans-serif;
+      text-align: center;
+    }
+    paper-dialog h1 {
+      margin: 0 0 10px 0;
+    }
+    html /deep/ paper-dialog /deep/ h1 {
+      margin: 0 0 10px 0;
+    }
+    paper-dialog button {
+      margin: 10px;
+      width: 100px;
+    }
+    html /deep/ paper-dialog /deep/ button {
+      margin: 10px;
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    window.salesData = {};
+    salesData.history = [
+      {"flower": "tulip", "date": "2/3/2012", "quantity-sold": "20", "quantity-unsold": "10"},
+      {"flower": "tulip", "date": "2/4/2012", "quantity-sold": "18", "quantity-unsold": "12"},
+      {"flower": "tulip", "date": "2/5/2012", "quantity-sold": "23", "quantity-unsold": "7"},
+      {"flower": "tulip", "date": "2/6/2012", "quantity-sold": "15", "quantity-unsold": "20"},
+      {"flower": "tulip", "date": "2/7/2012", "quantity-sold": "12", "quantity-unsold": "23"},
+      {"flower": "rose", "date": "2/3/2012", "quantity-sold": "50", "quantity-unsold": "40"},
+      {"flower": "rose", "date": "2/4/2012", "quantity-sold": "43", "quantity-unsold": "47"},
+      {"flower": "rose", "date": "2/5/2012", "quantity-sold": "55", "quantity-unsold": "35"},
+      {"flower": "rose", "date": "2/6/2012", "quantity-sold": "70", "quantity-unsold": "20"},
+      {"flower": "rose", "date": "2/7/2012", "quantity-sold": "30", "quantity-unsold": "70"},
+      {"flower": "dandelion", "date": "2/3/2012", "quantity-sold": "10", "quantity-unsold": "0"},
+      {"flower": "dandelion", "date": "2/4/2012", "quantity-sold": "9", "quantity-unsold": "11"},
+      {"flower": "dandelion", "date": "2/5/2012", "quantity-sold": "3", "quantity-unsold": "17"},
+      {"flower": "dandelion", "date": "2/6/2012", "quantity-sold": "4", "quantity-unsold": "16"},
+      {"flower": "dandelion", "date": "2/7/2012", "quantity-sold": "7", "quantity-unsold": "8"}
+    ].map(function (record) {
+      record.flower = record.flower.slice(0, 1).toUpperCase() + record.flower.slice(1, record.flower.length);
+      return record;
+    });
+    salesData.products = _.uniq(_.pluck(salesData.history, "flower"));
+  </script>
+  <volatile-storage id="storage"></volatile-storage>
+  <fl-layout></fl-layout>
+</body>
+</html>

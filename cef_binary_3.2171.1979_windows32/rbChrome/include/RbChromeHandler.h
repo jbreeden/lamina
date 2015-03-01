@@ -65,7 +65,7 @@ public:
 
    bool IsClosing() const { return is_closing_; }
 
-   void ExecuteJavaScript(char* script);
+   void ExecuteJavaScript(char* script, char* window_pattern, bool firstMatch);
 
 private:
    // List of existing browser windows. Only accessed on the CEF UI thread.

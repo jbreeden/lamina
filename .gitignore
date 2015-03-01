@@ -3,6 +3,8 @@ server_lock
 .rbchromedata
 **/Debug/
 **/out/
+**/cache/
+**/bower_components/
 *.obj
 *.pdb
 *.log

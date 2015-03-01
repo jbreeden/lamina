@@ -89,7 +89,11 @@ if server_running?
   # because they cannot share disk cache if they aren't aware of
   # each other. Instead, tell the main process to open a new window.
   puts "App is already running. Opening a new window."
-  IPC.get_proc($proc_info[:browser_ipc_port]).execute_javascript "window.open('/')"
+  IPC.get_proc($proc_info[:browser_ipc_port]).execute_javascript(
+    script: "window.open('/')",
+    window_pattern: /.*/,
+    firstMatch: true
+  )
 else
   puts "Writing #{$rbchromedata_path}"
   $proc_info = get_new_proc_info

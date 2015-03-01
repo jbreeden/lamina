@@ -1,0 +1,93 @@
+<link rel="import" href="fl-report-options.html"/>
+<link rel="import" href="../bower_components/google-chart/google-chart.html"/>
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html"/>
+
+<polymer-element name="fl-trends">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      :host > div[layout] {
+        height: 100%;
+      }
+      content {
+        flex: 0 0 auto;
+      }
+    </style>
+    <core-ajax auto id="ajax" handleAs="json" on-core-response="{{onNewData}}"></core-ajax>
+    <div layout vertical center>
+      <content></content>
+      <div layout horizontal start>
+        <google-chart id="chart" type='area'></google-chart>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      domReady: function (event) {
+        this.storage = document.getElementById('storage');
+        this.$.options = this.querySelector('#options');
+        this.$.options.addEventListener('refresh', this.refresh.bind(this));
+        this.refresh();
+      },
+      refresh: function () {
+        this.getChartData();
+        this.redraw();
+      },
+      getChartData: function () {
+        // Building chart data in array with this format:
+        // [
+        //   ['Date', 'Flower1', 'Flower2'],
+        //   ['2013',  1000,      400],
+        //   ['2014',  1170,      460],
+        //   ['2015',  660,       1120],
+        //   ['2016',  1030,      540]
+        // ]
+
+        var columns = ["Date"].concat(this.$.options.includedProducts);
+        var rowsByDate = {};
+        this.chartData = [columns];
+
+        var timeSpan = this.$.options.getTimeSpan();
+
+        window.salesData.history.forEach(function (report) {
+          if (this.$.options.includedProducts.indexOf(report.flower) == -1) return;
+          if (Date.parse(report.date) < Date.parse(timeSpan.startDate)) return;
+          if (Date.parse(report.date) > Date.parse(timeSpan.endDate)) return;
+
+          // Create the row if this is the first time this date has been encountered
+          if (rowsByDate[report.date] == undefined) {
+            rowsByDate[report.date] = new Array(columns.length);
+            rowsByDate[report.date][0] = report.date;
+          }
+
+          // Add the cell for this report
+          if (this.$.options.viewSold) {
+              rowsByDate[report.date][columns.indexOf(report.flower)] = parseInt(report['quantity-sold']);
+          } else {
+            rowsByDate[report.date][columns.indexOf(report.flower)] = parseInt(report['quantity-unsold']);
+          }
+
+        }.bind(this));
+
+        // Add the rows to the chart data array in order of date
+        Object.keys(rowsByDate).
+          sort(function (a, b) { return Date.parse(a) - Date.parse(b) }).
+          forEach(function (key){
+            this.chartData.push(rowsByDate[key]);
+          }.bind(this));
+      },
+      redraw: function () {
+        this.$.chart.options.legend = {};
+        this.$.chart.options.legend.position = 'bottom';
+        this.$.chart.hAxis = {};
+        this.$.chart.hAxis.textPosition = 'out';
+        this.$.chart.hAxis.slantedText = true;
+        this.$.chart.data = this.chartData;
+
+        this.$.chart.drawChart();
+      }
+    });
+  </script>
+</polymer-element>

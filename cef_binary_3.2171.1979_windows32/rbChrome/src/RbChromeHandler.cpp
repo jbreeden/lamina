@@ -5,6 +5,8 @@
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
 #include "FFIBridge.h"
+#include <regex>
+#include <fstream>
 
 using namespace std;
 
@@ -112,8 +114,22 @@ void RbChromeHandler::CloseAllBrowsers(bool force_close) {
       (*it)->GetHost()->CloseBrowser(force_close);
 }
 
-void RbChromeHandler::ExecuteJavaScript(char* script) {
-   auto firstBrowser = (*this->browser_list_.begin());
-   auto mainFrame = firstBrowser->GetMainFrame();
-   mainFrame->ExecuteJavaScript(script, mainFrame->GetURL(), 0);
+void RbChromeHandler::ExecuteJavaScript(char* script, char* window_pattern, bool firstMatch) {
+   auto browsers = this->browser_list_;
+   regex regexp(window_pattern);
+   for (auto browserPtr = browsers.begin(); browserPtr != browsers.end(); ++browserPtr) {
+      auto browser = *browserPtr;
+      vector<CefString> frameNames;
+      browser->GetFrameNames(frameNames);
+      for (auto frameNamePtr = frameNames.begin(); frameNamePtr != frameNames.end(); ++frameNamePtr){
+         auto name = *frameNamePtr;
+         if (regex_match(name.ToString(), regexp)) {
+            auto frame = browser->GetFrame(name);
+            frame->ExecuteJavaScript(script, frame->GetURL(), 0);
+            if (firstMatch) {
+               return;
+            }
+         }
+      }
+   }
 }

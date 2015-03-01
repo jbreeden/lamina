@@ -1,0 +1,31 @@
+<!--
+Local storage is not available on IE when running a file off disk.
+volativeStorage will implement the getItem/setItem interfaces, and serve
+as an alternative to localStorage. (Data will be lost on a full page
+reload, but persist while routing within the app).
+Note: Reassigning window.localStorage has no effect, so creating this
+     as a custom element
+-->
+
+<polymer-element name="volatile-storage">
+  <script>
+    Polymer({
+      ready: function () {
+        this.data = {};
+      },
+      getItem: function (name) {
+        if (window.localStorage) {
+          return localStorage.getItem(name);
+        }
+        return this.data[name];
+        // return '[{"name":"1","element":"fl-sales-distribution","options":{"startDate":"2/3/2012","endDate":"2/7/2012","numberOfDays":5,"viewSold":true,"viewUnsold":false,"viewRecent":true,"viewRange":false,"includedProducts":["Tulip","Rose","Dandelion"]}},{"name":"2","element":"fl-sales-distribution","options":{"startDate":"2/3/2012","endDate":"2/7/2012","numberOfDays":5,"viewSold":true,"viewUnsold":false,"viewRecent":true,"viewRange":false,"includedProducts":["Tulip","Rose","Dandelion"]}},{"name":"3","element":"fl-sales-distribution","options":{"startDate":"2/3/2012","endDate":"2/7/2012","numberOfDays":5,"viewSold":true,"viewUnsold":false,"viewRecent":true,"viewRange":false,"includedProducts":["Tulip","Rose","Dandelion"]}}]';
+      },
+      setItem: function (name, value) {
+        if (window.localStorage) {
+          return localStorage.setItem(name, value);
+        }
+        return this.data[name] = value;
+      }
+    });
+  </script>
+</polymer-element>

@@ -21,8 +21,8 @@ OptionParser.new do |opts|
 end.parse(ARGV)
 
 module IPC::Services
-  def self.execute_javascript(script)
-    RbChrome::Browser.execute_javascript script
+  def self.execute_javascript(options)
+    RbChrome::Browser.execute_javascript options
   end
 end
 

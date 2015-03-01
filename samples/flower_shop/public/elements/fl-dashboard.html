@@ -1,0 +1,169 @@
+<link rel="import" href="../bower_components/google-chart/google-chart.html"/>
+<link rel="import" href="volatile-storage.html"/>
+<link rel="import" href="fl-sales-distribution.html"/>
+<link rel="import" href="fl-trends.html"/>
+
+<polymer-element name="fl-dashboard">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      #noViewsPrompt {
+        margin: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: white;
+        text-align: center;
+      }
+      #noViewsPrompt p,
+      #noViewsPrompt ul,
+      #noViewsPrompt li {
+        margin: 10px 0 0 0;
+      }
+      .view {
+        background-color: white;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgba(0, 0, 0, .2);
+        border-radius: 5px;
+        margin: 5px;
+        padding: 10px;
+        box-shadow: 10px 10px 15px rgba(0, 0, 0, .9);
+      }
+      .viewHeader img {
+        width: 2em;
+        height: 2em;
+      }
+      .viewHeader button {
+        margin-left: 5px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.5em;
+      }
+      .view .titleEdit {
+        display: none;
+      }
+      .view[editing] .titleEdit {
+        display: inline;
+      }
+      .view[editing] h1 {
+        display: none;
+      }
+      .view fl-report-options {
+        display: none;
+        margin: 5px;
+        padding: 10px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgba(0, 0, 0, .3);
+        border-radius: 5px;
+      }
+      .view[editing] fl-report-options {
+        display: block;
+      }
+    </style>
+    <template if={{noViews}}>
+      <div id="noViewsPrompt" layout vertical center>
+        <h1>Your dashboard is empty!</h1>
+        <p>
+          To get started adding content, open a report from the navigation menu on the left.
+        </p>
+        <p>
+          Once you've configured the data you want to see, just click the "add to dashboard" button.
+        </p>
+        <p>
+          (It looks like this)
+        </p>
+        <button><img src="../images/dash.svg"></img></button>
+      </div>
+    </template>
+
+    <div flex id="viewWrapper" on-refresh="{{saveViewOptions}}" layout horizontal start start-justified wrap>
+      <template repeat="{{ view, i in views }}">
+        <div class="view" name="{{view.name}}">
+          <div class="viewHeader" layout horizontal>
+            <h1>{{view.name}}</h1>
+            <div class="titleEdit">Name: <input class="" value="{{view.name}}"/></div>
+            <div flex></div>
+            <button on-click={{toggleEditing}}><img src="../images/options.svg"></img></button>
+            <button on-click={{removeView}}><img src="../images/close.svg"></img></button>
+          </div>
+          <template if="{{ view.element == 'fl-sales-distribution' }}">
+            <fl-sales-distribution id="{{'report' + i}}" hideoptions>
+              <fl-report-options id="options" class="{{'options' + i}}" options="{{view.options}}"></fl-report-options>
+            </fl-sales-distribution>
+          </template>
+          <template if="{{ view.element == 'fl-trends' }}">
+            <fl-trends id="{{'report' + i}}">
+              <fl-report-options id="options" options="{{view.options}}"></fl-report-options>
+            </fl-trends>
+          </template>
+        </div>
+      </template>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      noViews: true,
+      views: [],
+      ready: function () {
+        this.storage = document.getElementById('storage');
+        this.loadViews();
+        if (this.views.length > 0) this.noViews = false;
+
+        window.addEventListener('storage', function () {
+          this.loadViews();
+        }.bind(this));
+      },
+      saveViewOptions: function (event) {
+        var optionsEl = event.target;
+        var viewEl = this.getContainingView(optionsEl);
+        var viewName = viewEl.getAttribute('name');
+        var view = this.views.filter(function (view) {
+          return view.name == viewName;
+        })[0];
+        view.options = optionsEl.getState();
+        this.save();
+      },
+      toggleEditing: function (event) {
+        var viewEl = this.getContainingView(event.target);
+        if (viewEl.hasAttribute('editing')) {
+          viewEl.removeAttribute('editing');
+          this.save();
+        } else {
+          viewEl.setAttribute('editing', '');
+        }
+      },
+      removeView: function (event) {
+        var view = this.getContainingView(event.target);
+        var name = view.getAttribute('name');
+        this.views = this.views.filter(function (view) {
+          return view.name != name;
+        });
+        if (this.views.length == 0) {
+          this.noViews = true;
+        }
+        this.save();
+      },
+      getContainingView: function (button) {
+        var el = button;
+        while (!(el.getAttribute('class') || '').match(/(^|\s)view(\s|$)/)) {
+          el = el.parentElement;
+        }
+        return el;
+      },
+      loadViews: function () {
+        var viewsString = this.storage.getItem('dashboardViews');
+        if (viewsString) {
+          this.views = JSON.parse(viewsString);
+        }
+      },
+      save: function () {
+        this.storage.setItem('dashboardViews', JSON.stringify(this.views));
+      }
+    });
+  </script>
+</polymer-element>

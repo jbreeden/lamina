@@ -76,9 +76,9 @@ rb-chrome has not been properly gemified yet, so for now you run the sample with
 - Download or clone this repo
 - Put the bin/ directory on your path
 - Run `rake runtime:release:build`
-- `cd` into the samples/sinatra/public/ directory
+- `cd` into the samples/todo/public/ directory
 - Run `bower update`
-- `cd` into the samples/sinatra/ directory
+- `cd` into the samples/todo/ directory
 - Run `rb-chrome`
 
 Application Types

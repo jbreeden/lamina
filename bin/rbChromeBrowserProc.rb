@@ -30,6 +30,6 @@ IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
 
 RbChrome::Browser.url = $RB_CHROME_OPTIONS[:url]
 if File.exists? client_script
-  require client_script
+  require File.expand_path(client_script)
 end
 RbChrome::Browser.open

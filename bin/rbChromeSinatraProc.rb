@@ -31,4 +31,4 @@ IPC.listen($RB_CHROME_OPTIONS[:ipc_port])
 # http://www.chromium.org/developers/design-documents/process-models
 IPC.die_with($RB_CHROME_OPTIONS[:browser_port])
 
-require client_script
+require File.expand_path(client_script)

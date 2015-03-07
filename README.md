@@ -89,10 +89,7 @@ and your UI talks to it by the usual means (ajax, web sockets, etc). The browser
 automatically when you run `rb-chrome` and pass it the path to your application. rb-chrome takes care
 of associating the processes so that if the browser is closed by the user or OS, the server exits as well.
 
-Work is underway to write CEF bindings for mruby. Mruby is more appropriate for embedding in a multi-process,
-multi-threaded application, like the Chromium browser provided by CEF, than CRuby. With these mruby bindings,
-you can write extensions to control the CEF browser and add functionality accessible to JavaScript (like file system
-and network access).
+Work is underway to write [CEF bindings for mruby](https://github.com/jbreeden/mruby-cef). Mruby is more appropriate for embedding in a multi-process, multi-threaded application, like the Chromium browser provided by CEF, than CRuby. With these mruby bindings, you can write extensions to control the CEF browser and add functionality accessible to JavaScript (like file system and network access).
 
 Platform Support
 ----------------

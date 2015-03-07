@@ -86,7 +86,7 @@ Application Types
 
 Currently only a client-server app type is really viable. In a client-server app, your Ruby code runs in a web server,
 and your UI talks to it by the usual means (ajax, web sockets, etc). The browser and server are both started 
-automatically when you run `rb-chrome` in the directory containing your application. rb-chrome takes care
+automatically when you run `rb-chrome` and pass it the path to your application. rb-chrome takes care
 of associating the processes so that if the browser is closed by the user or OS, the server exits as well.
 
 Work is underway to write CEF bindings for mruby. Mruby is more appropriate for embedding in a multi-process,

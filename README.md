@@ -84,14 +84,15 @@ rb-chrome has not been properly gemified yet, so for now you run the sample with
 Application Types
 -----------------
 
-Currently only a client-server app type is availabe. In a client-server app, your Ruby code runs in a web server,
+Currently only a client-server app type is really viable. In a client-server app, your Ruby code runs in a web server,
 and your UI talks to it by the usual means (ajax, web sockets, etc). The browser and server are both started 
 automatically when you run `rb-chrome` in the directory containing your application. rb-chrome takes care
 of associating the processes so that if the browser is closed by the user or OS, the server exits as well.
 
-A server-less app type is in development. With a server-less app your ruby code will execute in the same process as
-the browser. This eliminates the need for a web server, but does increase complexity and can make sharing code between
-web and desktop versions of the same app more difficult.
+Work is underway to write CEF bindings for mruby. Mruby is more appropriate for embedding in a multi-process,
+multi-threaded application, like the Chromium browser provided by CEF, than CRuby. With these mruby bindings,
+you can write extensions to control the CEF browser and add functionality accessible to JavaScript (like file system
+and network access).
 
 Platform Support
 ----------------

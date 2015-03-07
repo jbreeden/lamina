@@ -65,6 +65,14 @@ namespace :runtime do
   end
 end
 
+namespace :mruby do
+  task :build do
+    Dir.chdir "mruby-1.1.0" do
+      sh "ruby minirake"
+    end
+  end
+end
+
 task :clean do
   sh "git clean -fd"
 end

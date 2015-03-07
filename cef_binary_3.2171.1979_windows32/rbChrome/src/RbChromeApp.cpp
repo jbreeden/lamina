@@ -1,10 +1,17 @@
 #include "RbChromeHandler.h"
+#include "RbChromeRenderProcessHandler.h"
 #include "RbChromeApp.h"
 #include "FFIBridge.h"
 
 extern FFIBridge ffiBridge;
 
 RbChromeApp::RbChromeApp() {
+}
+
+static CefRefPtr<CefRenderProcessHandler> renderProcessHandler = CefRefPtr<CefRenderProcessHandler>(new RbChromeRenderProcessHandler);
+
+CefRefPtr<CefRenderProcessHandler> RbChromeApp::GetRenderProcessHandler(){
+   return renderProcessHandler;
 }
 
 void RbChromeApp::OnContextInitialized() {

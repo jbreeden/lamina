@@ -17,6 +17,8 @@
 #include "RbChromeHandler.h"
 #include "RbChromeApp.h"
 #include "FFIBridge.h"
+#include "Shobjidl.h"
+#include "mruby_cef_v8.h"
 
 using namespace std;
 
@@ -60,6 +62,7 @@ extern "C" {
    }
 
    EXPORT int rb_chrome_start() {
+      SetCurrentProcessExplicitAppUserModelID(L"jbreeden.rbchrome");
 
 #ifdef DEBUG
       cout << "New Main Process" << endl;

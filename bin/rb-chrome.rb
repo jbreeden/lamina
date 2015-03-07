@@ -1,4 +1,4 @@
-$lib_dir = "#{File.dirname(__FILE__)}/../lib"
+$lib_dir = "#{File.expand_path File.dirname(__FILE__)}/../lib"
 $: << $lib_dir
 
 require 'socket'
@@ -15,15 +15,15 @@ else
   app_dir = "."
 end
 
-$rbchromedata_path = "#{app_dir}/.rbchromedata"
-$server_lock_file = "#{app_dir}/server_lock"
-$server_script = "#{app_dir}/server.rb"
-$browser_script = "#{app_dir}/browser.rb"
-$browser_proc_path = "#{File.dirname(__FILE__)}/rbChromeBrowserProc.rb"
-$server_proc_path = "#{File.dirname(__FILE__)}/rbChromeSinatraProc.rb"
+$rbchromedata_path = File.expand_path "#{app_dir}/.rbchromedata"
+$server_lock_file = File.expand_path "#{app_dir}/server_lock"
+$server_script = File.expand_path "#{app_dir}/server.rb"
+$browser_script = File.expand_path "#{app_dir}/browser.rb"
+$browser_proc_path = File.expand_path "#{File.dirname(__FILE__)}/rbChromeBrowserProc.rb"
+$server_proc_path = File.expand_path "#{File.dirname(__FILE__)}/rbChromeSinatraProc.rb"
 
 # Add the runtime directory to the path so windows can find libcef and friends
-ENV['PATH'] = "#{File.dirname(__FILE__)}/../runtime;#{ENV['PATH']}"
+ENV['PATH'] = "#{File.expand_path(File.dirname(__FILE__))}/../runtime;#{ENV['PATH']}"
 
 # Helper Methods
 # --------------
@@ -70,11 +70,9 @@ def server_running?
   server_lock_file = File.open($server_lock_file, 'r')
   timeout (0.2) do
     server_lock_file.flock(File::LOCK_EX)
-    puts "No server running"
   end
   false
 rescue Exception => ex
-  puts "Server already running (#{ex})"
   true
 end
 
@@ -82,9 +80,7 @@ end
 # -------------------
 
 if server_running?
-  puts "Reading #{$rbchromedata_path}"
   $proc_info = eval(File.read($rbchromedata_path))
-
   # Can't launch a new browser process via rbChromeBrowserProc.rb
   # because they cannot share disk cache if they aren't aware of
   # each other. Instead, tell the main process to open a new window.
@@ -95,12 +91,15 @@ if server_running?
     firstMatch: true
   )
 else
-  puts "Writing #{$rbchromedata_path}"
   $proc_info = get_new_proc_info
   File.open($rbchromedata_path, 'w') { |f| f.puts $proc_info }
-  puts "starting server: #{server_command}"
+  puts "Starting server: #{server_command}"
   server_pid = spawn server_command
-  puts "starting browser"
-  browser_pid = spawn browser_command
+  # For now extensions are loaded from the CWD in the browser proc,
+  # so we chdir over there before launching this process
+  Dir.chdir app_dir do
+    puts "Starting browser: #{browser_command}"
+    browser_pid = spawn browser_command
+  end
   Process.wait(server_pid)
 end

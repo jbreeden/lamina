@@ -2,9 +2,10 @@
 #define FFIBRIDGE_H
 
 #include "include\cef_browser.h"
-#include <string>
+#include <stdlib.h>
+#include <list>
 
-typedef std::list<CefRefPtr<CefBrowser> > BrowserList;
+typedef std::list<CefRefPtr<CefBrowser>> BrowserList;
 
 class FFIBridge {
 public:

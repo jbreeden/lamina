@@ -6,7 +6,11 @@ module RbChrome
     ffi_lib 'rbChrome'
 
     class << self
-      attr_accessor :url, :window_title, :cache_path, :remote_debugging_port
+      attr_accessor :url,
+        :window_title,
+        :cache_path,
+        :remote_debugging_port,
+        :extensions_script
     end
 
     self.window_title = "rb-chrome"

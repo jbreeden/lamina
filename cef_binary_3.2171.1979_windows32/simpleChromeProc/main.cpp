@@ -28,6 +28,7 @@ closed, or terminate for any reason, the server will exit as well.
 #include <string>
 #include "rbChrome.h"
 #include "Windows.h"
+#include "Shobjidl.h"
 
 using namespace std;
 
@@ -35,5 +36,6 @@ int WINAPI WinMain(_In_  HINSTANCE hInstance,
    _In_opt_  HINSTANCE hPrevInstance,
    _In_  LPSTR lpCmdLine,
    _In_  int nCmdShow) {
+   SetCurrentProcessExplicitAppUserModelID(L"jbreeden.rbchrome");
    rb_chrome_start();
 }

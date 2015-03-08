@@ -1,7 +1,7 @@
 $CEF_BUILDS = Dir['cef*']
-$PLATFORM_CEF = case ENV['OS']
-when /windows/i
-  $CEF_BUILDS
+if ENV['OS'] =~ /windows/i
+  $PLATFORM = :windows
+  $PLATFORM_CEF = $CEF_BUILDS
     .select { |dir| dir.include? 'win' }
     .first
 else
@@ -29,28 +29,21 @@ def copy_cef_resources(configuration)
   }
 end
 
-def copy_rb_chrome_dll(configuration)
-  cp "#{$PLATFORM_CEF}/rbChrome/#{configuration}/rbChrome.dll", runtime_dir
-end
-
-def copy_rb_chrome_proc_exe(configuration)
-  cp "#{$PLATFORM_CEF}/rbChromeProc/#{configuration}/rbChromeProc.exe", runtime_dir
-end
-
-def copy_simple_chrome_proc_exe(configuration)
-  cp "#{$PLATFORM_CEF}/simpleChromeProc/#{configuration}/simpleChromeProc.exe", runtime_dir
+def copy_lamina_exe(configuration)
+  if $PLATFORM == :windows
+    cp "VisualStudioProjects/Lamina/#{configuration}/lamina.exe", runtime_dir
+  else
+    fail "No lamina exe defined for this platform"
+  end
 end
 
 def build_task(configuration)
   desc "Build the #{configuration} configuration of the runtime"
   task :build do
-    puts 'Building rbChrome runtime'
     clean_runtime(configuration)
     copy_cef_dlls(configuration)
     copy_cef_resources(configuration)
-    copy_rb_chrome_dll(configuration)
-    copy_rb_chrome_proc_exe(configuration)
-    copy_simple_chrome_proc_exe(configuration)
+    copy_lamina_exe(configuration)
   end
 end
 
@@ -69,6 +62,12 @@ namespace :mruby do
   task :build do
     Dir.chdir "mruby-1.1.0" do
       sh "ruby minirake"
+    end
+  end
+
+  task :clean do
+    Dir.chdir "mruby-1.1.0" do
+      sh "ruby minirake clean"
     end
   end
 end

@@ -5,14 +5,11 @@
 #include "cefsimple/simple_app.h"
 
 #include <string>
-#include <iostream>
 
 #include "cefsimple/simple_handler.h"
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
 #include "include/wrapper/cef_helpers.h"
-
-using namespace std;
 
 SimpleApp::SimpleApp() {
 }
@@ -42,7 +39,6 @@ void SimpleApp::OnContextInitialized() {
   CefRefPtr<CefCommandLine> command_line =
       CefCommandLine::GetGlobalCommandLine();
   url = command_line->GetSwitchValue("url");
-  cout << url;
   if (url.empty())
     url = "http://www.google.com";
 

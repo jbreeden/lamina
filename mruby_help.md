@@ -60,6 +60,50 @@ struct RFiber {
 };
 ```
 
+Booleans
+========
+
+Sometimes you get a value from Ruby and want to see if it evaluates as true (most values) or false (nil or false).
+
+For this, use `mrb_test`
+
+Here's some needless implementation details...
+
+```
+// value.h
+#define mrb_bool(o)   (mrb_type(o) != MRB_TT_FALSE)
+#define mrb_test(o)   mrb_bool(o)
+
+// boxing_no.h
+#define mrb_fixnum(o)   (o).value.i
+
+// class.h (notice that nil and false share type of MRB_TT_FALSE, and only differ in their fixnum value)
+static inline struct RClass*
+mrb_class(mrb_state *mrb, mrb_value v)
+{
+  switch (mrb_type(v)) {
+  case MRB_TT_FALSE:
+    if (mrb_fixnum(v))
+      return mrb->false_class;
+    return mrb->nil_class;
+  case MRB_TT_TRUE:
+    return mrb->true_class;
+  case MRB_TT_SYMBOL:
+    return mrb->symbol_class;
+  case MRB_TT_FIXNUM:
+    return mrb->fixnum_class;
+  case MRB_TT_FLOAT:
+    return mrb->float_class;
+  case MRB_TT_CPTR:
+    return mrb->object_class;
+  case MRB_TT_ENV:
+    return NULL;
+  default:
+    return mrb_obj_ptr(v)->c;
+  }
+}
+```
+
 mrb_get_args
 ============
 

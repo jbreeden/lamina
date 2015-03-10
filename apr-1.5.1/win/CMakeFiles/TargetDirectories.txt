@@ -1,0 +1,8 @@
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/gen_test_char.dir
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/libaprapp-1.dir
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/test_char_header.dir
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/ALL_BUILD.dir
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/aprapp-1.dir
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/ZERO_CHECK.dir
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/apr-1.dir
+C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/libapr-1.dir

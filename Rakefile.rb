@@ -29,6 +29,14 @@ def copy_cef_resources(configuration)
   }
 end
 
+def copy_apr_dll(configuration)
+  if ENV['OS'] =~ /windows/i
+    cp "apr-1.5.1/win/#{configuration}/libapr-1.dll", runtime_dir
+  else
+    raise "No APR dll path defined for this configuration"
+  end
+end
+
 def copy_lamina_exe(configuration)
   if $PLATFORM == :windows
     cp "VisualStudioProjects/Lamina/#{configuration}/lamina.exe", runtime_dir
@@ -43,6 +51,7 @@ def build_task(configuration)
     clean_runtime(configuration)
     copy_cef_dlls(configuration)
     copy_cef_resources(configuration)
+    copy_apr_dll(configuration)
     copy_lamina_exe(configuration)
   end
 end

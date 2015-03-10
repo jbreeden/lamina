@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="Windows-1252"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\atomic\win32\apr_atomic.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\dso\win32\dso.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\encoding\apr_escape.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\unix\copy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\unix\fileacc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\unix\filepath_util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\unix\fullrw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\unix\mktemp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\unix\tempdir.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\buffer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\dir.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\filedup.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\filepath.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\filestat.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\filesys.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\flock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\open.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\pipe.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\readwrite.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\file_io\win32\seek.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\locks\win32\proc_mutex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\locks\win32\thread_cond.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\locks\win32\thread_mutex.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\locks\win32\thread_rwlock.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\memory\unix\apr_pools.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\unix\errorcodes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\unix\getopt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\unix\otherchild.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\unix\version.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\win32\charset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\win32\env.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\win32\internal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\win32\misc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\win32\rand.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\win32\start.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\misc\win32\utf8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\mmap\unix\common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\mmap\win32\mmap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\unix\inet_ntop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\unix\inet_pton.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\unix\multicast.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\unix\sockaddr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\unix\socket_util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\win32\sendrecv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\win32\sockets.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\network_io\win32\sockopt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\passwd\apr_getpass.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\poll\unix\poll.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\poll\unix\pollcb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\poll\unix\pollset.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\poll\unix\select.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\random\unix\apr_random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\random\unix\sha2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\random\unix\sha2_glue.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\shmem\win32\shm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\strings\apr_cpystrn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\strings\apr_fnmatch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\strings\apr_snprintf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\strings\apr_strings.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\strings\apr_strnatcmp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\strings\apr_strtok.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\tables\apr_hash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\tables\apr_skiplist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\tables\apr_tables.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\threadproc\win32\proc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\threadproc\win32\signals.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\threadproc\win32\thread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\threadproc\win32\threadpriv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\time\win32\time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\time\win32\timestr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\user\win32\groupinfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\projects\rb-chrome\apr-1.5.1\user\win32\userinfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\projects\rb-chrome\apr-1.5.1\win\apr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\projects\rb-chrome\apr-1.5.1\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C1E8D6E7-5C11-471E-9117-E6551727390D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{82697CD6-A163-440D-82C9-7F51BFFD3374}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

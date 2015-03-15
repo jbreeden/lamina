@@ -5,20 +5,22 @@
 #include "mruby.h"
 #include "mruby/compile.h"
 #include "mruby_cef_v8.h"
+#include "LaminaOptions.h"
 #include "LaminaRenderProcessHandler.h"
 
-LaminaRenderProcessHandler::LaminaRenderProcessHandler() {}
+LaminaRenderProcessHandler::LaminaRenderProcessHandler() {
+   this->mrb = mrb_open();
+}
 
 void LaminaRenderProcessHandler::OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context) {
-   mrb_state* mrb = mrb_open();
 
-   FILE* extensions_script = fopen("./lamina_extensions.rb", "r");
+   FILE* extensions_script = fopen(LaminaOptions::script_on_v8_context_created.c_str(), "r");
    if (extensions_script != NULL) {
-      mrb_load_file(mrb, extensions_script);
+      mrb_load_file(this->mrb, extensions_script);
    }
    else {
       if (errno != ENOENT) {
-         mrb_load_string(mrb, "Cef::V8.exec 'alert(\"Could not read lamina_extensions.rb\")'");
+         mrb_load_string(this->mrb, "Cef::V8.exec 'alert(\"Could not read lamina_extensions.rb\")'");
       }
    }
 }

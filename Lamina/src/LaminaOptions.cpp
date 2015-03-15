@@ -20,6 +20,8 @@ int    LaminaOptions::remote_debugging_port = 0;
 char** LaminaOptions::server_args = NULL;
 string LaminaOptions::server_command = "";
 int    LaminaOptions::server_port = 0;
+string LaminaOptions::script_on_app_started = "on_app_started.rb";
+string LaminaOptions::script_on_v8_context_created = "on_v8_context_created.rb";;
 bool   LaminaOptions::use_page_titles = true;
 string LaminaOptions::window_title = "Lamina";
 
@@ -103,7 +105,7 @@ static void load_user_options() {
    mrb_define_class_method(mrb, lamina_module, "set_remote_debugging_port", lamina_set_remote_debugging_port, MRB_ARGS_REQ(1));
    mrb_define_class_method(mrb, lamina_module, "use_page_titles", lamina_use_page_titles, MRB_ARGS_REQ(1));
 
-   FILE* lamina_options_script = fopen("on_app_started.rb", "r");
+   FILE* lamina_options_script = fopen(LaminaOptions::script_on_app_started.c_str(), "r");
    if (lamina_options_script != NULL) {
       mrb_load_file(mrb, lamina_options_script);
       fclose(lamina_options_script);

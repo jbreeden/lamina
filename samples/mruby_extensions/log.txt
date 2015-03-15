@@ -1,0 +1,11 @@
+create_undefined
+create_null
+create_bool true
+create_bool false
+create_bool 1
+create_bool nil
+create_int
+create_float
+create_string
+V8.exec
+done!

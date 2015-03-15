@@ -17,6 +17,9 @@
 <body>
 <div>
   <table id="table">
+    <thead>
+      <th>Ruby Expression</th><th>JavaScript Value</th>
+    </thead>
   </table>
 </div>
 <script>
@@ -26,9 +29,17 @@
   }
   test('V8.create_undefined', window.rbUndefined);
   test('V8.create_null', window.rbNull);
-  test('V8.create_int', window.rbInt);
-  test('V8.create_string', window.rbString);
-  test('V8.exec', window.rbExecValue);
+  test('V8.create_bool true', window.rbTrue);
+  test('V8.create_bool false', window.rbFalse);
+  test('V8.create_bool 1', window.rbTruthy);
+  test('V8.create_bool nil', window.rbFalsy);
+  test('V8.create_int 3', window.rbInt);
+  test('V8.create_float 4.5', window.rbFloat);
+  test('V8.create_string "Hello, from mruby!"', window.rbString);
+  test('V8.window[:rbObject] = V8.create_object <br/>' +
+    ' V8.window[:rbObject][:myRubyClass] = V8.create_string(V8.window[:rbObject].class.to_s)',
+    JSON.stringify(window.rbObject));
+  test('V8.exec "window.rbExecValue = \'javascript string literal\'"', window.rbExecValue);
   test('Use browser to debug exceptions', window.rbException);
 </script>
 </body>

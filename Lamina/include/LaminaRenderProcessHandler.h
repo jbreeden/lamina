@@ -4,6 +4,8 @@
 #include <string>
 #include "include/cef_render_process_handler.h"
 
+struct mrb_state;
+
 class LaminaRenderProcessHandler : 
    public CefRenderProcessHandler {
 public:
@@ -15,6 +17,8 @@ public:
       CefRefPtr<CefV8Context> context) OVERRIDE;
 
 private:
+   mrb_state* mrb;
+
    // Include the default reference counting implementation.
    IMPLEMENT_REFCOUNTING(LaminaRenderProcessHandler);
 };

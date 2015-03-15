@@ -1,5 +1,7 @@
-rb-chrome (alpha)
-=================
+Lamina (alpha)
+==============
+
+(TODO: Readme is out of date. Began updating... but I have to go to Taco Bell.)
 
 A framework for developing desktop apps with web technologies.
 
@@ -31,7 +33,7 @@ Your app might look something like this:
 
 ```
 myApp/
-  - browser.rb
+  - on_app_started.rb
   - server.rb
   - cache/
   - public/
@@ -42,11 +44,12 @@ myApp/
 
 And your files might contain something like this:
 
-`browser.rb`
+`on_app_started.rb`
 
 ```Ruby
-RbChrome::Browser.window_title = "TODO MVC - as performed by Sinatra"
-RbChrome::Browser.cache_path = "#{File.dirname(__FILE__)}/cache"
+Lamina.load_server "ruby.exe", "./server.rb"
+Lamina.set_window_title "TODO MVC - As performed by Sinatra"
+Lamina.set_cache_path "cache"
 ```
 
 `server.rb`
@@ -55,7 +58,6 @@ RbChrome::Browser.cache_path = "#{File.dirname(__FILE__)}/cache"
 require 'sinatra'
 
 enable :run
-set :port, $RB_CHROME_OPTIONS[:port]
 
 get '/' do
   send_file "#{settings.public_folder}/index.html"

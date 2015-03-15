@@ -10,8 +10,6 @@
 
 using namespace std;
 
-extern LaminaOptions laminaOptions;
-
 namespace {
    LaminaHandler* g_instance = NULL;
 }  // namespace
@@ -36,7 +34,7 @@ void LaminaHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 
    // Set the frame window title bar
    CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-   SetWindowTextA(hwnd, laminaOptions.windowTitle.c_str());
+   SetWindowTextA(hwnd, LaminaOptions::window_title.c_str());
 
    // Add to the list of existing browsers.
    browser_list_.push_back(browser);

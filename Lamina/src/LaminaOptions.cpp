@@ -6,9 +6,22 @@
 #include "mruby/data.h"
 #include "mruby/compile.h"
 #include "stdio.h"
+#include "lamina_util.h"
 #include "LaminaOptions.h"
+#include "apr_random.h"
 
-LaminaOptions laminaOptions;
+using namespace std;
+
+string LaminaOptions::app_url = "";
+string LaminaOptions::browser_ipc_path = "";
+string LaminaOptions::cache_path = "";
+string LaminaOptions::lock_file = ".lamina";
+int    LaminaOptions::remote_debugging_port = 0;
+char** LaminaOptions::server_args = NULL;
+string LaminaOptions::server_command = "";
+int    LaminaOptions::server_port = 0;
+bool   LaminaOptions::use_page_titles = true;
+string LaminaOptions::window_title = "Lamina";
 
 #define SET_STRING_OPTION(field) \
    mrb_value param; \
@@ -16,48 +29,81 @@ LaminaOptions laminaOptions;
    field = mrb_str_to_cstr(mrb, param); \
    return self;
 
-mrb_value lamina_set_url(mrb_state* mrb, mrb_value self) {
-   SET_STRING_OPTION(laminaOptions.appUrl)
+#define SET_INT_OPTION(field) \
+   mrb_value param; \
+   mrb_get_args(mrb, "i", &param); \
+   field = param.value.i; \
+   return self;
+
+static
+mrb_value lamina_load_url(mrb_state* mrb, mrb_value self) {
+   SET_STRING_OPTION(LaminaOptions::app_url)
 }
 
-mrb_value lamina_set_sub_process(mrb_state* mrb, mrb_value self) {
-   SET_STRING_OPTION(laminaOptions.subProcessName)
-}
+static
+mrb_value lamina_load_server(mrb_state* mrb, mrb_value self) {
+   mrb_value *arguments;
+   mrb_int argc;
+   mrb_get_args(mrb, "*", &arguments, &argc);
 
-mrb_value lamina_set_window_title(mrb_state* mrb, mrb_value self) {
-   SET_STRING_OPTION(laminaOptions.windowTitle)
-}
+   // Allocate space for user-supplied command tokens, "-p", "PORT", and NULL
+   LaminaOptions::server_args = new char*[argc + 3];
+   
+   // Set server_command
+   LaminaOptions::server_command = mrb_str_to_cstr(mrb, *arguments);
+   
+   // Set server_args
+   for (int i = 0; i < argc; ++i) {
+      char* arg = mrb_str_to_cstr(mrb, *(arguments + i));
+      LaminaOptions::server_args[i] = new char[strlen(arg) + 1];
+      strcpy(LaminaOptions::server_args[i], arg);
+   }
 
-mrb_value lamina_set_cache_path(mrb_state* mrb, mrb_value self) {
-   SET_STRING_OPTION(laminaOptions.cachePath)
-}
+   // Append the port command
+   char* port_argument = new char[10];
+   sprintf(port_argument, "%d", LaminaOptions::server_port);
+   LaminaOptions::server_args[argc] = "-p";
+   LaminaOptions::server_args[argc + 1] = port_argument;
+   LaminaOptions::server_args[argc + 2] = NULL;
 
-mrb_value lamina_set_remote_debugging_port(mrb_state* mrb, mrb_value self) {
-   mrb_value param;
-   mrb_get_args(mrb, "i", &param);
-   laminaOptions.remoteDebuggingPort = param.value.i;
    return self;
 }
 
+static
+mrb_value lamina_set_window_title(mrb_state* mrb, mrb_value self) {
+   SET_STRING_OPTION(LaminaOptions::window_title)
+}
+
+static
+mrb_value lamina_set_cache_path(mrb_state* mrb, mrb_value self) {
+   SET_STRING_OPTION(LaminaOptions::cache_path)
+}
+
+static
+mrb_value lamina_set_remote_debugging_port(mrb_state* mrb, mrb_value self) {
+   SET_INT_OPTION(LaminaOptions::remote_debugging_port)
+}
+
+static
 mrb_value lamina_use_page_titles(mrb_state* mrb, mrb_value self) {
    mrb_value param;
    mrb_get_args(mrb, "o", &param);
-   laminaOptions.usePageTitles = mrb_test(param);
+   LaminaOptions::use_page_titles = mrb_test(param);
    return self;
 }
 
-void LaminaOptions::load() {
+static void load_user_options() {
    mrb_state* mrb = mrb_open();
 
    RClass* lamina_module = mrb_define_module(mrb, "Lamina");
-   mrb_define_class_method(mrb, lamina_module, "set_url", lamina_set_url, MRB_ARGS_REQ(1));
-   mrb_define_class_method(mrb, lamina_module, "set_sub_process", lamina_set_sub_process, MRB_ARGS_REQ(1));
+   mrb_define_class_method(mrb, lamina_module, "load_url", lamina_load_url, MRB_ARGS_REQ(1));
+   mrb_define_class_method(mrb, lamina_module, "load_server", lamina_load_server, MRB_ARGS_ANY());
    mrb_define_class_method(mrb, lamina_module, "set_window_title", lamina_set_window_title, MRB_ARGS_REQ(1));
    mrb_define_class_method(mrb, lamina_module, "set_cache_path", lamina_set_cache_path, MRB_ARGS_REQ(1));
    mrb_define_class_method(mrb, lamina_module, "set_remote_debugging_port", lamina_set_remote_debugging_port, MRB_ARGS_REQ(1));
    mrb_define_class_method(mrb, lamina_module, "use_page_titles", lamina_use_page_titles, MRB_ARGS_REQ(1));
 
-   FILE* lamina_options_script = fopen("lamina_options.rb", "r");
+   FILE* lamina_options_script = fopen("on_app_started.rb", "r");
    if (lamina_options_script != NULL) {
       mrb_load_file(mrb, lamina_options_script);
       fclose(lamina_options_script);
@@ -65,4 +111,41 @@ void LaminaOptions::load() {
    mrb_close(mrb);
 }
 
+void LaminaOptions::load() {
+   apr_pool_t* pool;
+   apr_pool_create(&pool, NULL);
+   LaminaOptions::server_port = lamina_util_get_open_port(pool);
+   LaminaOptions::browser_ipc_path = generate_randomized_ipc_path("browser.ipc", 20);
+   load_user_options();
+   apr_pool_destroy(pool);
+}
+
+void LaminaOptions::load_from_lock_file() {
+   auto mrb = mrb_open();
+   FILE* lock_file = fopen(LaminaOptions::lock_file.c_str(), "r");
+   mrb_value settings = mrb_load_file(mrb, lock_file);
+
+#define READ_STRING_VALUE(k) \
+   { \
+      mrb_value key = mrb_str_new_cstr(mrb, #k); \
+      mrb_value value = mrb_funcall(mrb, settings, "[]", 1, key); \
+      LaminaOptions::k = mrb_string_value_cstr(mrb, &value); \
+   }
+
+#define READ_INT_VALUE(k) \
+   { \
+      mrb_value key = mrb_str_new_cstr(mrb, #k); \
+      mrb_value value = mrb_funcall(mrb, settings, "[]", 1, key); \
+      LaminaOptions::k = mrb_int(mrb, value); \
+   }
+   
+   READ_STRING_VALUE(app_url);
+   READ_STRING_VALUE(cache_path);
+   READ_STRING_VALUE(browser_ipc_path);
+   READ_INT_VALUE(remote_debugging_port);
+   READ_INT_VALUE(server_port);
+}
+
+
 #undef SET_STRING_OPTION
+#undef SET_INT_OPTION

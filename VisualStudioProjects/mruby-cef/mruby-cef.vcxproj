@@ -43,11 +43,13 @@
     <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\cef;$(SolutionDir)\..\mruby-1.1.0\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeOutput>mruby-cef.exe</NMakeOutput>
+    <NMakeOutput>
+    </NMakeOutput>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>rake mruby:build</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>rake mruby:clean</NMakeCleanCommandLine>
     <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\cef;$(SolutionDir)\..\mruby-1.1.0\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeReBuildCommandLine>rake mruby:clean &amp; rake mruby:build</NMakeReBuildCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>

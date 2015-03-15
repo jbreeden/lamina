@@ -7,7 +7,7 @@ extern "C" {
 
 void lamina_set_url(char* url);
 void lamina_set_sub_process(char* sub_process_name);
-int lamina_start();
+int lamina_start(int argc, char** argv);
 
 #if __cplusplus
 }

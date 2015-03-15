@@ -1,10 +1,17 @@
+/* System Includes */
 #include <ws2tcpip.h>
 #include <iostream>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <list>
 #include <cstdio>
+#include <thread>
+#include <chrono>
+#include "Shobjidl.h"
+
+/* CEF Includes */
 #include "include/cef_app.h"
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
@@ -14,18 +21,27 @@
 #include "include/cef_client.h"
 #include "include/cef_sandbox_win.h"
 #include "include/cef_runnable.h"
-#include "Lamina.h"
-#include "LaminaHandler.h"
-#include "LaminaApp.h"
-#include "LaminaOptions.h"
-#include "Shobjidl.h"
+
+/* APR Includes */
 #include "apr_file_io.h"
 #include "apr_thread_proc.h"
 #include "apr_network_io.h"
 
-using namespace std;
+/* MRuby Includes */
+#include "mruby.h"
+#include "mruby/compile.h"
+#include "mruby/irep.h"
 
-extern LaminaOptions laminaOptions;
+/* Lamina Includes */
+#include "Lamina.h"
+#include "lamina_util.h"
+#include "LaminaHandler.h"
+#include "LaminaApp.h"
+#include "LaminaOptions.h"
+#include "BrowserMessageServer.h"
+#include "BrowserMessageClient.h"
+
+using namespace std;
 
 // Notes on sandboxing:
 //  - On windows, this currently only works if the sub-process exe is the same exe as the main process
@@ -38,65 +54,78 @@ extern LaminaOptions laminaOptions;
 //#define CEF_USE_SANDBOX
 //#endif
 
-#define LOCK_FILE "lamina.lock"
-
 #if __cplusplus
 extern "C" {
 #endif
 
-void lamina_ensure_lock_file_exists(char* file_name) {
-   auto f = fopen(file_name, "r");
+void lamina_ensure_lock_file_exists() {
+   auto f = fopen(LaminaOptions::lock_file.c_str(), "r");
    if (f == NULL && errno == ENOENT) {
-      f = fopen(file_name, "w");
+      f = fopen(LaminaOptions::lock_file.c_str(), "w");
       fclose(f);
    }
 }
 
-void lamina_try_launch_server(char* file_name, apr_pool_t* pool) {
+void try_with_exclusive_lock(std::function<void(apr_file_t*)> success, std::function<void()> failure) {
    apr_file_t* lock_file;
-   apr_file_open(&lock_file, file_name, APR_READ, APR_FPROT_OS_DEFAULT, pool);
+   apr_pool_t* pool;
+   apr_pool_create(&pool, NULL);
+   apr_file_open(&lock_file, LaminaOptions::lock_file.c_str(), APR_FOPEN_WRITE, APR_FPROT_OS_DEFAULT, pool);
    if (apr_file_lock(lock_file, APR_FLOCK_EXCLUSIVE | APR_FLOCK_NONBLOCK) == APR_SUCCESS) {
-      // Get open port
-      apr_socket_t *socket;
-      apr_socket_create(&socket, APR_INET, SOCK_STREAM, APR_PROTO_TCP, pool);
-      apr_sockaddr_t *addr;
-      apr_sockaddr_info_get(&addr, NULL, APR_INET, 0, 0, pool);
-      apr_socket_bind(socket, addr);
-      apr_socket_addr_get(&addr, apr_interface_e::APR_LOCAL, socket);
-      char port_argument[10];
-      sprintf(port_argument, "-p %d", addr->port);
-
-      apr_procattr_t* procattr;
-      apr_procattr_create(&procattr, pool);
-      apr_procattr_cmdtype_set(procattr, APR_PROGRAM_PATH);
-      apr_proc_t proc;
-      char* ruby = "ruby.exe";
-      char* script = "server.rb";
-      char* argv[] = { ruby, script, port_argument, NULL };
-      apr_proc_create(&proc, ruby, argv, NULL, procattr, pool);
+      success(lock_file);
       apr_file_unlock(lock_file);
-      apr_socket_close(socket);
+      apr_file_close(lock_file);
+   }
+   else {
+      apr_file_close(lock_file);
+      failure();
    }
 }
 
-void lamina_get_shared_lock(char* file_name, apr_pool_t* pool) {
-   apr_file_t* file;
-   apr_file_open(&file, file_name, APR_READ, NULL, pool);
-   apr_status_t lock_status = apr_file_lock(file, APR_FLOCK_SHARED);
+void lamina_write_app_settings(apr_file_t* lock_file) {
+   // APR_FOPEN_TRUNCATE flag seems to prevent writes from taking effect.
+   // So, just truncate manually before writing.
+   apr_file_trunc(lock_file, 0);
+   apr_file_printf(lock_file, "{\n");
+   apr_file_printf(lock_file, "  'app_url' => '%s',\n", LaminaOptions::app_url.c_str());
+   apr_file_printf(lock_file, "  'browser_ipc_path' => '%s',\n", LaminaOptions::browser_ipc_path.c_str());
+   apr_file_printf(lock_file, "  'cache_path' => '%s',\n", LaminaOptions::cache_path.c_str());
+   apr_file_printf(lock_file, "  'remote_debugging_port' => %d,\n", LaminaOptions::remote_debugging_port);
+   apr_file_printf(lock_file, "  'server_port' => %d,\n", LaminaOptions::server_port);
+   apr_file_printf(lock_file, "}\n");
 }
 
-int lamina_start() {
-   apr_initialize();
-   apr_pool_t* pool;
-   apr_pool_create(&pool, NULL);
-   lamina_ensure_lock_file_exists(LOCK_FILE);
-   lamina_try_launch_server(LOCK_FILE, pool);
-   lamina_get_shared_lock(LOCK_FILE, pool);
+void lamina_rename_local_storage_files() {
+   auto mrb = mrb_open();
 
+   char script[300];
+   sprintf(script,
+     "if Dir.exists? '%s/Local Storage' \n"
+     "  Dir.chdir('%s/Local Storage') do \n"
+     "    Dir.entries('.').each do |f| \n"
+     "      if m = f.match(/^http_localhost_([0-9]*).localstorage/i) \n"
+     "        File.rename f, f.sub(/localhost_([0-9]*)/, 'localhost_%d') \n"
+     "      end \n"
+     "    end \n"
+     "  end \n"
+     "end",
+   LaminaOptions::cache_path.c_str(),
+   LaminaOptions::cache_path.c_str(),
+   LaminaOptions::server_port);
 
-   LaminaOptions::load();
-   SetCurrentProcessExplicitAppUserModelID(L"jbreeden.Lamina");
+   mrb_load_string(mrb, script);
+   mrb_close(mrb);
+}
 
+void lamina_launch_server(apr_pool_t* pool) {
+   apr_procattr_t* procattr;
+   apr_procattr_create(&procattr, pool);
+   apr_procattr_cmdtype_set(procattr, APR_PROGRAM_PATH);
+   apr_proc_t proc;
+   apr_proc_create(&proc, LaminaOptions::server_command.c_str(), LaminaOptions::server_args, NULL, procattr, pool);
+}
+
+int lamina_start_cef() {
 #ifdef DEBUG
    cout << "New Main Process" << endl;
 #endif
@@ -115,7 +144,18 @@ int lamina_start() {
    // SimpleApp implements application-level callbacks. It will create the first
    // browser instance in OnContextInitialized() after CEF has initialized.
    CefRefPtr<LaminaApp> app(new LaminaApp);
-   app.get()->url = laminaOptions.appUrl;
+
+   // If a server command is present, it takes precedent over the app_url.
+   // Client *should* be calling either `load_url` or `load_server`,
+   // so only one should be populated.
+   if (LaminaOptions::server_command.size() > 0) {
+      char server_url[100];
+      sprintf(server_url, "http://localhost:%d", LaminaOptions::server_port);
+      app.get()->url = server_url;
+   }
+   else {
+      app.get()->url = LaminaOptions::app_url;
+   }
 
 #ifdef DEBUG
    cout << "APP URL: " << app.get()->url << endl;
@@ -132,15 +172,16 @@ int lamina_start() {
 
    // Specify CEF global settings here.
    CefSettings settings;
-   if (laminaOptions.subProcessName.length() > 0) {
-      CefString(&settings.browser_subprocess_path).FromASCII(laminaOptions.subProcessName.c_str());
+
+#ifndef _DEBUG /* Suppresses debug.log output when building in release mode */
+   settings.log_severity = LOGSEVERITY_DISABLE;
+#endif
+
+   if (strlen(LaminaOptions::cache_path.c_str()) > 0) {
+      CefString(&settings.cache_path).FromASCII(LaminaOptions::cache_path.c_str());
    }
 
-   if (laminaOptions.cachePath.length() > 0) {
-      CefString(&settings.cache_path).FromASCII(laminaOptions.cachePath.c_str());
-   }
-
-   settings.remote_debugging_port = laminaOptions.remoteDebuggingPort;
+   settings.remote_debugging_port = LaminaOptions::remote_debugging_port;
 
 #if !defined(CEF_USE_SANDBOX)
    settings.no_sandbox = true;
@@ -157,6 +198,46 @@ int lamina_start() {
    CefShutdown();
 
    return 0;
+}
+
+int lamina_start(int argc, char** argv) {
+   apr_initialize();
+   apr_pool_t* pool;
+   apr_pool_create(&pool, NULL);
+
+   lamina_ensure_lock_file_exists();
+   try_with_exclusive_lock(
+      /* Got the lock (this is the first app instance) */
+      [&](apr_file_t* file) {
+         LaminaOptions::load();
+         lamina_write_app_settings(file);
+         if (LaminaOptions::cache_path.size() > 0) {
+            lamina_rename_local_storage_files();
+         }
+         if (LaminaOptions::server_command.size() > 0) {
+            lamina_launch_server(pool);
+         }
+         auto browserMessageServer = new BrowserMessageServer();
+         browserMessageServer->start();
+      },
+      /* Couldn't get the lock (app is running already) */
+      [&](){
+         if (argc == 1) {
+            // CEF will supply a bunch of arguments for sub-processes (renderers, gpu procs, etc.)
+            // If there are no arguments, this is an attempt to re-launch the application by the user.
+            // In that case, simply send a message to the application to open a new window
+            LaminaOptions::load_from_lock_file();
+            BrowserMessageClient client;
+            client.set_server(LaminaOptions::browser_ipc_path);
+            client.send("new_window");
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            exit(0);
+         }
+      }
+   );
+   lamina_util_get_shared_lock(pool);
+
+   return lamina_start_cef();
 }
 
 #if __cplusplus

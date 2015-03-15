@@ -3,8 +3,6 @@
 #include "LaminaApp.h"
 #include "LaminaOptions.h"
 
-extern LaminaOptions laminaOptions;
-
 LaminaApp::LaminaApp() {
 }
 
@@ -22,7 +20,7 @@ void LaminaApp::OnContextInitialized() {
 #if defined(OS_WIN)
    // On Windows we need to specify certain flags that will be passed to
    // CreateWindowEx().
-   window_info.SetAsPopup(NULL, laminaOptions.windowTitle);
+   window_info.SetAsPopup(NULL, LaminaOptions::window_title);
 #endif
 
    // LaminaHandler implements browser-level callbacks.

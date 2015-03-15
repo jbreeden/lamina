@@ -10,5 +10,5 @@ int APIENTRY WinMain(HINSTANCE hInstance,
             LPSTR    lpCmdLine,
             int       nCmdShow)
 {
-   return lamina_start();
+   return lamina_start(__argc, __argv);
 }

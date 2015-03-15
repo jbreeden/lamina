@@ -14,8 +14,6 @@
 
 using namespace std;
 
-extern LaminaOptions laminaOptions;
-
 class LaminaHandler : public CefClient,
    public CefDisplayHandler,
    public CefLifeSpanHandler,
@@ -40,7 +38,7 @@ public:
 
    // CefDisplayHandler methods:
    virtual void OnTitleChange(CefRefPtr<CefBrowser> browser, const CefString& title) OVERRIDE {
-      if (laminaOptions.usePageTitles) {
+      if (LaminaOptions::use_page_titles) {
          CEF_REQUIRE_UI_THREAD();
          // Set the frame window title bar
          CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();

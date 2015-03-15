@@ -1,3 +1,22 @@
+Creating mrb_values from C values
+=================================
+
+Use the macros from the boxing_*.h files.
+
+```C
+#define SET_NIL_VALUE(r)         BOXNIX_SET_VALUE(r, MRB_TT_FALSE, value.i, 0)
+#define SET_FALSE_VALUE(r)       BOXNIX_SET_VALUE(r, MRB_TT_FALSE, value.i, 1)
+#define SET_TRUE_VALUE(r)        BOXNIX_SET_VALUE(r, MRB_TT_TRUE, value.i, 1)
+#define SET_BOOL_VALUE(r,b)      BOXNIX_SET_VALUE(r, b ? MRB_TT_TRUE : MRB_TT_FALSE, value.i, 1)
+#define SET_INT_VALUE(r,n)       BOXNIX_SET_VALUE(r, MRB_TT_FIXNUM, value.i, (n))
+#define SET_FLOAT_VALUE(mrb,r,v) BOXNIX_SET_VALUE(r, MRB_TT_FLOAT, value.f, (v))
+#define SET_SYM_VALUE(r,v)       BOXNIX_SET_VALUE(r, MRB_TT_SYMBOL, value.sym, (v))
+#define SET_OBJ_VALUE(r,v)       BOXNIX_SET_VALUE(r, (((struct RObject*)(v))->tt), value.p, (v))
+#define SET_PROC_VALUE(r,v)      BOXNIX_SET_VALUE(r, MRB_TT_PROC, value.p, v)
+#define SET_CPTR_VALUE(mrb,r,v)  BOXNIX_SET_VALUE(r, MRB_TT_CPTR, value.p, v)
+#define SET_UNDEF_VALUE(r)       BOXNIX_SET_VALUE(r, MRB_TT_UNDEF, value.i, 0)
+```
+
 MRuby Data Types
 ================
 

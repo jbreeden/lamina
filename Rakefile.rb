@@ -37,6 +37,14 @@ def copy_apr_dll(configuration)
   end
 end
 
+def copy_nanomsg_dll(configuration)
+  if ENV['OS'] =~ /windows/i
+    cp "nanomsg-0.5-beta/win/#{configuration}/nanomsg.dll", runtime_dir
+  else
+    raise "No nanomsg dll path defined for this configuration"
+  end
+end
+
 def copy_lamina_exe(configuration)
   if $PLATFORM == :windows
     cp "VisualStudioProjects/Lamina/#{configuration}/lamina.exe", runtime_dir
@@ -52,6 +60,7 @@ def build_task(configuration)
     copy_cef_dlls(configuration)
     copy_cef_resources(configuration)
     copy_apr_dll(configuration)
+    copy_nanomsg_dll(configuration)
     copy_lamina_exe(configuration)
   end
 end
@@ -77,6 +86,16 @@ namespace :mruby do
   task :clean do
     Dir.chdir "mruby-1.1.0" do
       sh "ruby minirake clean"
+    end
+  end
+end
+
+namespace :scripts do
+  task :compile do
+    Dir.chdir("./Lamina/scripts") do
+      Dir.entries('.').grep(/.rb/).each do |f|
+        sh "../../mruby-1.1.0/bin/mrbc -B#{f.sub(File.extname(f), "")} #{f}"
+      end
     end
   end
 end

@@ -10,11 +10,19 @@ MRuby::Build.new('host') do |conf|
   end
 
   conf.cc.flags =  conf.cc.flags[0].map { |val|
-    val == "/MD" ? "/MT" : val
+    if ENV['DEBUG']
+      val == "/MD" ? "/MTd" : val
+    else
+      val == "/MD" ? "/MT" : val
+    end
   }
 
   conf.cxx.flags =  conf.cxx.flags[0].map { |val|
-    val == "/MD" ? "/MT" : val
+    if ENV['DEBUG']
+      val == "/MD" ? "/MTd" : val
+    else
+      val == "/MD" ? "/MT" : val
+    end
   }
 
   Dir["mrbgems/*"].each do |gem_folder|

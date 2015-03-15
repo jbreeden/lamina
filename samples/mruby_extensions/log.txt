@@ -1,6 +1,0 @@
-create_undefined
-create_null
-create_int
-create_string
-V8.exec
-done!

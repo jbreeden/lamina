@@ -15,6 +15,11 @@ begin
     V8.window[:rbObject][:myRubyClass] = V8.create_string(V8.window[:rbObject].class.to_s)
     V8.exec "rbExecValue = 'javascript string literal'"
 
+    V8.window[:rbFunction] = V8.create_function "rbFunction" do |arguments|
+      arg1 = arguments[:shift].call(arguments, [])
+      V8.window[:alert].call(V8.window, [arg1])
+    end
+
     throwing_on_purpose = true
     V8.create_int 'test'
   rescue TypeError => ex

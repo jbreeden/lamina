@@ -9,6 +9,7 @@
 #include "LaminaRenderProcessHandler.h"
 
 LaminaRenderProcessHandler::LaminaRenderProcessHandler() {
+   // TODO: mrb_close
    this->mrb = mrb_open();
 }
 

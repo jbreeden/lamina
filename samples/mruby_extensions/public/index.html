@@ -23,9 +23,9 @@
   </table>
 </div>
 <script>
-  function test(label, value) {
+  function test(code, value) {
     window.table.innerHTML = window.table.innerHTML +
-      "<tr><td>" + label + "</td><td>" + value + "</td></tr>"
+      "<tr><td><pre><code>" + code + "</code></pre></td><td>" + value + "</td></tr>"
   }
   test('V8.create_undefined', window.rbUndefined);
   test('V8.create_null', window.rbNull);
@@ -36,10 +36,19 @@
   test('V8.create_int 3', window.rbInt);
   test('V8.create_float 4.5', window.rbFloat);
   test('V8.create_string "Hello, from mruby!"', window.rbString);
-  test('V8.window[:rbObject] = V8.create_object <br/>' +
-    ' V8.window[:rbObject][:myRubyClass] = V8.create_string(V8.window[:rbObject].class.to_s)',
-    JSON.stringify(window.rbObject));
+  test(
+    'V8.window[:rbObject] = V8.create_object \n' +
+    'V8.window[:rbObject][:myRubyClass] = V8.create_string(V8.window[:rbObject].class.to_s)',
+    JSON.stringify(window.rbObject)
+  );
   test('V8.exec "window.rbExecValue = \'javascript string literal\'"', window.rbExecValue);
+  test(
+    'V8.window[:rbFunction] = V8.create_function "rbFunction" do |arguments| \n' +
+    '  arg1 = arguments[:shift].call(arguments, []) \n' +
+    '  V8.window[:alert].call(V8.window, [arg1]) \n' +
+    'end',
+    '<button onclick="window.rbFunction(\'js -> rb -> js\')">window.rbFunction(\'js -> rb -> js\')</button>'
+  )
   test('Use browser to debug exceptions', window.rbException);
 </script>
 </body>

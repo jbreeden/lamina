@@ -1,11 +1,119 @@
-create_undefined
-create_null
-create_bool true
-create_bool false
-create_bool 1
-create_bool nil
-create_int
-create_float
-create_string
-V8.exec
-done!
+--Running Test--
+V8.create_undefined
+--Running Test--
+V8.create_null
+--Running Test--
+V8.create_bool true
+--Running Test--
+V8.create_bool false
+--Running Test--
+V8.create_bool 1
+--Running Test--
+V8.create_bool nil
+--Running Test--
+V8.create_int 3
+--Running Test--
+V8.create_float 4.5
+--Running Test--
+V8.create_string 'Hello, from mruby!'
+--Running Test--
+obj = V8.create_object
+obj[:myRubyClass] = V8.create_string(obj.class.to_s)
+V8.window[:JSON][:stringify].apply(V8.window[:JSON], [obj])
+--Running Test--
+# `type_of` shows how you'd check the type of JavaScript objects in Ruby
+# TODO: Consider making this a method on Cef::V8::JsObject class
+V8.window[:type_of] = V8.create_function 'type_of' do |args|
+  arg = args[:shift].apply(args, [])
+  if arg.is_undefined
+    V8.create_string 'undefined'
+  elsif arg.is_null
+    V8.create_string 'null'
+  elsif arg.is_bool
+    V8.create_string 'bool'
+  elsif arg.is_int
+    V8.create_string 'int'
+  elsif arg.is_uint
+    V8.create_string 'uint'
+  elsif arg.is_double
+    V8.create_string 'double'
+  elsif arg.is_date
+    V8.create_string 'date'
+  elsif arg.is_string
+    V8.create_string 'string'
+  elsif arg.is_array
+    V8.create_string 'array'
+  elsif arg.is_function
+    V8.create_string 'function'
+  elsif arg.is_object
+    V8.create_string 'object'
+  end
+end
+
+V8.exec "window.val = undefined"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = null"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = true"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = false"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = 1"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = 1.5"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = new Date()"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = 'test'"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = []"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = function () {}"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = {}"
+V8.window[:type_of].apply(V8.window, [V8.window[:val]])
+--Running Test--
+V8.exec "window.val = true"
+V8.create_string V8.window[:val].bool_value.to_s
+--Running Test--
+V8.exec "window.val = false"
+V8.create_string V8.window[:val].bool_value.to_s
+--Running Test--
+V8.exec "window.val = 1"
+V8.create_string V8.window[:val].int_value.to_s
+--Running Test--
+V8.exec "window.val = 1.5"
+V8.create_string V8.window[:val].double_value.to_s
+--Running Test--
+V8.exec "window.val = 'test'"
+V8.create_string V8.window[:val].string_value
+--Running Test--
+V8.exec "window.execedString = 'String created by V8.exec'"
+V8.window[:execedString]
+--Running Test--
+V8.window[:ls] = V8.create_function "ls" do |args|
+  result = ""
+  Dir.entries('.').each do |e|
+    result += " #{e} "
+  end
+  V8.create_string result
+end
+--Running Test--
+V8.window[:strip] = V8.create_function 'strip' do |args|
+  arg = args[:shift].apply(args, [])
+  V8.create_string arg.string_value.strip
+end
+
+V8.window[:call_strip] = V8.create_function 'call_strip' do |args|
+  V8.window[:strip].apply(V8.window, [V8.create_string('       Strip my whitespace, please!          ')])
+end

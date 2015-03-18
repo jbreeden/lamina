@@ -99,10 +99,12 @@ module MRuby
     end
 
     def disable_cxx_exception
+      puts "DISABLING CXX EXCEPTIONS"
       @cxx_exception_disabled = true
     end
 
     def cxx_abi_enabled?
+      puts "CXX ABI ENABLED? #{@cxx_abi_enabled}"
       @cxx_abi_enabled
     end
 

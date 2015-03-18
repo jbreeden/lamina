@@ -19,6 +19,7 @@ string LaminaOptions::lock_file = ".lamina";
 int    LaminaOptions::remote_debugging_port = 0;
 char** LaminaOptions::server_args = NULL;
 string LaminaOptions::server_command = "";
+int    LaminaOptions::server_delay = 0;
 int    LaminaOptions::server_port = 0;
 string LaminaOptions::script_on_app_started = "on_app_started.rb";
 string LaminaOptions::script_on_v8_context_created = "on_v8_context_created.rb";;
@@ -87,6 +88,11 @@ mrb_value lamina_set_remote_debugging_port(mrb_state* mrb, mrb_value self) {
 }
 
 static
+mrb_value lamina_set_server_delay(mrb_state* mrb, mrb_value self) {
+   SET_INT_OPTION(LaminaOptions::server_delay);
+}
+
+static
 mrb_value lamina_use_page_titles(mrb_state* mrb, mrb_value self) {
    mrb_value param;
    mrb_get_args(mrb, "o", &param);
@@ -103,6 +109,7 @@ static void load_user_options() {
    mrb_define_class_method(mrb, lamina_module, "set_window_title", lamina_set_window_title, MRB_ARGS_REQ(1));
    mrb_define_class_method(mrb, lamina_module, "set_cache_path", lamina_set_cache_path, MRB_ARGS_REQ(1));
    mrb_define_class_method(mrb, lamina_module, "set_remote_debugging_port", lamina_set_remote_debugging_port, MRB_ARGS_REQ(1));
+   mrb_define_class_method(mrb, lamina_module, "set_server_delay", lamina_set_server_delay, MRB_ARGS_REQ(1));
    mrb_define_class_method(mrb, lamina_module, "use_page_titles", lamina_use_page_titles, MRB_ARGS_REQ(1));
 
    FILE* lamina_options_script = fopen(LaminaOptions::script_on_app_started.c_str(), "r");
@@ -110,6 +117,7 @@ static void load_user_options() {
       mrb_load_file(mrb, lamina_options_script);
       fclose(lamina_options_script);
    }
+
    mrb_close(mrb);
 }
 
@@ -128,18 +136,18 @@ void LaminaOptions::load_from_lock_file() {
    mrb_value settings = mrb_load_file(mrb, lock_file);
 
 #define READ_STRING_VALUE(k) \
-   { \
+   do { \
       mrb_value key = mrb_str_new_cstr(mrb, #k); \
       mrb_value value = mrb_funcall(mrb, settings, "[]", 1, key); \
       LaminaOptions::k = mrb_string_value_cstr(mrb, &value); \
-   }
+   } while(0)
 
 #define READ_INT_VALUE(k) \
-   { \
+   do { \
       mrb_value key = mrb_str_new_cstr(mrb, #k); \
       mrb_value value = mrb_funcall(mrb, settings, "[]", 1, key); \
       LaminaOptions::k = mrb_int(mrb, value); \
-   }
+   } while(0)
    
    READ_STRING_VALUE(app_url);
    READ_STRING_VALUE(cache_path);

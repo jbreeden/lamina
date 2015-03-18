@@ -14,6 +14,7 @@ public:
    static int remote_debugging_port;
    static char** server_args;
    static std::string server_command;
+   static int server_delay;
    static int server_port;
    static std::string script_on_app_started;
    static std::string script_on_v8_context_created;

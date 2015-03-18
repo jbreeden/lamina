@@ -123,6 +123,9 @@ void lamina_launch_server(apr_pool_t* pool) {
    apr_procattr_cmdtype_set(procattr, APR_PROGRAM_PATH);
    apr_proc_t proc;
    apr_proc_create(&proc, LaminaOptions::server_command.c_str(), LaminaOptions::server_args, NULL, procattr, pool);
+   if (LaminaOptions::server_delay) {
+      std::this_thread::sleep_for(chrono::seconds(LaminaOptions::server_delay));
+   }
 }
 
 int lamina_start_cef() {

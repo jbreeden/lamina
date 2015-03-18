@@ -1,7 +1,5 @@
 # For building libmruby.lib only (no binaries like mirb)
 MRuby::Build.new('host') do |conf|
-  # load specific toolchain settings
-
   # Gets set by the VS command prompts.
   if ENV['VisualStudioVersion'] || ENV['VSINSTALLDIR']
     toolchain :visualcpp
@@ -9,6 +7,9 @@ MRuby::Build.new('host') do |conf|
     toolchain :gcc
   end
 
+  enable_cxx_abi
+
+  conf.cc.flags << "/DEBUG"
   conf.cc.flags =  conf.cc.flags[0].map { |val|
     if ENV['DEBUG']
       val == "/MD" ? "/MTd" : val
@@ -17,6 +18,7 @@ MRuby::Build.new('host') do |conf|
     end
   }
 
+  conf.cxx.flags << "/DEBUG"
   conf.cxx.flags =  conf.cxx.flags[0].map { |val|
     if ENV['DEBUG']
       val == "/MD" ? "/MTd" : val

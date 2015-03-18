@@ -14,6 +14,7 @@ MRuby.each_target do
     cxx_abi_objs = cxx_abi_dependency.map { |v|
       src = "#{current_build_dir}/#{v}.cxx"
       file src => ["#{current_dir}/#{v}.c", __FILE__] do |t|
+        puts "WRITING: #{File.expand_path(t.name)}"
         File.open(t.name, 'w') do |f|
           f.write <<EOS
 #define __STDC_CONSTANT_MACROS
@@ -22,7 +23,6 @@ MRuby.each_target do
 extern "C" {
 #include "#{MRUBY_ROOT}/#{t.prerequisites.first}"
 }
-
 
 #{v == 'error'? 'mrb_int mrb_jmpbuf::jmpbuf_id = 0;' : ''}
 EOS

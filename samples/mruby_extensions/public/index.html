@@ -179,6 +179,12 @@ V8.window[:call_strip] = V8.create_function 'call_strip' do |args|
 end
 </template>
 
+<template class="ruby-test">
+V8.window[:raise] = V8.create_function 'raise' do |args|
+  raise 'my error'
+end
+</template>
+
 <div>
   <table id="table">
     <thead>
@@ -190,7 +196,11 @@ end
   function test(code) {
     var result = ruby(code);
     if (typeof result == 'function') {
-      result = result();
+      try {
+        result = result();
+      } catch (e) {
+        result = e;
+      }
     }
 
     window.table.innerHTML = window.table.innerHTML +

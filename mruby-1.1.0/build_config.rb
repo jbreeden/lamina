@@ -9,21 +9,23 @@ MRuby::Build.new('host') do |conf|
 
   enable_cxx_abi
 
-  conf.cc.flags << "/DEBUG"
-  conf.cc.flags =  conf.cc.flags[0].map { |val|
-    if ENV['DEBUG']
-      val == "/MD" ? "/MTd" : val
+  conf.cc.flags[0] = conf.cc.flags[0].map { |val|
+    if ENV['DEBUG'] && val == "/MD"
+      "/MTd"
+    elsif val == "/MD"
+      "/MT"
     else
-      val == "/MD" ? "/MT" : val
+      val
     end
   }
 
-  conf.cxx.flags << "/DEBUG"
-  conf.cxx.flags =  conf.cxx.flags[0].map { |val|
-    if ENV['DEBUG']
-      val == "/MD" ? "/MTd" : val
+  conf.cxx.flags[0] =  conf.cxx.flags[0].map { |val|
+    if ENV['DEBUG'] && val == "/MD"
+      "/MTd"
+    elsif val == "/MD"
+      "/MT"
     else
-      val == "/MD" ? "/MT" : val
+      val
     end
   }
 

@@ -11,23 +11,12 @@ A framework for developing desktop apps with web technologies.
 &#x2713; SVG <br/>
 &#x2713; CSS <br/>
 
-rb-chrome is similar in spirit to node-webkit, or atom-shell. It provides a Chromium shell for your
+Lamina is similar in spirit to node-webkit, or atom-shell. It provides a Chromium shell for your
 application's UI. This lets you develop your UI like a web app, while giving you access to the underlying
 system like a native app.
 
 App Structure
 -------------
-
-The minimal setup for a client-server mode rb-chrome app is just a `server.rb` file. 
-
-- `server.rb` is `require`-ed by rb-chrome in a special server process. 
-- It's expected that you will have started your web server of choice within that process after `server.rb` has been executed.
-
-Some optional components include 
-
-- A `browser.rb` script to customize the browser
-- A directory to store the browser's cached data (like localstorage)
-- Any html/js/css files you'd like to serve in your app
 
 Your app might look something like this:
 
@@ -73,7 +62,7 @@ It looks like this...
 
 ![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
 
-rb-chrome has not been properly gemified yet, so for now you run the sample with the following steps
+Lamina has not been properly gemified yet, so for now you run the sample with the following steps
 
 - Download or clone this repo
 - Put the bin/ directory on your path
@@ -81,17 +70,7 @@ rb-chrome has not been properly gemified yet, so for now you run the sample with
 - `cd` into the samples/todo/public/ directory
 - Run `bower update`
 - `cd` into the samples/todo/ directory
-- Run `rb-chrome`
-
-Application Types
------------------
-
-Currently only a client-server app type is really viable. In a client-server app, your Ruby code runs in a web server,
-and your UI talks to it by the usual means (ajax, web sockets, etc). The browser and server are both started 
-automatically when you run `rb-chrome` and pass it the path to your application. rb-chrome takes care
-of associating the processes so that if the browser is closed by the user or OS, the server exits as well.
-
-Work is underway to write [CEF bindings for mruby](https://github.com/jbreeden/mruby-cef). Mruby is more appropriate for embedding in a multi-process, multi-threaded application, like the Chromium browser provided by CEF, than CRuby. With these mruby bindings, you can write Ruby code to control the CEF browser and add functionality accessible to JavaScript (like file system and network support).
+- Run `lamina`
 
 Platform Support
 ----------------

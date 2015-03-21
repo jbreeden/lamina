@@ -65,8 +65,7 @@ It looks like this...
 Lamina has not been properly gemified yet, so for now you run the sample with the following steps
 
 - Download or clone this repo
-- Put the bin/ directory on your path
-- Run `rake runtime:release:build`
+- Put the runtime/ directory on your path
 - `cd` into the samples/todo/public/ directory
 - Run `bower update`
 - `cd` into the samples/todo/ directory

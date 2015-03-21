@@ -1,5 +1,5 @@
-server_lock
-.rbchromedata
+runtime
+.lamina
 **/Debug/
 **/out/
 **/cache/

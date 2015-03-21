@@ -1,7 +1,7 @@
 {
   'app_url' => '',
-  'browser_ipc_path' => 'ipc://auxgvfyuyvaghkkytllz/browser.ipc',
+  'browser_ipc_path' => 'ipc://vlcsjowguyyvgajiwphq/browser.ipc',
   'cache_path' => 'cache',
   'remote_debugging_port' => 8888,
-  'server_port' => 4017,
+  'server_port' => 4860,
 }

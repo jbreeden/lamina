@@ -81,7 +81,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include;;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <CallingConvention>Cdecl</CallingConvention>

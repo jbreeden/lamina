@@ -39,9 +39,6 @@
     <ClInclude Include="..\..\Lamina\include\LaminaRenderProcessHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Lamina\include\mruby_cef_v8.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Lamina\include\LaminaOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>

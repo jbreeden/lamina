@@ -104,7 +104,6 @@ module MRuby
     end
 
     def cxx_abi_enabled?
-      puts "CXX ABI ENABLED? #{@cxx_abi_enabled}"
       @cxx_abi_enabled
     end
 

@@ -24,6 +24,9 @@
     <ClCompile Include="..\..\mrbgems\mruby-cef\src\mruby_v8_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\mrbgems\mruby-cef\src\ruby_fn_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mrbgems\mruby-cef\mrbgem.rake" />
@@ -617,6 +620,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\mrbgems\mruby-cef\include\mruby_v8_handler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\mrbgems\mruby-cef\include\ruby_fn_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

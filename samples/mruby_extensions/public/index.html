@@ -1,217 +1,359 @@
 <!DOCTYPE html>
 <html>
-<header>
+<head>
   <title>MRuby + JavaScript Interop Tests</title>
+  <link rel="stylesheet" href="/css/monokai.css">
   <style>
     table {
       border-collapse: collapse;
+      background-color: #272822;
+      color: white;
     }
     table, th, td {
       border: 1px solid black;
     }
+    thead {
+      background-color: grey;
+      color: black;
+    }
     td {
       padding: 5px;
     }
+    ruby-script {
+      display: none;
+    }
   </style>
-</header>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
 <body>
 
 <!-- Creating JavaScript objects from Ruby -->
+<ruby-script>
+# Creating JavaScript objects from Ruby
 
-<template class="ruby-test">
-V8.create_undefined
-</template>
-<template class="ruby-test">
-V8.create_null
-</template>
-<template class="ruby-test">
-V8.create_bool true
-</template>
-<template class="ruby-test">
-V8.create_bool false
-</template>
-<template class="ruby-test">
-V8.create_bool 1
-</template>
-<template class="ruby-test">
-V8.create_bool nil
-</template>
-<template class="ruby-test">
-V8.create_int 3
-</template>
-<template class="ruby-test">
-V8.create_float 4.5
-</template>
-<template class="ruby-test">
-V8.create_string 'Hello, from mruby!'
-</template>
-<template class="ruby-test">
-obj = V8.create_object
-obj[:myRubyClass] = V8.create_string(obj.class.to_s)
-V8.window[:JSON][:stringify].apply(V8.window[:JSON], [obj])
-</template>
+Cef::V8.create_undefined
+</ruby-script>
+<ruby-script>
+Cef::V8.create_null
+</ruby-script>
+<ruby-script>
+Cef::V8.create_bool true
+</ruby-script>
+<ruby-script>
+Cef::V8.create_bool false
+</ruby-script>
+<ruby-script>
+Cef::V8.create_bool 1
+</ruby-script>
+<ruby-script>
+Cef::V8.create_bool nil
+</ruby-script>
+<ruby-script>
+Cef::V8.create_int 3
+</ruby-script>
+<ruby-script>
+Cef::V8.create_float 4.5
+</ruby-script>
+<ruby-script>
+Cef::V8.create_string 'Hello, from mruby!'
+</ruby-script>
+<ruby-script>
+# Showing the type of JavaScript objects in Ruby
+
+obj = Cef::V8.create_object
+obj[:myRubyClass] = Cef::V8.create_string(obj.class.to_s)
+</ruby-script>
+<ruby-script>
+# Showing the type of JavaScript exceptions in Ruby
+
+Cef::V8.eval "throw 'JavaScript Exception'" do |exc|
+  Cef::V8.create_string(exc.class.to_s)
+end
+</ruby-script>
 
 <!-- Checking the type of JavaScript objects from Ruby -->
 
-<template class="ruby-test">
-# `type_of` shows how you'd check the type of JavaScript objects in Ruby
-# TODO: Consider making this a method on Cef::V8::JsObject class
-V8.window[:type_of] = V8.create_function 'type_of' do |args|
-  arg = args[:shift].apply(args, [])
-  if arg.is_undefined
-    V8.create_string 'undefined'
-  elsif arg.is_null
-    V8.create_string 'null'
-  elsif arg.is_bool
-    V8.create_string 'bool'
-  elsif arg.is_int
-    V8.create_string 'int'
-  elsif arg.is_uint
-    V8.create_string 'uint'
-  elsif arg.is_double
-    V8.create_string 'double'
-  elsif arg.is_date
-    V8.create_string 'date'
-  elsif arg.is_string
-    V8.create_string 'string'
-  elsif arg.is_array
-    V8.create_string 'array'
-  elsif arg.is_function
-    V8.create_string 'function'
-  elsif arg.is_object
-    V8.create_string 'object'
+<ruby-script>
+# `type_of` shows the methods you use to
+# check the type of JavaScript objects in Ruby
+
+def type_of(js_object)
+  if js_object.is_undefined?
+    'undefined'
+  elsif js_object.is_null?
+    'null'
+  elsif js_object.is_bool?
+    'bool'
+  elsif js_object.is_int?
+    'int'
+  elsif js_object.is_uint?
+    'uint'
+  elsif js_object.is_double?
+    'double'
+  elsif js_object.is_date?
+    'date'
+  elsif js_object.is_string?
+    'string'
+  elsif js_object.is_array?
+    'array'
+  elsif js_object.is_function?
+    'function'
+  elsif js_object.is_object?
+    'object'
   end
 end
 
-V8.exec "window.val = undefined"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = null"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = true"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = false"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = 1"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = 1.5"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = new Date()"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = 'test'"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = []"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = function () {}"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
-<template class="ruby-test">
-V8.exec "window.val = {}"
-V8.window[:type_of].apply(V8.window, [V8.window[:val]])
-</template>
+js_obj = Cef::V8.eval "undefined"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "null"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "true"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "false"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "1"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "1.5"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "new Date()"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "'test'"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "[]"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "(function () {})"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "{}"
+Cef::V8.create_string type_of(js_obj)
+</ruby-script>
 
 <!-- Reading primitive values from JavaScript objects in Ruby -->
 
-<template class="ruby-test">
-V8.exec "window.val = true"
-V8.create_string V8.window[:val].bool_value.to_s
-</template>
-<template class="ruby-test">
-V8.exec "window.val = false"
-V8.create_string V8.window[:val].bool_value.to_s
-</template>
-<template class="ruby-test">
-V8.exec "window.val = 1"
-V8.create_string V8.window[:val].int_value.to_s
-</template>
-<template class="ruby-test">
-V8.exec "window.val = 1.5"
-V8.create_string V8.window[:val].double_value.to_s
-</template>
-<template class="ruby-test">
-V8.exec "window.val = 'test'"
-V8.create_string V8.window[:val].string_value
-</template>
+<ruby-script>
+# Reading values from JavaScript objects into
+# their equivalient types in Ruby.
+# (Then converting to JavaScript strings to have
+#  something to report in the result column)
 
-<!-- V8.exec -->
+js_obj = Cef::V8.eval "true"
+Cef::V8.create_string js_obj.bool_value.to_s
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "false"
+Cef::V8.create_string js_obj.bool_value.to_s
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "1"
+Cef::V8.create_string js_obj.int_value.to_s
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "1.5"
+Cef::V8.create_string js_obj.double_value.to_s
+</ruby-script>
+<ruby-script>
+js_obj = Cef::V8.eval "'test'"
+Cef::V8.create_string js_obj.string_value
+</ruby-script>
 
-<template class="ruby-test">
-V8.exec "window.execedString = 'String created by V8.exec'"
-V8.window[:execedString]
-</template>
+<!-- Cef::V8.eval -->
+
+<ruby-script>
+# Using V8.eval to run JavaSCript
+
+Cef::V8.eval "'String created by Cef::V8.eval'"
+</ruby-script>
 
 <!-- Exposing Ruby functions to JavaScript -->
 
-<template class="ruby-test">
-V8.window[:ls] = V8.create_function "ls" do |args|
-  result = ""
+<ruby-script>
+# User V8.create_function NAME, BLOCK
+# to create JavaScript functions from Ruby
+
+# `ls` gives JavaScript access to file system info.
+Cef::V8.create_function "ls" do |args|
+  result = Cef::V8.eval("[]")
   Dir.entries('.').each do |e|
-    result += " #{e} "
+    result[:push].apply(result, [Cef::V8.create_string(e)])
   end
-  V8.create_string result
+  result
 end
-</template>
-<template class="ruby-test">
-V8.window[:strip] = V8.create_function 'strip' do |args|
-  arg = args[:shift].apply(args, [])
-  V8.create_string arg.string_value.strip
-end
+</ruby-script>
+<ruby-script>
+# To make your function accessible from JavaScript,
+# you have to set it as a property on some other object.
 
-V8.window[:call_strip] = V8.create_function 'call_strip' do |args|
-  V8.window[:strip].apply(V8.window, [V8.create_string('       Strip my whitespace, please!          ')])
-end
-</template>
+# In this example, we make a global function by assigning
+# `strip` as a function property on `window`
 
-<template class="ruby-test">
-V8.window[:raise] = V8.create_function 'raise' do |args|
+# Note that arguments to the function are passed as an array,
+# (`args` in this case). This matches the functionality of
+# the `arguments` object in JavaScript (everything is optional,
+# and it's up to the function to check args and throw errors).
+
+Cef::V8.window[:strip] =
+  Cef::V8.create_function 'strip' do |args|
+    Cef::V8.create_string args[0].string_value.strip
+  end
+
+Cef::V8.eval "strip('     Strip my whitespace, please!       ')"
+</ruby-script>
+
+<ruby-script>
+# Any unhandled exceptions in Ruby will be rethrown
+# as Error's to the calling JavaScript
+
+Cef::V8.create_function 'raise' do |args|
+  # Should cause a javascript exception
   raise 'my error'
 end
-</template>
+</ruby-script>
+
+<ruby-script>
+# Call JavaScript functions from Ruby with `apply`
+# Signature: `jsFunction.apply(context, args_array)`
+# Providing a block to apply catches any exceptions
+
+Cef::V8.eval "function throws() { " +
+"   throw 'Exception from `throws()`'; " +
+"}"
+
+Cef::V8.window[:rbCatch] =
+Cef::V8.create_function "rbCatch" do |args|
+  Cef::V8.window[:throws].apply(Cef::V8.window, []) do |exc|
+    Cef::V8.create_string "Caugh exception from apply: #{exc}"
+  end
+end
+</ruby-script>
+
+<ruby-script>
+# Calling a JavaScript function that throws without a block
+# will allow the exception to rise to the calling JavaScript
+# NOTE:
+#   Your Ruby extension should bail out if a JavaScript
+#   call throws and the exception isn't handled. If there
+#   is any possibility of an exception, provid a block
+#   to `apply` and check for the error.
+
+Cef::V8.window[:rbDontCatch] =
+Cef::V8.create_function "rbDontCatch" do |args|
+  Cef::V8.window[:throws].apply(Cef::V8.window, [])
+end
+</ruby-script>
+
+<ruby-script>
+# If you catch a JavaScript exception, you can raise the
+# message. If this is uncaught by any rescue blocks, it
+# will be thrown again to the calling JavaScript.
+
+Cef::V8.create_function "rbRethrow" do |args|
+  Cef::V8.window[:throws].apply(Cef::V8.window, []) do |exc|
+    raise exc.message
+  end
+end
+</ruby-script>
+
+<ruby-script>
+# It is possible to catch a JavaScript exception via the
+# block provided to `apply`, and then rethrow it as
+# a ruby exception to be handled in a `rescue` block
+
+Cef::V8.create_function "rbRecatch" do |args|
+  begin
+    Cef::V8.window[:throws].apply(Cef::V8.window, []) do |exc|
+      raise exc.message
+    end
+    Cef::V8.create_string "FAILED: Should throw over this line"
+  rescue Exception => ex
+    Cef::V8.create_string "Re-threw exception: #{ex.message}"
+  end
+end
+</ruby-script>
+
+<ruby-script>
+# Just like `JsObject#apply`, `V8::eval` will catch JavaScript
+# exceptions and pass them to any supplied block. Also
+# like `JsObject#apply`, if a block is not supplied, the exception
+# will be re-risen withen JavaScript only.
+#
+# ALWAYS supply a block if the JavaScript call may throw.
+# If it does throw, handle the exception or rethrow it to bail out.
+
+Cef::V8.eval("throw 'test'") do |exc|
+  Cef::V8.create_string "Caugh exception from eval: #{exc.message}"
+end
+</ruby-script>
 
 <div>
   <table id="table">
     <thead>
-      <th>Code</th><th>Result</th>
+      <th>Code (Ruby)</th><th>Result (JavaScript)</th>
     </thead>
   </table>
 </div>
+
 <script>
   function test(code) {
     var result = ruby(code);
+
+    // Format code for display (strip whitespace)
+    code = code.match(/([^\s][\s\S]*[^\s])/mi)[1]
+
     if (typeof result == 'function') {
       try {
-        result = result();
+        result = '// Function result:\n' + JSON.stringify(result());
       } catch (e) {
-        result = e;
+        if (e.message) {
+          result = '// Function threw:\n Error(' + JSON.stringify(e.message) + ')';
+        } else {
+          result = '// Function threw:\n' + JSON.stringify(e);
+        }
       }
+    } else {
+      result = JSON.stringify(result);
+    }
+
+    // Hacky formatting of arrays into a column
+    if (result && result.match(/\[/)) {
+      result = result.replace(/,/g, ",\n")
     }
 
     window.table.innerHTML = window.table.innerHTML +
-      "<tr><td><pre><code>" + code + "</code></pre></td><td>" + result + "</td></tr>"
+      "<tr><td><pre><code class=\"ruby\">" +
+      code +
+      "</code></pre></td><td><pre><code class=\"javascript\">" +
+      result +
+      "</code></pre></td></tr>"
   }
 
-  var tests = Array.prototype.slice.call(document.querySelectorAll(".ruby-test"));
+  var tests = Array.prototype.slice.call(document.querySelectorAll("ruby-script"));
   tests.forEach(function(testCase){
     // \s\S is a hack to match any character (. does not match newlines)
-    var stripped = testCase.innerHTML.match(/([^\s][\s\S]*[^\s])/mi)[1];
-    test(stripped);
+    var code = testCase.textContent;
+    test(code);
   });
 </script>
 </body>

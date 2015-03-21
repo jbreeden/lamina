@@ -18,6 +18,7 @@ MRuby::Build.new('host') do |conf|
       val
     end
   }
+  conf.cc.flags << ['/DEBUG'] if ENV['DEBUG']
 
   conf.cxx.flags[0] =  conf.cxx.flags[0].map { |val|
     if ENV['DEBUG'] && val == "/MD"
@@ -28,6 +29,7 @@ MRuby::Build.new('host') do |conf|
       val
     end
   }
+  conf.cxx.flags << ['/DEBUG'] if ENV['DEBUG']
 
   Dir["mrbgems/*"].each do |gem_folder|
     next unless Dir.exists? gem_folder

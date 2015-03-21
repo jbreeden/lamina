@@ -58,7 +58,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -110,7 +110,6 @@
     <ClInclude Include="..\..\Lamina\include\LaminaHandler.h" />
     <ClInclude Include="..\..\Lamina\include\LaminaRenderProcessHandler.h" />
     <ClInclude Include="..\..\Lamina\include\lamina_util.h" />
-    <ClInclude Include="..\..\Lamina\include\mruby_cef_v8.h" />
     <ClInclude Include="LaminaMain.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />

@@ -4,7 +4,8 @@
 #include "errno.h"
 #include "mruby.h"
 #include "mruby/compile.h"
-#include "mruby_cef_v8.h"
+#include "mruby_cef.h"
+#include "ruby_fn_handler.h"
 #include "LaminaOptions.h"
 #include "LaminaRenderProcessHandler.h"
 
@@ -21,7 +22,13 @@ void LaminaRenderProcessHandler::OnContextCreated(CefRefPtr<CefBrowser> browser,
    }
    else {
       if (errno != ENOENT) {
-         mrb_load_string(this->mrb, "Cef::V8.exec 'alert(\"Could not read lamina_extensions.rb\")'");
+         CefRefPtr<CefV8Value> ret;
+         CefRefPtr<CefV8Exception> exc;
+         context->Eval("alert('Could not load on_v8_context_created.rb')", ret, exc);
       }
    }
+
+   CefRefPtr<RubyFnHandler> rubyHandler = new RubyFnHandler(mrb);
+   auto ruby_fn = CefV8Value::CreateFunction("ruby", rubyHandler);
+   context->GetGlobal()->SetValue(CefString("ruby"), ruby_fn, CefV8Value::PropertyAttribute::V8_PROPERTY_ATTRIBUTE_NONE);
 }

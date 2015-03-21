@@ -39,8 +39,11 @@ And your files might contain something like this:
 `on_app_started.rb`
 
 ```Ruby
-Lamina.load_server "ruby.exe", "./server.rb"
+# Using `rubyw` to avoid spawning a console window
+Lamina.load_server "rubyw", "./server.rb"
+# The title to display on the window
 Lamina.set_window_title "TODO MVC - As performed by Sinatra"
+# Setting the cache path allows local storage usage and persistence
 Lamina.set_cache_path "cache"
 ```
 
@@ -66,7 +69,7 @@ Running a Sample
 ----------------
 
 After installing lamina, you can run any of the included samples (in the `samples/` directory of the `binaries-win` branch)
-by running `lamina` in the containing folder.
+by running `lamina` in the containing folder. (They will expect you to have ruby installed already).
 
 Ex:
 

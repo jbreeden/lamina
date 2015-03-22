@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="Windows-1252"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\projects\rb-chrome\nanomsg-0.5-beta\tests\separation.c">
+    <ClCompile Include="C:\projects\lamina\dev\nanomsg-0.5-beta\tests\separation.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\projects\rb-chrome\nanomsg-0.5-beta\CMakeLists.txt" />
+    <CustomBuild Include="C:\projects\lamina\dev\nanomsg-0.5-beta\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{CE21F2E7-4739-4B28-9E0F-DE7E73D36FB3}</UniqueIdentifier>
+      <UniqueIdentifier>{2067A20F-052B-41C3-87D2-F89DA0D4F459}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,11 +1,11 @@
 # CMake generation dependency list for this directory.
-C:/projects/rb-chrome/nanomsg-0.5-beta/CMakeLists.txt
+C:/projects/lamina/dev/nanomsg-0.5-beta/CMakeLists.txt
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CheckIncludeFiles.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CheckSymbolExists.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CheckCSourceCompiles.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeDetermineSystem.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeSystem.cmake.in
-C:/projects/rb-chrome/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeSystem.cmake
+C:/projects/lamina/dev/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeSystem.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeSystemSpecificInitialize.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeDetermineCCompiler.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeDetermineCompiler.cmake
@@ -47,7 +47,7 @@ C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CompilerId/VS-10.vcxproj.in
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeFindBinUtils.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeClDeps.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeCCompiler.cmake.in
-C:/projects/rb-chrome/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeCCompiler.cmake
+C:/projects/lamina/dev/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeCCompiler.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeSystemSpecificInformation.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeGenericSystem.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/Platform/Windows.cmake
@@ -57,7 +57,7 @@ C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/Platform/Windows-MSVC-C.cma
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/Platform/Windows-MSVC.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeDetermineRCCompiler.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeRCCompiler.cmake.in
-C:/projects/rb-chrome/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeRCCompiler.cmake
+C:/projects/lamina/dev/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeRCCompiler.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeRCInformation.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeTestRCCompiler.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeCommonLanguageInclude.cmake
@@ -68,7 +68,7 @@ C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeParseImplicitLinkInfo.
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeCCompilerABI.c
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeDetermineCompileFeatures.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CMakeCCompiler.cmake.in
-C:/projects/rb-chrome/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeCCompiler.cmake
+C:/projects/lamina/dev/nanomsg-0.5-beta/win/CMakeFiles/3.1.3/CMakeCCompiler.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CPack.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Modules/CPackComponent.cmake
 C:/Program Files (x86)/CMake/share/cmake-3.1/Templates/CPackConfig.cmake.in

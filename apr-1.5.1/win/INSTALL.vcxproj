@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{2460BE88-6630-4A62-8146-442561D86E78}</ProjectGUID>
+    <ProjectGUID>{FCF2DA48-1BF6-41EE-B8CE-0FA66DBD6CD5}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>INSTALL</ProjectName>
@@ -65,7 +65,7 @@
     </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\projects\rb-chrome\apr-1.5.1\win;C:\projects\rb-chrome\apr-1.5.1\include;C:\projects\rb-chrome\apr-1.5.1\include\arch\win32;C:\projects\rb-chrome\apr-1.5.1\include\arch\unix;C:\projects\rb-chrome\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\lamina\dev\apr-1.5.1\win;C:\projects\lamina\dev\apr-1.5.1\include;C:\projects\lamina\dev\apr-1.5.1\include\arch\win32;C:\projects\lamina\dev\apr-1.5.1\include\arch\unix;C:\projects\lamina\dev\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -87,7 +87,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\projects\rb-chrome\apr-1.5.1\win;C:\projects\rb-chrome\apr-1.5.1\include;C:\projects\rb-chrome\apr-1.5.1\include\arch\win32;C:\projects\rb-chrome\apr-1.5.1\include\arch\unix;C:\projects\rb-chrome\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\lamina\dev\apr-1.5.1\win;C:\projects\lamina\dev\apr-1.5.1\include;C:\projects\lamina\dev\apr-1.5.1\include\arch\win32;C:\projects\lamina\dev\apr-1.5.1\include\arch\unix;C:\projects\lamina\dev\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -109,7 +109,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\projects\rb-chrome\apr-1.5.1\win;C:\projects\rb-chrome\apr-1.5.1\include;C:\projects\rb-chrome\apr-1.5.1\include\arch\win32;C:\projects\rb-chrome\apr-1.5.1\include\arch\unix;C:\projects\rb-chrome\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\lamina\dev\apr-1.5.1\win;C:\projects\lamina\dev\apr-1.5.1\include;C:\projects\lamina\dev\apr-1.5.1\include\arch\win32;C:\projects\lamina\dev\apr-1.5.1\include\arch\unix;C:\projects\lamina\dev\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -131,7 +131,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>C:\projects\rb-chrome\apr-1.5.1\win;C:\projects\rb-chrome\apr-1.5.1\include;C:\projects\rb-chrome\apr-1.5.1\include\arch\win32;C:\projects\rb-chrome\apr-1.5.1\include\arch\unix;C:\projects\rb-chrome\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\projects\lamina\dev\apr-1.5.1\win;C:\projects\lamina\dev\apr-1.5.1\include;C:\projects\lamina\dev\apr-1.5.1\include\arch\win32;C:\projects\lamina\dev\apr-1.5.1\include\arch\unix;C:\projects\lamina\dev\apr-1.5.1\include\private;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -152,7 +152,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\db3452cc6222e2e8faf83f00a389505c\INSTALL_force.rule">
+    <CustomBuild Include="C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\55d88501125ff157adc0c38185770364\INSTALL_force.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
 cd .
@@ -163,8 +163,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/db3452cc6222e2e8faf83f00a389505c/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/projects/lamina/dev/apr-1.5.1/win/CMakeFiles/55d88501125ff157adc0c38185770364/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
@@ -176,8 +176,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/db3452cc6222e2e8faf83f00a389505c/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/projects/lamina/dev/apr-1.5.1/win/CMakeFiles/55d88501125ff157adc0c38185770364/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
@@ -189,8 +189,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/db3452cc6222e2e8faf83f00a389505c/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/projects/lamina/dev/apr-1.5.1/win/CMakeFiles/55d88501125ff157adc0c38185770364/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
@@ -202,14 +202,14 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/projects/rb-chrome/apr-1.5.1/win/CMakeFiles/db3452cc6222e2e8faf83f00a389505c/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/projects/lamina/dev/apr-1.5.1/win/CMakeFiles/55d88501125ff157adc0c38185770364/INSTALL_force.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\INSTALL_force</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:/projects/rb-chrome/apr-1.5.1/win/ALL_BUILD.vcxproj">
-      <Project>2EC76DC9-F8BF-4A95-B27C-0F4168A921A1</Project>
+    <ProjectReference Include="C:/projects/lamina/dev/apr-1.5.1/win/ALL_BUILD.vcxproj">
+      <Project>3DBBC2AB-18A9-43D5-BBB6-45385B8C57D6</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

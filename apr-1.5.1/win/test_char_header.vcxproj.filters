@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="Windows-1252"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\projects\rb-chrome\apr-1.5.1\CMakeLists.txt" />
-    <CustomBuild Include="C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\93d9b9c0664f607d784d0bb3b1de0958\apr_escape_test_char.h.rule">
+    <CustomBuild Include="C:\projects\lamina\dev\apr-1.5.1\CMakeLists.txt" />
+    <CustomBuild Include="C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\84d0256482b4aa2cdc5b0f8b3c6cb02e\apr_escape_test_char.h.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
-    <CustomBuild Include="C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\db3452cc6222e2e8faf83f00a389505c\test_char_header.rule">
+    <CustomBuild Include="C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\55d88501125ff157adc0c38185770364\test_char_header.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\projects\rb-chrome\apr-1.5.1\win\CMakeFiles\test_char_header" />
+    <None Include="C:\projects\lamina\dev\apr-1.5.1\win\CMakeFiles\test_char_header" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{E40A4A12-495B-4C22-B263-AB525AC1D464}</UniqueIdentifier>
+      <UniqueIdentifier>{D50E716C-14A7-41E8-9B24-F2168634FDE9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

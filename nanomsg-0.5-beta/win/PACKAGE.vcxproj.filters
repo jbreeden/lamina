@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="Windows-1252"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\projects\rb-chrome\nanomsg-0.5-beta\win\CMakeFiles\8e8905fd6bc797877a1b4c058ffd7eba\PACKAGE_force.rule">
+    <CustomBuild Include="C:\projects\lamina\dev\nanomsg-0.5-beta\win\CMakeFiles\67e1b112cc106d11a555c8575a1df745\PACKAGE_force.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{EA9CC841-2A67-4936-9D70-B48751DBE33F}</UniqueIdentifier>
+      <UniqueIdentifier>{768634EE-188E-4541-A8AA-C20B97BA4515}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

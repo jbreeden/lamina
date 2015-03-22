@@ -1,4 +1,4 @@
-# Install script for directory: C:/projects/rb-chrome/nanomsg-0.5-beta
+# Install script for directory: C:/projects/lamina/dev/nanomsg-0.5-beta
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -28,60 +28,60 @@ if(NOT CMAKE_INSTALL_COMPONENT)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/nn.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/nn.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/inproc.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/inproc.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/ipc.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/ipc.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/tcp.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/tcp.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/pair.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/pair.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/pubsub.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/pubsub.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/reqrep.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/reqrep.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/pipeline.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/pipeline.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/survey.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/survey.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/src/bus.h")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/nanomsg" TYPE FILE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/src/bus.h")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/win/Debug/nanocat.exe")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/win/Debug/nanocat.exe")
   elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/win/Release/nanocat.exe")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/win/Release/nanocat.exe")
   elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/win/MinSizeRel/nanocat.exe")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/win/MinSizeRel/nanocat.exe")
   elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/rb-chrome/nanomsg-0.5-beta/win/RelWithDebInfo/nanocat.exe")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/projects/lamina/dev/nanomsg-0.5-beta/win/RelWithDebInfo/nanocat.exe")
   endif()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/projects/rb-chrome/nanomsg-0.5-beta/win/src/cmake_install.cmake")
+  include("C:/projects/lamina/dev/nanomsg-0.5-beta/win/src/cmake_install.cmake")
 
 endif()
 
@@ -91,7 +91,7 @@ else()
   set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 endif()
 
-file(WRITE "C:/projects/rb-chrome/nanomsg-0.5-beta/win/${CMAKE_INSTALL_MANIFEST}" "")
+file(WRITE "C:/projects/lamina/dev/nanomsg-0.5-beta/win/${CMAKE_INSTALL_MANIFEST}" "")
 foreach(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  file(APPEND "C:/projects/rb-chrome/nanomsg-0.5-beta/win/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  file(APPEND "C:/projects/lamina/dev/nanomsg-0.5-beta/win/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 endforeach()

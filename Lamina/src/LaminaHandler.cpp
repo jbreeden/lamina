@@ -1,12 +1,5 @@
 #include "LaminaHandler.h"
-#include "include/cef_app.h"
 #include "include/wrapper/cef_helpers.h"
-#include "include/base/cef_bind.h"
-#include "include/wrapper/cef_closure_task.h"
-#include "include/wrapper/cef_helpers.h"
-#include "LaminaOptions.h"
-#include <regex>
-#include <fstream>
 
 using namespace std;
 
@@ -14,8 +7,7 @@ namespace {
    LaminaHandler* g_instance = NULL;
 }  // namespace
 
-LaminaHandler::LaminaHandler()
-   : is_closing_(false) {
+LaminaHandler::LaminaHandler() {
    DCHECK(!g_instance);
    g_instance = this;
 }
@@ -27,51 +19,6 @@ LaminaHandler::~LaminaHandler() {
 // static
 LaminaHandler* LaminaHandler::GetInstance() {
    return g_instance;
-}
-
-void LaminaHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
-   CEF_REQUIRE_UI_THREAD();
-
-   // Set the frame window title bar
-   CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-   SetWindowTextA(hwnd, LaminaOptions::window_title.c_str());
-
-   // Add to the list of existing browsers.
-   browser_list_.push_back(browser);
-}
-
-bool LaminaHandler::DoClose(CefRefPtr<CefBrowser> browser) {
-   CEF_REQUIRE_UI_THREAD();
-
-   // Closing the main window requires special handling. See the DoClose()
-   // documentation in the CEF header for a detailed destription of this
-   // process.
-   if (browser_list_.size() == 1) {
-      // Set a flag to indicate that the window close should be allowed.
-      is_closing_ = true;
-   }
-
-   // Allow the close. For windowed browsers this will result in the OS close
-   // event being sent.
-   return false;
-}
-
-void LaminaHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
-   CEF_REQUIRE_UI_THREAD();
-
-   // Remove from the list of existing browsers.
-   BrowserList::iterator bit = browser_list_.begin();
-   for (; bit != browser_list_.end(); ++bit) {
-      if ((*bit)->IsSame(browser)) {
-         browser_list_.erase(bit);
-         break;
-      }
-   }
-
-   if (browser_list_.empty()) {
-      // All browser windows have closed. Quit the application message loop.
-      CefQuitMessageLoop();
-   }
 }
 
 void LaminaHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
@@ -92,40 +39,4 @@ void LaminaHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
       " with error " << std::string(errorText) << " (" << errorCode <<
       ").</h2></body></html>";
    frame->LoadString(ss.str(), failedUrl);
-}
-
-void LaminaHandler::CloseAllBrowsers(bool force_close) {
-   if (!CefCurrentlyOn(TID_UI)) {
-      // Execute on the UI thread.
-      CefPostTask(TID_UI,
-         base::Bind(&LaminaHandler::CloseAllBrowsers, this, force_close));
-      return;
-   }
-
-   if (browser_list_.empty())
-      return;
-
-   BrowserList::const_iterator it = browser_list_.begin();
-   for (; it != browser_list_.end(); ++it)
-      (*it)->GetHost()->CloseBrowser(force_close);
-}
-
-void LaminaHandler::ExecuteJavaScript(char* script, char* window_pattern, bool firstMatch) {
-   auto browsers = this->browser_list_;
-   regex regexp(window_pattern);
-   for (auto browserPtr = browsers.begin(); browserPtr != browsers.end(); ++browserPtr) {
-      auto browser = *browserPtr;
-      vector<CefString> frameNames;
-      browser->GetFrameNames(frameNames);
-      for (auto frameNamePtr = frameNames.begin(); frameNamePtr != frameNames.end(); ++frameNamePtr){
-         auto name = *frameNamePtr;
-         if (regex_match(name.ToString(), regexp)) {
-            auto frame = browser->GetFrame(name);
-            frame->ExecuteJavaScript(script, frame->GetURL(), 0);
-            if (firstMatch) {
-               return;
-            }
-         }
-      }
-   }
 }

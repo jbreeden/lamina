@@ -58,7 +58,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
@@ -81,7 +81,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\nanomsg-0.5-beta\src;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win;$(SolutionDir)\..\Lamina\include;$(SolutionDir)\..\cef_binary_3.2171.1979_windows32;$(SolutionDir)\..\mruby-1.1.0\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <CallingConvention>Cdecl</CallingConvention>
@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Lamina\include\BrowserMessageClient.h" />
     <ClInclude Include="..\..\Lamina\include\BrowserMessageServer.h" />
+    <ClInclude Include="..\..\Lamina\include\LaminaLifeSpanHandler.h" />
     <ClInclude Include="..\..\Lamina\include\LaminaOptions.h" />
     <ClInclude Include="..\..\Lamina\include\lamina.h" />
     <ClInclude Include="..\..\Lamina\include\LaminaApp.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="..\..\Lamina\src\lamina.cpp" />
     <ClCompile Include="..\..\Lamina\src\LaminaApp.cpp" />
     <ClCompile Include="..\..\Lamina\src\LaminaHandler.cpp" />
+    <ClCompile Include="..\..\Lamina\src\LaminaLifeSpanHandler.cpp" />
     <ClCompile Include="..\..\Lamina\src\LaminaOptions.cpp" />
     <ClCompile Include="..\..\Lamina\src\LaminaRenderProcessHandler.cpp" />
     <ClCompile Include="..\..\Lamina\src\lamina_util.cpp" />

@@ -51,6 +51,9 @@
     <ClInclude Include="..\..\Lamina\include\BrowserMessageClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Lamina\include\LaminaLifeSpanHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LaminaMain.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Lamina\src\BrowserMessageClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lamina\src\LaminaLifeSpanHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

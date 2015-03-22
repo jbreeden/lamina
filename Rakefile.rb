@@ -100,6 +100,16 @@ namespace :scripts do
   end
 end
 
+namespace :binaries do
+  task :win do
+    unless Dir.exists? "../binaries-win"
+      puts "Expected binaries-win branch at #{File.expand_path(File.dirname(__FILE__) + "/../binares-win")}"
+    end
+    rm_rf "../binaries-win/runtime"
+    cp_r "./runtime", "../binaries-win/runtime"
+  end
+end
+
 task :clean do
   sh "git clean -fd"
 end

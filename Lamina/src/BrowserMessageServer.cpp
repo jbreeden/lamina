@@ -17,7 +17,7 @@ BrowserMessageServer::start() {
          void* buf = NULL;
          int nbytes = nn_recv(this->socket, &buf, NN_MSG, 0);
          if (nbytes > 0) {
-            LaminaHandler::GetInstance()->ExecuteJavaScript("window.open('/');", ".*", true);
+            LaminaLifeSpanHandler::GetInstance()->ExecuteJavaScript("window.open('/');", ".*", true);
          }
          nn_freemsg(buf);
       }

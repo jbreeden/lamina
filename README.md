@@ -74,7 +74,7 @@ by running `lamina` in the containing folder. (They will expect you to have ruby
 Ex:
 
 ```shell
-$ cd C:\PATH\TO\LAMINA\samples\mruby_extensions
+$ cd C:\PATH\TO\LAMINA\samples\javascript_interop
 $ lamina
 ```
 
@@ -82,9 +82,9 @@ The samples include
 
 - google: A minimalist lamina app run
 - todo: TODO-MVC running in a lamina app
-  + To run the todo sample, you'll have to run `bower update` in 
+  + To run the todo sample, you'll have to run `bower update` in
     the `samples\todo\public` directory to pull down some dependencies
-- mruby_extensions: A comprehensive set of demos showing how to interact with JavaScript from Ruby
+- javascript_interop: A comprehensive set of demos showing how to interact with JavaScript from Ruby
   in a lamina application
 
 The `todo` sample looks like this...

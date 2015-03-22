@@ -103,13 +103,15 @@ namespace :scripts do
 end
 
 namespace :binaries do
-  desc "mv runtime/* ../binaries-win/runtime/"
+  desc "Move runtime & samples to ../binaries-win/"
   task :win do
     unless Dir.exists? "../binaries-win"
       puts "Expected binaries-win branch at #{File.expand_path(File.dirname(__FILE__) + "/../binares-win")}"
     end
     rm_rf "../binaries-win/runtime"
     cp_r "./runtime", "../binaries-win/runtime"
+    rm_rf "../binaries-win/samples"
+    cp_r "./samples", "../binaries-win/samples"
   end
 end
 

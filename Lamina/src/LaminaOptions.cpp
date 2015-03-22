@@ -22,7 +22,7 @@ string LaminaOptions::server_command = "";
 int    LaminaOptions::server_delay = 0;
 int    LaminaOptions::server_port = 0;
 string LaminaOptions::script_on_app_started = "on_app_started.rb";
-string LaminaOptions::script_on_v8_context_created = "on_v8_context_created.rb";;
+string LaminaOptions::script_on_v8_context_created = "on_v8_context_created.rb";
 bool   LaminaOptions::use_page_titles = true;
 string LaminaOptions::window_title = "Lamina";
 

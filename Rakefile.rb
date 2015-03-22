@@ -77,12 +77,14 @@ namespace :runtime do
 end
 
 namespace :mruby do
+  desc "Build the mruby bundled with lamina"
   task :build do
     Dir.chdir "mruby-1.1.0" do
       sh "ruby minirake"
     end
   end
 
+  desc "Clean the mruby bundled with lamina"
   task :clean do
     Dir.chdir "mruby-1.1.0" do
       sh "ruby minirake clean"
@@ -101,6 +103,7 @@ namespace :scripts do
 end
 
 namespace :binaries do
+  desc "mv runtime/* ../binaries-win/runtime/"
   task :win do
     unless Dir.exists? "../binaries-win"
       puts "Expected binaries-win branch at #{File.expand_path(File.dirname(__FILE__) + "/../binares-win")}"

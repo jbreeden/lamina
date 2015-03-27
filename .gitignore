@@ -1,9 +1,5 @@
-runtime
-.lamina
 **/Debug/
 **/out/
-**/cache/
-**/bower_components/
 *.obj
 *.pdb
 *.log
@@ -13,12 +9,4 @@ runtime
 *.idb
 *.suo
 *.*log
-*.lib
-**/cache/f_*
-**/cache/data_*
-**/cache/Cookies*
-**/cache/Dictionaries
-**/cache/GPUCache
-**/cache/index
-**/cache/IndexedDB
 **/*.opensdf

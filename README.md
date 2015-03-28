@@ -122,4 +122,4 @@ end
 Platform Support
 ----------------
 
-Windows only at the moment. Also expects `ruby` to be on your path.
+Windows only at the moment.

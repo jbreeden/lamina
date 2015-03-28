@@ -1,0 +1,38 @@
+<html>
+<head>
+  <style>
+    select {
+      scroll: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>JavaScript Extensions</h1>
+  <p>
+    CWD: <span id="cwd"></span>
+  </p>
+  <select id="prev" size="10"></select>
+  <select id="current" size="10"></select>
+  <select id="next" size="10"></select>
+  <script>
+    (function () {
+      var cwd = dir.pwd();
+      window.cwd.textContent = cwd;
+
+      dir.entries(cwd).forEach(function(entry){
+        var opt = document.createElement('option');
+        opt.setAttribute('value', entry);
+        opt.textContent = entry;
+        window.current.appendChild(opt);
+      });
+
+      dir.entries(cwd + "/../").forEach(function(entry){
+        var opt = document.createElement('option');
+        opt.setAttribute('value', entry);
+        opt.textContent = entry;
+        window.prev.appendChild(opt);
+      });
+    }());
+  </script>
+</body>
+</html>

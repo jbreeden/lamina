@@ -13,68 +13,35 @@ Lamina is similar in spirit to node-webkit, or atom-shell. It provides a Chromiu
 application's UI. This lets you develop your UI like a web app, while giving you access to the underlying
 system like a native app.
 
-Under the hood, lamina is CEF3 with mruby embedded. It provides some convenience such as launching a web server
-(of your choosing) that dies with the browser. This lets you use full-blown CRuby, nodejs, or any other server
-side technology along with your application, while maintaining a desktop app feel. If your needs are less complex,
-you can build the entire application in JavaScript and/or mruby (and html, css, etc.).
+Under the hood, lamina is really just a Chromium Embedded Framework based app with mruby built-in. The standard mruby distribution doesn't include much of a standard library (compared to CRuby), but lamina defines the following gems:
 
-App Structure
--------------
+- [mruby-cef](https://github.com/jbreeden/mruby-cef), which provides mruby bindings to the Chromium Embedded Framework and the lamina executable
+- [mruby-apr](https://github.com/jbreeden/mruby-apr), which provides a portable runtime library for mruby based on the Apache Portable Runtime
+- [mruby-nanomsg](https://github.com/jbreeden/mruby-nanomsg), which is in its infancy. At the moment it just links nanomsg with mruby (which is used by mruby-cef)
 
-Your app might look something like this:
+Some third-part gems are also included:
 
-```
-myApp/
-  - on_app_started.rb
-  - server.rb
-  - cache/
-  - public/
-    - css/
-    - js/
-    index.html
-```
-
-And your files might contain something like this:
-
-`on_app_started.rb`
-
-```Ruby
-# Using `rubyw` to avoid spawning a console window
-Lamina.load_server "rubyw", "./server.rb"
-# The title to display on the window
-Lamina.set_window_title "TODO MVC - As performed by Sinatra"
-# Setting the cache path allows local storage usage and persistence
-Lamina.set_cache_path "cache"
-```
-
-`server.rb`
-
-```Ruby
-require 'sinatra'
-
-enable :run
-
-get '/' do
-  send_file "#{settings.public_folder}/index.html"
-end
-```
+- [mruby-regexp-pcre](http://github.com/iij/mruby-regexp-pcre, bringing /regex/ to mruby
+- [mruby-dir](http://github.com/iij/mruby-dir) providing a subset of the CRuby `Dir` methods
+- [mruby-io](http://github.com/iij/mruby-io) providing IO and File methods
+- [mruby-errno](http://github.com/iij/mruby-errno) which allows dealing with c errno based errors in Ruby
 
 Installation
 ------------
 
 - Download or clone the `binaries-win` branch of this repo
-- Put the runtime/ directory on your path (feel free to rename it to "lamina" or whatever suits you)
+- Put the runtime/ directory on your path
 
 Running a Sample
 ----------------
 
 After installing lamina, you can run any of the included samples (in the `samples/` directory of the `binaries-win` branch)
-by running `lamina` in the containing folder. (They will expect you to have ruby installed already).
+by running `lamina` in the containing folder. (Some samples will expect you to have Ruby installed).
 
 Ex:
 
 ```shell
-$ cd C:\PATH\TO\LAMINA\samples\javascript_interop
+$ cd C:/PATH/TO/LAMINA/samples/javascript_interop
 $ lamina
 ```
 
@@ -90,6 +57,67 @@ The samples include
 The `todo` sample looks like this...
 
 ![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
+
+App Structure
+-------------
+
+Your app will look something like this:
+
+```
+myApp/
+  - lamina_options.rb
+  - server.rb
+  - cache/
+  - public/
+    - css/
+    - js/
+    index.html
+```
+
+Note that only the `lamina_options.rb` is required.
+
+Your files might contain something like this:
+
+`lamina_options.rb`
+
+```Ruby
+# If you like, you can spawn a web server to serve your app
+# This lets you integrate full CRuby, nodejs,
+# or any other server-side techonology into your app
+server_port = APR::TCP.get_open_port
+spawn "rubyw.exe", "./server.rb", "-p", server_port
+
+# Tell lamina to load the app we just spawned
+Lamina.load_url "http://localhost:#{server_port}"
+
+# The title to display on the window
+Lamina.set_window_title "TODO MVC - As performed by Sinatra"
+
+# Setting the cache path allows local storage usage and persistence
+Lamina.set_cache_path "cache"
+```
+
+`server.rb`
+
+```Ruby
+require 'sinatra'
+
+# lamina creates the `.lamina` file on launch, and maintains
+# a shared lock until it closes (or is terminated)
+# So, as soon as we're able to get an exclusive lock on this file,
+# the app is closed and the server should exit too.
+Thread.new do
+  File.open(".lamina", "r") do |lock_file|
+    lock_file.flock(File::LOCK_EX)
+    exit
+  end
+end
+
+# Serve the index.html file when '/' is hit
+get '/' do
+  send_file "#{settings.public_folder}/index.html"
+end
+```
 
 Platform Support
 ----------------

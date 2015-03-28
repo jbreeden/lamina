@@ -3,4 +3,10 @@
   <PropertyGroup>
     <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommand>C:\projects\lamina\dev\mruby-1.1.0\bin\lamina.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>C:\projects\lamina\dev\samples\todo</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerAttach>false</LocalDebuggerAttach>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

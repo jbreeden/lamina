@@ -21,7 +21,7 @@ Under the hood, lamina is really just a Chromium Embedded Framework based app wi
 
 Some third-part gems are also included:
 
-- [mruby-regexp-pcre](http://github.com/iij/mruby-regexp-pcre, bringing /regex/ to mruby
+- [mruby-regexp-pcre](http://github.com/iij/mruby-regexp-pcre), bringing /regex/ to mruby
 - [mruby-dir](http://github.com/iij/mruby-dir) providing a subset of the CRuby `Dir` methods
 - [mruby-io](http://github.com/iij/mruby-io) providing IO and File methods
 - [mruby-errno](http://github.com/iij/mruby-errno) which allows dealing with c errno based errors in Ruby

@@ -1,4 +1,4 @@
-server_port = APR::TCP.get_open_tcp_port
+server_port = APR::TCP.get_open_port
 spawn "rubyw.exe", "./server.rb", "-p", server_port.to_s
 
 Lamina.load_url "http://localhost:#{server_port}"

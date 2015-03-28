@@ -1,7 +1,7 @@
 {
-  'app_url' => 'http://localhost:3758',
-  'browser_ipc_path' => 'ipc://nxsushtqlsmwkevzrwil/browser.ipc',
+  'app_url' => 'http://localhost:3156',
+  'browser_ipc_path' => 'ipc://jxamxhhrdpmareuwykzk/browser.ipc',
   'cache_path' => 'cache',
   'remote_debugging_port' => 8888,
-  'server_port' => 3757,
+  'server_port' => 3155,
 }

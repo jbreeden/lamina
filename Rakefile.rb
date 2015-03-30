@@ -111,6 +111,22 @@ namespace :git do
         sh "git commit -m \"#{msg}\" || echo NOTHING COMMITTED"
     end
   end
+
+  desc "Run `git push` in every repo"
+  task :commit do
+    in_each_repo do
+        puts
+        puts '---'
+        puts "Git push: #{File.expand_path Dir.pwd}"
+        puts '---'
+        sh "git status"
+        print 'remote: '
+        remote = $stdin.gets.strip
+        print 'branch: '
+        branch = $stdin.gets.strip
+        sh "git push #{remote} #{branch} || echo NOTHING PUSHED"
+    end
+  end
 end
 
 desc "Update docs for all component repos"

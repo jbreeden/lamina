@@ -1,3 +1,14 @@
+def in_each_repo(&block)
+  %w(
+    .
+    ./mrbgems/mruby-apr
+    ./mrbgems/mruby-cef
+    ./mrbgems/mruby-nanomsg
+  ).each do |component_dir|
+      Dir.chdir(component_dir, &block)
+    end
+end
+
 namespace :mruby do
   desc "Build the mruby bundled with lamina"
   task :build do
@@ -43,18 +54,49 @@ namespace :binaries do
 end
 
 namespace :git do
+  desc "Check status of all component repos"
   task :status do
-    ['.',
-      './mrbgems/mruby-apr',
-      './mrbgems/mruby-cef',
-      './mrbgems/mruby-nanomsg'].each do |repo_dir|
-        Dir.chdir(repo_dir) do
-          puts
-          puts '---'
-          puts "Git status: #{File.expand_path Dir.pwd}"
-          puts '---'
-          sh "git status"
-        end
-      end
+    in_each_repo do
+        puts
+        puts '---'
+        puts "Git status: #{File.expand_path Dir.pwd}"
+        puts '---'
+        sh "git status"
+    end
   end
+
+  desc "Run `git diff` in every repo"
+  task :diff do
+    in_each_repo do
+        puts
+        puts '---'
+        puts "Git diff: #{File.expand_path Dir.pwd}"
+        puts '---'
+        sh "git diff"
+    end
+  end
+
+  desc "Run `git add -u` in every repo"
+  task :update do
+    in_each_repo do
+        puts
+        puts '---'
+        puts "Git update: #{File.expand_path Dir.pwd}"
+        puts '---'
+        sh "git add -u"
+    end
+  end
+end
+
+desc "Update docs for all component repos"
+task :docs do
+    repo_dir = File.expand_path(Dir.pwd)
+    in_each_repo do
+      next unless File.exists? 'MDDOC.rb'
+      puts
+      puts '---'
+      puts "md-doc: #{File.expand_path Dir.pwd}"
+      puts '---'
+      sh "ruby #{repo_dir}/md-doc.rb"
+    end
 end

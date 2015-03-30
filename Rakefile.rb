@@ -100,13 +100,14 @@ namespace :git do
 
   desc "Run `git add -u` in every repo"
   task :commit do
-    print 'Commit message: '
-    msg = $stdin.gets.strip
     in_each_repo do
         puts
         puts '---'
         puts "Git commit: #{File.expand_path Dir.pwd}"
         puts '---'
+        next if `git status` =~ /nothing to commit/i
+        print 'Commit message: '
+        msg = $stdin.gets.strip
         sh "git commit -m \"#{msg}\" || echo NOTHING COMMITTED"
     end
   end

@@ -107,7 +107,7 @@ namespace :git do
         puts '---'
         puts "Git commit: #{File.expand_path Dir.pwd}"
         puts '---'
-        sh "git commit -m \"#{msg}\""
+        sh "git commit -m \"#{msg}\" || echo NOTHING COMMITTED"
     end
   end
 end

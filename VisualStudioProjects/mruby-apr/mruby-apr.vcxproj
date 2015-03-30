@@ -40,14 +40,14 @@
     <NMakeCleanCommandLine>rake mruby:clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>rake mruby:clean &amp; rake mruby:build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>$(SolutionDir)\..\mruby-1.1.0\include;$(SolutionDir)\..\mrbgems\mruby-apr\include;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(SolutionDir)\..\mruby-1.1.0\include;$(SolutionDir)\..\mrbgems\mruby-apr\include;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win</NMakeIncludeSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>rake mruby:build</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>rake mruby:clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>rake mruby:clean &amp; rake mruby:build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>$(SolutionDir)\..\mruby-1.1.0\include;$(SolutionDir)\..\mrbgems\mruby-apr\include;$(SolutionDir)\..\apr-1.5.1\include;$(SolutionDir)\..\apr-1.5.1\win</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(SolutionDir)\..\mruby-1.1.0\include;$(SolutionDir)\..\mrbgems\mruby-apr\include;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win</NMakeIncludeSearchPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>

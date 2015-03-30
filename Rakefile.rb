@@ -113,7 +113,7 @@ namespace :git do
   end
 
   desc "Run `git push` in every repo"
-  task :commit do
+  task :push do
     in_each_repo do
         puts
         puts '---'

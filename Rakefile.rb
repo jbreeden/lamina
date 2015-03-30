@@ -41,3 +41,20 @@ namespace :binaries do
     cp_r "./samples", "../binaries-win/samples"
   end
 end
+
+namespace :git do
+  task :status do
+    ['.',
+      './mrbgems/mruby-apr',
+      './mrbgems/mruby-cef',
+      './mrbgems/mruby-nanomsg'].each do |repo_dir|
+        Dir.chdir(repo_dir) do
+          puts
+          puts '---'
+          puts "Git status: #{File.expand_path Dir.pwd}"
+          puts '---'
+          sh "git status"
+        end
+      end
+  end
+end

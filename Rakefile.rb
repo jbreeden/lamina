@@ -76,6 +76,17 @@ namespace :git do
     end
   end
 
+  desc "Run `git diff` in every repo"
+  task :diff_cached do
+    in_each_repo do
+        puts
+        puts '---'
+        puts "Git diff: #{File.expand_path Dir.pwd}"
+        puts '---'
+        sh "git diff --cached"
+    end
+  end
+
   desc "Run `git add -u` in every repo"
   task :update do
     in_each_repo do
@@ -84,6 +95,19 @@ namespace :git do
         puts "Git update: #{File.expand_path Dir.pwd}"
         puts '---'
         sh "git add -u"
+    end
+  end
+
+  desc "Run `git add -u` in every repo"
+  task :commit do
+    print 'Commit message: '
+    msg = $stdin.gets.strip
+    in_each_repo do
+        puts
+        puts '---'
+        puts "Git commit: #{File.expand_path Dir.pwd}"
+        puts '---'
+        sh "git commit -m \"#{msg}\""
     end
   end
 end

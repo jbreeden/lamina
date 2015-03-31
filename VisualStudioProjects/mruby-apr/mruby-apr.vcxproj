@@ -56,6 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_env.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_file.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_process.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_system.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_tcp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\mrbgems\mruby-apr\include\mruby_apr.h" />

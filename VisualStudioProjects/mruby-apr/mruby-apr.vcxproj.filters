@@ -21,6 +21,21 @@
     <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_tcp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_env.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\mrbgems\mruby-apr\src\mruby_apr_process.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\mrbgems\mruby-apr\include\mruby_apr.h">

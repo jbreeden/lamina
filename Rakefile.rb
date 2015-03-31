@@ -39,7 +39,7 @@ end
 
 namespace :binaries do
   desc "Move runtime & samples to ../binaries-win/"
-  task :win => 'mruby:build' do
+  task :win do
     unless Dir.exists? "../binaries-win"
       puts "Expected binaries-win branch at #{File.expand_path(File.dirname(__FILE__) + "/../binares-win")}"
     end

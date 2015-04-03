@@ -168,6 +168,7 @@ lamina_start_browser_message_server(mrb_state* mrb, mrb_value self) {
    return self;
 }
 
+// md-doc is already written in mrblib/lamina.rb (just to keep it all in one file)
 mrb_value
 lamina_open_new_window(mrb_state* mrb, mrb_value self) {
    LAMINA_LOG("Starting browser message client");

@@ -4,6 +4,7 @@ def in_each_repo(&block)
     ./mrbgems/mruby-apr
     ./mrbgems/mruby-cef
     ./mrbgems/mruby-nanomsg
+    ./mrbgems/mruby-lamina
   ).each do |component_dir|
       Dir.chdir(component_dir, &block)
     end

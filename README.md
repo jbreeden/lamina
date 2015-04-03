@@ -17,11 +17,13 @@ system like a native app.
 
 Under the hood, lamina is really just a Chromium Embedded Framework based app with mruby built-in. The standard mruby distribution doesn't include much of a standard library (compared to CRuby), but lamina defines the following gems:
 
-- [mruby-cef](https://github.com/jbreeden/mruby-cef), which provides mruby bindings to the Chromium Embedded Framework and the lamina executable
-- [mruby-apr](https://github.com/jbreeden/mruby-apr), which provides a portable runtime library for mruby based on the Apache Portable Runtime
-- [mruby-nanomsg](https://github.com/jbreeden/mruby-nanomsg), which is in its infancy. At the moment it just links nanomsg with mruby (which is used by mruby-cef)
+- [mruby-lamina](https://github.com/jbreeden/mruby-lamina), which provides the `lamina` (and `laminaw` on Windows) executables.
+- [mruby-cef](https://github.com/jbreeden/mruby-cef), which provides mruby bindings to the Chromium Embedded Framework
+  + This allows you to write JavsScript extensions in Ruby (gasp!!!), call Ruby from JavaScript, and call JavaScript from Ruby.
+- [mruby-apr](https://github.com/jbreeden/mruby-apr), which provides a portable runtime library for mruby based on the Apache Portable Runtime project.
+- [mruby-nanomsg](https://github.com/jbreeden/mruby-nanomsg), which is in its infancy. At the moment it just links nanomsg with mruby (which is used by mruby-lamina)
 
-Some third-part gems are also included:
+Some third-part gems are also included to fill out the runtime library:
 
 - [mruby-regexp-pcre](http://github.com/iij/mruby-regexp-pcre), bringing /regex/ to mruby
 - [mruby-dir](http://github.com/iij/mruby-dir) providing a subset of the CRuby `Dir` methods
@@ -60,14 +62,20 @@ The `todo` sample looks like this...
 
 ![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
 
-App Structure
--------------
+Example Application
+-------------------
 
-Your app will look something like this:
+Look in the `samples/` folder for examples of different types of applications that can be made with lamina.
+
+This example demonstrates creating a lamina application that serves the UI from a sinatra app. Note that a server is not required
+to create a lamina application, but this option allows you to utilize Ruby (as in MRI, JRuby, Rubinius...), Nodejs, or any server technology
+you like to add functionality to your application.
+
+The file structure for this app looks like this:
 
 ```
 myApp/
-  - lamina_options.rb
+  - lamina_main.rb
   - server.rb
   - cache/
   - public/
@@ -76,32 +84,49 @@ myApp/
     index.html
 ```
 
-Note that only the `lamina_options.rb` is required.
+Note that only the `lamina_main.rb` file is required for every lamina application.
 
-Your files might contain something like this:
-
-`lamina_options.rb`
+In `lamina_main.rb`, you specify the options for launching your application. See the
+[Lamina module documentation](https://github.com/jbreeden/mruby-lamina/blob/master/doc/mrblib/lamina.md) for complete API details.
 
 ```Ruby
-# If you like, you can spawn a web server to serve your app
-# This lets you integrate full CRuby, nodejs,
-# or any other server-side techonology into your app
-server_port = APR::TCP.get_open_port
-spawn "rubyw.exe", "./server.rb", "-p", server_port
+# File: lamina_main.rb
 
-# Tell lamina to load the app we just spawned
-Lamina.load_url "http://localhost:#{server_port}"
+# Specify the launch behavior (when no app instances are currently running)
+Lamina.on_launch do
+  # Configure the application
+  # - Only needs to be done in `on_launch`
+  # - When relaunching, the options set during the inital launch are loaded.
+  Lamina.window_title = "TODO MVC - As performed by Sinatra"
+  Lamina.use_page_titles = false
+  Lamina.remote_debugging_port = 8888
+  Lamina.server_port = APR::TCP.get_open_port
+  Lamina.cache_path = "cache"
+  Lamina.url = "http://localhost:#{Lamina.server_port}"
 
-# The title to display on the window
-Lamina.set_window_title "TODO MVC - As performed by Sinatra"
+  # Start a sinatra application
+  spawn "rubyw.exe", "./server.rb", "-p", Lamina.server_port.to_s
 
-# Setting the cache path allows local storage usage and persistence
-Lamina.set_cache_path "cache"
+  # If you're using Webrick, the server may need a sec to startup.
+  # Quick-and-dirty hack to avoid a load error is just to sleep.
+  sleep 2
+end
+
+# Specify the relaunch behavior (when another app instance is already running)
+Lamina.on_relaunch do
+  Lamina.open_new_window
+end
+
+# Always call run. Lamina will figure out what to do from here.
+Lamina.run
+
 ```
 
-`server.rb`
+The sinatra app serving the UI for this application is defined in `server.rb`.
 
 ```Ruby
+# File: server.rb
+
 require 'sinatra'
 
 # lamina creates the `.lamina` file on launch, and maintains
@@ -109,6 +134,9 @@ require 'sinatra'
 # So, as soon as we're able to get an exclusive lock on this file,
 # the app is closed and the server should exit too.
 Thread.new do
+  # Give lamina plenty of time to grab the lock,
+  # so the server doesn't exit immediately
+  sleep 5
   File.open(".lamina", "r") do |lock_file|
     lock_file.flock(File::LOCK_EX)
     exit
@@ -119,7 +147,11 @@ end
 get '/' do
   send_file "#{settings.public_folder}/index.html"
 end
+
 ```
+
+If you're familiar with web development, you can imagine what the contents for the `public/` folder and `index.html` look like.
+It's just a web app, but it runs like a native app on a single machine.
 
 Platform Support
 ----------------

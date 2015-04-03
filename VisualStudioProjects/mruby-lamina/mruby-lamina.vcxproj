@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B781F33F-6E01-4C0D-9259-B78D08306B3D}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeBuildCommandLine>rake mruby:build</NMakeBuildCommandLine>
+    <NMakeOutput>mruby-lamina.exe</NMakeOutput>
+    <NMakeCleanCommandLine>rake mruby:clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>rake mruby:clean &amp; rake mruby:build</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\include\cef;$(SolutionDir)\..\mrbgems\mruby-nanomsg\include\nanomsg;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win;$(SolutionDir)\..\mrbgems\mruby-lamina\include;$(SolutionDir)\..\mruby-1.1.0\include;</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeBuildCommandLine>rake mruby:build</NMakeBuildCommandLine>
+    <NMakeOutput>mruby-lamina.exe</NMakeOutput>
+    <NMakeCleanCommandLine>rake mruby:clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>rake mruby:clean &amp; rake mruby:build</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\include\cef;$(SolutionDir)\..\mrbgems\mruby-nanomsg\include\nanomsg;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win;$(SolutionDir)\..\mrbgems\mruby-lamina\include;$(SolutionDir)\..\mruby-1.1.0\include;</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\BrowserMessageClient.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\BrowserMessageServer.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\LaminaApp.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\LaminaHandler.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\LaminaLifeSpanHandler.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\LaminaLoadHandler.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\lamina_opt.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\LaminaRenderProcessHandler.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\lamina_util.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\mruby_lamina.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\RendererMessageClient.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\src\RendererMessageServer.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\tools\laminaw\laminaw.cpp" />
+    <ClCompile Include="..\..\mrbgems\mruby-lamina\tools\lamina\lamina.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\BrowserMessageClient.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\BrowserMessageServer.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\mruby_lamina.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\LaminaApp.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\LaminaHandler.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\LaminaLifeSpanHandler.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\LaminaLoadHandler.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\lamina_opt.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\LaminaRenderProcessHandler.h" />
+    <ClInclude Include="..\..\mrbgems\mruby-lamina\include\lamina_util.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

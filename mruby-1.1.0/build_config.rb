@@ -13,9 +13,11 @@ MRuby::Build.new('host') do |conf|
   conf.gem :github => 'iij/mruby-io'
   conf.gem :github => 'iij/mruby-errno'
 
+  conf.gem "../mrbgems/mruby-lamina"
   conf.gem "../mrbgems/mruby-cef"
   conf.gem "../mrbgems/mruby-apr"
   conf.gem "../mrbgems/mruby-nanomsg"
+  configure_mruby_lamina(conf)
   configure_mruby_cef(conf)
   configure_mruby_apr(conf)
   configure_mruby_nanomsg(conf)

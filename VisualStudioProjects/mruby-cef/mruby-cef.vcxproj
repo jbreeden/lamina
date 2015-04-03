@@ -57,23 +57,10 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\BrowserMessageClient.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\BrowserMessageServer.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\lamina.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaApp.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaHandler.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaLifeSpanHandler.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaLoadHandler.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaOptions.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaRenderProcessHandler.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\lamina_util.cpp" />
     <ClCompile Include="..\..\mrbgems\mruby-cef\src\mruby_cef.cpp" />
     <ClCompile Include="..\..\mrbgems\mruby-cef\src\mruby_cef_v8.cpp" />
     <ClCompile Include="..\..\mrbgems\mruby-cef\src\mruby_v8_handler.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\RendererMessageClient.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\RendererMessageServer.cpp" />
     <ClCompile Include="..\..\mrbgems\mruby-cef\src\ruby_fn_handler.cpp" />
-    <ClCompile Include="..\..\mrbgems\mruby-cef\tools\lamina\main.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\mrbgems\mruby-cef\mrbgem.rake" />
@@ -81,16 +68,6 @@
     <None Include="..\..\mruby-1.1.0\build_config.rb" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\BrowserMessageClient.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\BrowserMessageServer.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\lamina.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaApp.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaHandler.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaLifeSpanHandler.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaLoadHandler.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaOptions.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaRenderProcessHandler.h" />
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\lamina_util.h" />
     <ClInclude Include="..\..\mrbgems\mruby-cef\include\mruby_cef.h" />
     <ClInclude Include="..\..\mrbgems\mruby-cef\include\mruby_v8_handler.h" />
     <ClInclude Include="..\..\mrbgems\mruby-cef\include\ruby_fn_handler.h" />

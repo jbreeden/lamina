@@ -244,7 +244,7 @@ Cef::V8.eval "function throws() { " +
 Cef::V8.window[:rbCatch] =
 Cef::V8.create_function "rbCatch" do |args|
   Cef::V8.window[:throws].apply(Cef::V8.window, []) do |exc|
-    Cef::V8.create_string "Caugh exception from apply: #{exc}"
+    Cef::V8.create_string "Caught exception from apply: #{exc}"
   end
 end
 </ruby-script>

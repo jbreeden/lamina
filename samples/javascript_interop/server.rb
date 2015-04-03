@@ -1,21 +1,12 @@
 require 'sinatra'
 
 Thread.new do
-  if File.exists? ".lamina"
-    File.open(".lamina", "r") do |lock_file|
-      while !lock_file.flock(File::LOCK_EX | File::LOCK_NB)
-        sleep 1
-      end
-      lock_file.flock(File::LOCK_UN)
-      exit
-    end
-  else
-    puts "No browser running."
+  sleep 5 # Give lamina plenty of time to grab the lock
+  File.open(".lamina", "r") do |lock_file|
+    lock_file.flock(File::LOCK_EX)
+    exit
   end
 end
-
-enable :run
-disable :logging
 
 get '/' do
   send_file "#{settings.public_folder}/index.html"

@@ -1,5 +1,7 @@
 runtime
 .lamina
+.lamina_options
+lamina_log.txt
 **/Debug/
 **/out/
 **/cache/

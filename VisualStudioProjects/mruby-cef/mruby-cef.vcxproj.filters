@@ -27,45 +27,6 @@
     <ClCompile Include="..\..\mrbgems\mruby-cef\src\ruby_fn_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\lamina_util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaLifeSpanHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaLoadHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaOptions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\LaminaRenderProcessHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\RendererMessageClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\RendererMessageServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\BrowserMessageClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\BrowserMessageServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\src\lamina.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\mrbgems\mruby-cef\tools\lamina\main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\mrbgems\mruby-cef\src\mruby_cef_v8.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,24 +37,6 @@
     <None Include="..\..\mruby-1.1.0\build_config.rb" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaApp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaLifeSpanHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaLoadHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaOptions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\LaminaRenderProcessHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\mrbgems\mruby-cef\include\mruby_cef.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -101,18 +44,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\mrbgems\mruby-cef\include\ruby_fn_handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\BrowserMessageClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\BrowserMessageServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\lamina.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\mrbgems\mruby-cef\include\lamina_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -26,6 +26,7 @@ namespace :mruby do
       mv 'mrbc', 'mrbc.exe'
       mv 'mruby-strip', 'mruby-strip.exe'
       mv 'lamina', 'lamina.exe'
+      mv 'laminaw', 'laminaw.exe'
     end
   end
 

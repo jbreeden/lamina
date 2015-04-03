@@ -18,9 +18,8 @@ system like a native app.
 Installation
 ------------
 
-- Download or clone the `binaries-win` branch of this repo
-- Put the runtime/ directory on your path
-
+- [Download](https://github.com/jbreeden/lamina/archive/binaries-win.zip) and extract the binaries
+- Put the `runtime/` directory on your path
 
 Application Types
 -----------------
@@ -83,7 +82,7 @@ from the localhost, and the server process stops whenever all open windows are c
 Running the Samples
 -------------------
 
-After installing lamina, you can run any of the included samples (in the `samples/` directory where you downloaded the `binaries-win` branch)
+After installing lamina, you can run any of the included samples (in the `samples/` directory where you downloaded the binaries)
 by running `lamina` in the containing folder. (Some samples will expect you to have Ruby installed).
 
 Ex:

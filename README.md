@@ -15,21 +15,6 @@ Lamina is similar in spirit to node-webkit, or atom-shell. It provides a Chromiu
 application's UI. This lets you develop your UI like a web app, while giving you access to the underlying
 system like a native app.
 
-Under the hood, lamina is really just a Chromium Embedded Framework based app with mruby built-in. The standard mruby distribution doesn't include much of a standard library (compared to CRuby), but lamina defines the following gems:
-
-- [mruby-lamina](https://github.com/jbreeden/mruby-lamina), which provides the `lamina` (and `laminaw` on Windows) executables.
-- [mruby-cef](https://github.com/jbreeden/mruby-cef), which provides mruby bindings to the Chromium Embedded Framework
-  + This allows you to write JavsScript extensions in Ruby (gasp!!!), call Ruby from JavaScript, and call JavaScript from Ruby.
-- [mruby-apr](https://github.com/jbreeden/mruby-apr), which provides a portable runtime library for mruby based on the Apache Portable Runtime project.
-- [mruby-nanomsg](https://github.com/jbreeden/mruby-nanomsg), which is in its infancy. At the moment it just links nanomsg with mruby (which is used by mruby-lamina)
-
-Some third-part gems are also included to fill out the runtime library:
-
-- [mruby-regexp-pcre](http://github.com/iij/mruby-regexp-pcre), bringing /regex/ to mruby
-- [mruby-dir](http://github.com/iij/mruby-dir) providing a subset of the CRuby `Dir` methods
-- [mruby-io](http://github.com/iij/mruby-io) providing IO and File methods
-- [mruby-errno](http://github.com/iij/mruby-errno) which allows dealing with c errno based errors in Ruby
-
 Installation
 ------------
 
@@ -95,10 +80,10 @@ Checkout the [`todo/lamina_main.rb`](https://github.com/jbreeden/lamina/blob/mas
 The contents of the `public/` folder is just a copy of TODO-MVC. It's a web application just like any other, but it's served
 from the localhost, and the server process stops whenever all open windows are closed.
 
-Running a Lamina Application
-----------------------------
+Running the Samples
+-------------------
 
-After installing lamina, you can run any of the included samples (in the `samples/` directory of the `binaries-win` branch)
+After installing lamina, you can run any of the included samples (in the `samples/` directory where you downloaded the `binaries-win` branch)
 by running `lamina` in the containing folder. (Some samples will expect you to have Ruby installed).
 
 Ex:
@@ -120,6 +105,24 @@ The samples include
 The `todo` sample looks like this...
 
 ![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
+
+Under the Hood
+--------------
+
+`lamina` is really just a Chromium Embedded Framework based app with mruby built-in. The standard mruby distribution doesn't include much of a standard library (compared to CRuby), but lamina defines the following gems:
+
+- [mruby-lamina](https://github.com/jbreeden/mruby-lamina), which provides the `lamina` (and `laminaw` on Windows) executables.
+- [mruby-cef](https://github.com/jbreeden/mruby-cef), which provides mruby bindings to the Chromium Embedded Framework
+  + This allows you to write JavsScript extensions in Ruby (gasp!!!), call Ruby from JavaScript, and call JavaScript from Ruby.
+- [mruby-apr](https://github.com/jbreeden/mruby-apr), which provides a portable runtime library for mruby based on the Apache Portable Runtime project.
+- [mruby-nanomsg](https://github.com/jbreeden/mruby-nanomsg), which is in its infancy. At the moment it just links nanomsg with mruby (which is used by mruby-lamina)
+
+Some third-part gems are also included to fill out the runtime library:
+
+- [mruby-regexp-pcre](http://github.com/iij/mruby-regexp-pcre), bringing /regex/ to mruby
+- [mruby-dir](http://github.com/iij/mruby-dir) providing a subset of the CRuby `Dir` methods
+- [mruby-io](http://github.com/iij/mruby-io) providing IO and File methods
+- [mruby-errno](http://github.com/iij/mruby-errno) which allows dealing with c errno based errors in Ruby
 
 Platform Support
 ----------------

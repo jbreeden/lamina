@@ -1,0 +1,12 @@
+[submodule "mrbgems/mruby-lamina"]
+	path = mrbgems/mruby-lamina
+	url = https://github.com/jbreeden/mruby-lamina
+[submodule "mrbgems/mruby-cef"]
+	path = mrbgems/mruby-cef
+	url = https://github.com/jbreeden/mruby-cef
+[submodule "mrbgems/mruby-apr"]
+	path = mrbgems/mruby-apr
+	url = https://github.com/jbreeden/mruby-apr
+[submodule "mrbgems/mruby-nanomsg"]
+	path = mrbgems/mruby-nanomsg
+	url = https://github.com/jbreeden/mruby-nanomsg

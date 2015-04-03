@@ -11,7 +11,7 @@ echo Invalid Option
 goto :eof
 
 :cflags
-echo /c /nologo /W3 /we4013 /Zi /MD /O2 /D_CRT_SECURE_NO_WARNINGS /DEBUG /DMRB_STACK_EXTEND_DOUBLING /DMRB_ENABLE_CXX_EXCEPTION /DAPR_DECLARE_STATIC /DNN_NO_EXPORTS /I"C:\projects\lamina\dev\mruby-1.1.0\include" /I"C:\projects\lamina\dev\mrbgems\mruby-cef\include" /I"C:\projects\lamina\dev\mrbgems\mruby-cef\include\cef" /I"C:\projects\lamina\dev\mrbgems\mruby-apr\include\apr" /I"C:\projects\lamina\dev\mrbgems\mruby-apr\include\apr\win" /I"C:\projects\lamina\dev\mrbgems\mruby-nanomsg\include\nanomsg"
+echo /c /nologo /W3 /we4013 /Zi /MD /O2 /D_CRT_SECURE_NO_WARNINGS /DMRB_STACK_EXTEND_DOUBLING /DMRB_ENABLE_CXX_EXCEPTION /DAPR_DECLARE_STATIC /DNN_NO_EXPORTS /I"C:\projects\lamina\dev\mruby-1.1.0\include" /I"C:\projects\lamina\dev\mrbgems\mruby-lamina\include" /I"C:\projects\lamina\dev\mrbgems\mruby-cef\include" /I"C:\projects\lamina\dev\mrbgems\mruby-cef\include\cef" /I"C:\projects\lamina\dev\mrbgems\mruby-apr\include\apr" /I"C:\projects\lamina\dev\mrbgems\mruby-apr\include\apr\win" /I"C:\projects\lamina\dev\mrbgems\mruby-nanomsg\include\nanomsg"
 goto top
 
 :libs

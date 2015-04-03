@@ -36,8 +36,67 @@ Installation
 - Download or clone the `binaries-win` branch of this repo
 - Put the runtime/ directory on your path
 
-Running a Sample
-----------------
+
+Application Types
+-----------------
+
+Look in the `samples/` folder for examples of different types of applications that can be made with lamina.
+
+### Minimal
+
+A minimal lamina application is one that simply runs a browser with mruby embedded. You can load any URL you like, including `file://*` URLs.
+This allows you to write some simple html files to disk, sprinkle in some JavaScript and mruby, and run them with lamina.
+
+All you have to do is define a `lamina_main.rb` file like
+[`this one`](https://github.com/jbreeden/lamina/blob/master/samples/google/lamina_main.rb)
+and run `lamina` in the directory containing that file.
+
+`lamina_main.rb` is the entry point for your application, and is the only required file. Inside of this file you call methods on the `Lamina` module to configure and launch the application. Check out the
+[Lamina module documentation](https://github.com/jbreeden/mruby-lamina/blob/master/doc/mrblib/lamina.md)
+for complete API details.
+
+_DANGER: _
+
+_Keep in mind that lamina defines some JavaScript extensions, like the `ruby` function. This runs ruby code in the browser that can talk back to JavaScript.
+It call also talk to the local file system, spawn processes, etc. So it is not advised (and downright dangerous) to run code from arbitrary websites.
+You could, on the other hand, serve applications from your own central server behind a secure firewall - or preferably on the localhost. These extensions
+will be configurable, and disabled by default in the future._
+
+### Client-Server
+
+Lamina makes it easy to launch a web server on the localhost with your application, and have it automatically terminate when all windows are closed.
+This allows you to utilize Ruby (as in MRI, JRuby, Rubinius...), Nodejs, or any server technology you'd like to add
+functionality to your application.
+
+The process goes like this:
+- Create a `lamina_main.rb` file that spawns the server, and tells lamina to load its URL.
+- When the first instance of the app is launch, lamina automatically creates a `.lamina` file,
+  and grabs a shared lock on it.
+- In the server, you attempt to get an exclusive lock on `.lamina`. Once you're able to, you know
+  all browser windows have been close, and you can exit the server process.
+
+[The todo sample](https://github.com/jbreeden/lamina/tree/master/samples/todo) demonstrates this process with a sinatra application.
+
+The file structure for this app looks like this:
+
+```
+todo/
+  - lamina_main.rb
+  - server.rb
+  - public/
+    - css/
+    - js/
+    index.html
+```
+
+Checkout the [`todo/lamina_main.rb`](https://github.com/jbreeden/lamina/blob/master/samples/todo/lamina_main.rb) and
+[`todo/server.rb`](https://github.com/jbreeden/lamina/blob/master/samples/todo/server.rb) files to see how the locking works.
+
+The contents of the `public/` folder is just a copy of TODO-MVC. It's a web application just like any other, but it's served
+from the localhost, and the server process stops whenever all open windows are closed.
+
+Running a Lamina Application
+----------------------------
 
 After installing lamina, you can run any of the included samples (in the `samples/` directory of the `binaries-win` branch)
 by running `lamina` in the containing folder. (Some samples will expect you to have Ruby installed).
@@ -61,97 +120,6 @@ The samples include
 The `todo` sample looks like this...
 
 ![alt tag](https://raw.githubusercontent.com/jbreeden/rb-chrome/master/images/sample.png)
-
-Example Application
--------------------
-
-Look in the `samples/` folder for examples of different types of applications that can be made with lamina.
-
-This example demonstrates creating a lamina application that serves the UI from a sinatra app. Note that a server is not required
-to create a lamina application, but this option allows you to utilize Ruby (as in MRI, JRuby, Rubinius...), Nodejs, or any server technology
-you like to add functionality to your application.
-
-The file structure for this app looks like this:
-
-```
-myApp/
-  - lamina_main.rb
-  - server.rb
-  - cache/
-  - public/
-    - css/
-    - js/
-    index.html
-```
-
-Note that only the `lamina_main.rb` file is required for every lamina application.
-
-In `lamina_main.rb`, you specify the options for launching your application. See the
-[Lamina module documentation](https://github.com/jbreeden/mruby-lamina/blob/master/doc/mrblib/lamina.md) for complete API details.
-
-```Ruby
-# File: lamina_main.rb
-
-# Specify the launch behavior (when no app instances are currently running)
-Lamina.on_launch do
-  # Configure the application
-  # - Only needs to be done in `on_launch`
-  # - When relaunching, the options set during the inital launch are loaded.
-  Lamina.window_title = "TODO MVC - As performed by Sinatra"
-  Lamina.use_page_titles = false
-  Lamina.remote_debugging_port = 8888
-  Lamina.server_port = APR::TCP.get_open_port
-  Lamina.cache_path = "cache"
-  Lamina.url = "http://localhost:#{Lamina.server_port}"
-
-  # Start a sinatra application
-  spawn "rubyw.exe", "./server.rb", "-p", Lamina.server_port.to_s
-
-  # If you're using Webrick, the server may need a sec to startup.
-  # Quick-and-dirty hack to avoid a load error is just to sleep.
-  sleep 2
-end
-
-# Specify the relaunch behavior (when another app instance is already running)
-Lamina.on_relaunch do
-  Lamina.open_new_window
-end
-
-# Always call run. Lamina will figure out what to do from here.
-Lamina.run
-
-```
-
-The sinatra app serving the UI for this application is defined in `server.rb`.
-
-```Ruby
-# File: server.rb
-
-require 'sinatra'
-
-# lamina creates the `.lamina` file on launch, and maintains
-# a shared lock until it closes (or is terminated)
-# So, as soon as we're able to get an exclusive lock on this file,
-# the app is closed and the server should exit too.
-Thread.new do
-  # Give lamina plenty of time to grab the lock,
-  # so the server doesn't exit immediately
-  sleep 5
-  File.open(".lamina", "r") do |lock_file|
-    lock_file.flock(File::LOCK_EX)
-    exit
-  end
-end
-
-# Serve the index.html file when '/' is hit
-get '/' do
-  send_file "#{settings.public_folder}/index.html"
-end
-
-```
-
-If you're familiar with web development, you can imagine what the contents for the `public/` folder and `index.html` look like.
-It's just a web app, but it runs like a native app on a single machine.
 
 Platform Support
 ----------------

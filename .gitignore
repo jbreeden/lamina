@@ -1,1 +1,5 @@
 **/cache/
+.lamina
+.lamina_options
+lamina_log.txt
+debug.log

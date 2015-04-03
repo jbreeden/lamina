@@ -28,8 +28,6 @@ module Lamina
 
   def self.run
     ensure_lock_file_exists
-    # TODO: Place this call correctly
-    #set_localhost_storage_file_port
     launch_mode = determine_launch_mode
     case launch_mode
     when :launching
@@ -91,6 +89,7 @@ module Lamina
     puts "Launching options:"
     print_options($stdout, '  ')
 
+    set_localhost_storage_file_port
     puts "Starting browser message server"
     start_browser_message_server
     puts "Starting CEF"
@@ -129,17 +128,22 @@ module Lamina
 
   def self.validate_options
     unless @browser_ipc_path =~ %r[(ipc|tcp)://.*]
-      puts "Lamina.url must be a string matching %r[(ipc|tcp)://.*]"
+      puts "Erro: Lamina.url must be a string matching %r[(ipc|tcp)://.*]"
       exit 1
     end
 
     unless @cache_path.nil? || Dir.exists?(@cache_path)
-      puts "If Lamina.cache_path is specified, it must be an existing directory"
-      exit 1
+      begin
+        Dir.mkdir @cache_path
+      rescue Exception => ex
+        puts "Erro: Lamina.cache_path (#{@cache_path}), directory does not exist and could not be created."
+        puts ex
+        exit 1
+      end
     end
 
     unless @server_port.nil? || @server_port.kind_of?(Fixnum)
-      puts "If Lamina.cache_path is supplied, it must be an int"
+      puts "Erro: If Lamina.cache_path is supplied, it must be an int"
       exit 1
     end
 
@@ -147,17 +151,17 @@ module Lamina
     # skip loading it. If the client has specified a different value, we
     # should probably warn them if the file doesn't exist
     unless @script_v8_extensions == "./lamina_v8_extensions.rb" || File.exists?(@script_v8_extensions)
-      puts "Lamina.script_v8_extensions was specifed as #{@script_v8_extensions} but this file does not exist"
+      puts "Erro: Lamina.script_v8_extensions was specifed as #{@script_v8_extensions} but this file does not exist"
       exit 1
     end
 
     unless @remote_debugging_port.nil? || @remote_debugging_port.kind_of?(Fixnum)
-      puts "If Lamina.remoute_debugging_port is specified, it must be an int"
+      puts "Erro: If Lamina.remoute_debugging_port is specified, it must be an int"
       exit 1
     end
 
     unless @url =~ %r[(https?|file)://.*]
-      puts "Lamina.url must be a string matching %r[(https?|file)://.*]"
+      puts "Erro: Lamina.url must be a string matching %r[(https?|file)://.*]"
       exit 1
     end
 
@@ -165,7 +169,7 @@ module Lamina
     # or false it will evaluate as true... no biggy, so no validation
 
     unless @window_title.nil? || @window_title.kind_of?(String)
-      puts "If Lamina.window_title is specified, it must be a string"
+      puts "Erro: If Lamina.window_title is specified, it must be a string"
     end
   end
 
@@ -178,11 +182,14 @@ module Lamina
   def self.set_localhost_storage_file_port
     return if @cache_path.nil? || @server_port.nil?
 
+    puts "Updating localstorage files"
+
     if Dir.exists? "#{@cache_path}/Local Storage"
       Dir.chdir("#{@cache_path}/Local Storage") do
         Dir.entries('.').each do |f|
           if m = f.match(/^http_localhost_([0-9]*).localstorage/i)
-            File.rename f, f.sub(/localhost_([0-9]*)/, @cache_path)
+            puts "Renaming #{f} to #{f.sub(/localhost_([0-9]*)/, @server_port.to_s)}"
+            File.rename f, f.sub(/localhost_([0-9]*)/, "localhost_#{@server_port}")
           end
         end
       end

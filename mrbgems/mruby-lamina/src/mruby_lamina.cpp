@@ -130,8 +130,9 @@ lamina_start_cef_proc(mrb_state* mrb, mrb_value self) {
    //settings.log_severity = LOGSEVERITY_DISABLE;
 #endif
 
-   if (strlen(lamina_opt_cache_path().c_str()) > 0) {
-      CefString(&settings.cache_path).FromASCII(lamina_opt_cache_path().c_str());
+   auto cache_path = lamina_opt_cache_path();
+   if (cache_path.size() > 0) {
+      CefString(&settings.cache_path).FromASCII(cache_path.c_str());
    }
 
    int rdp = lamina_opt_remote_debugging_port();

@@ -10,9 +10,9 @@ MRuby::Build.new('host') do |conf|
 
   conf.gem :github => 'iij/mruby-regexp-pcre'
   conf.gem :github => 'iij/mruby-dir'
-  conf.gem :github => 'iij/mruby-io'
   conf.gem :github => 'iij/mruby-errno'
 
+  conf.gem "../mrbgems/mruby-io"
   conf.gem "../mrbgems/mruby-lamina"
   conf.gem "../mrbgems/mruby-cef"
   conf.gem "../mrbgems/mruby-apr"

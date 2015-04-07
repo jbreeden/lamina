@@ -21,13 +21,15 @@ namespace :mruby do
     # Something is going wrong in mruby build process...
     # Not getting the .exe extensions for executables.
     # I'll try to fix this later
-    Dir.chdir "mruby-1.1.0/bin" do
-      mv 'mirb', 'mirb.exe'
-      mv 'mruby', 'mruby.exe'
-      mv 'mrbc', 'mrbc.exe'
-      mv 'mruby-strip', 'mruby-strip.exe'
-      mv 'lamina', 'lamina.exe'
-      mv 'laminaw', 'laminaw.exe'
+    if ENV['OS'] =~ /windows/i
+      Dir.chdir "mruby-1.1.0/bin" do
+        mv 'mirb', 'mirb.exe'
+        mv 'mruby', 'mruby.exe'
+        mv 'mrbc', 'mrbc.exe'
+        mv 'mruby-strip', 'mruby-strip.exe'
+        mv 'lamina', 'lamina.exe'
+        mv 'laminaw', 'laminaw.exe'
+      end
     end
   end
 
@@ -43,15 +45,31 @@ namespace :binaries do
   desc "Move runtime & samples to ../binaries-win/"
   task :win do
     unless Dir.exists? "../binaries-win"
-      puts "Expected binaries-win branch at #{File.expand_path(File.dirname(__FILE__) + "/../binares-win")}"
+      puts "Expected binaries-win folder at #{File.expand_path(File.dirname(__FILE__) + "/../binares-win")}"
+      exit
     end
     rm_rf "../binaries-win/runtime"
-    cp_r "./cef_runtime", "../binaries-win/runtime"
+    cp_r "./cef_runtime/win", "../binaries-win/runtime"
     Dir["./mruby-1.1.0/bin/*"].each do |f|
       cp f, "../binaries-win/runtime"
     end
     rm_rf "../binaries-win/samples"
     cp_r "./samples", "../binaries-win/samples"
+  end
+  
+  desc "Move runtime & samples to ../binaries-lin64/"
+  task :lin64 do
+    unless Dir.exists? "../binaries-lin64"
+      puts "Expected binaries-lin64 folder at #{File.expand_path(File.dirname(__FILE__) + "/../binares-lin64")}"
+      exit
+    end
+    rm_rf "../binaries-lin64/runtime"
+    cp_r "./cef_runtime/lin64", "../binaries-lin64/runtime"
+    Dir["./mruby-1.1.0/bin/*"].each do |f|
+      cp f, "../binaries-lin64/runtime"
+    end
+    rm_rf "../binaries-lin64/samples"
+    cp_r "./samples", "../binaries-lin64/samples"
   end
 end
 

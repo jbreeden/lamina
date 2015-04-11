@@ -40,7 +40,7 @@
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeBuildCommandLine>rake mruby:build</NMakeBuildCommandLine>
     <NMakeCleanCommandLine>rake mruby:clean</NMakeCleanCommandLine>
-    <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include;$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\include\cef;$(SolutionDir)\..\mruby-1.1.0\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include;$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\include\cef_win;$(SolutionDir)\..\mruby-1.1.0\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeOutput>

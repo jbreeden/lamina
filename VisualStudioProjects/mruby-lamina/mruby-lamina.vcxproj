@@ -41,7 +41,7 @@
     <NMakeCleanCommandLine>rake mruby:clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>rake mruby:clean &amp; rake mruby:build</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\include\cef;$(SolutionDir)\..\mrbgems\mruby-nanomsg\include\nanomsg;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win;$(SolutionDir)\..\mrbgems\mruby-lamina\include;$(SolutionDir)\..\mruby-1.1.0\include;</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(SolutionDir)\..\mrbgems\mruby-cef\include;$(SolutionDir)\..\mrbgems\mruby-cef\include\cef_win;$(SolutionDir)\..\mrbgems\mruby-nanomsg\include\nanomsg;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr;$(SolutionDir)\..\mrbgems\mruby-apr\include\apr\win;$(SolutionDir)\..\mrbgems\mruby-lamina\include;$(SolutionDir)\..\mruby-1.1.0\include;</NMakeIncludeSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>rake mruby:build</NMakeBuildCommandLine>

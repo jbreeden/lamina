@@ -16,7 +16,7 @@ Lamina.on_launch do
   Lamina.url = "http://localhost:#{Lamina.server_port}"
 
   # Spawn our sinatra application
-  spawn "rubyw.exe", "./server.rb", "-p", Lamina.server_port.to_s
+  popen ["ruby", "./server.rb", "-p", Lamina.server_port.to_s]
 
   # If you're using Webrick, the server may need a sec to startup.
   # Quick-and-dirty hack to avoid a load error is just to sleep.

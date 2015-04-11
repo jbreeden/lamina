@@ -58,19 +58,38 @@ namespace :binaries do
   end
   
   desc "Move runtime & samples to ../binaries-lin64/"
-  task :lin64 do
+  task :lin64 => 'mruby:build' do
     unless Dir.exists? "../binaries-lin64"
       puts "Expected binaries-lin64 folder at #{File.expand_path(File.dirname(__FILE__) + "/../binares-lin64")}"
       exit
     end
-    rm_rf "../binaries-lin64/runtime"
-    cp_r "./cef_runtime/lin64", "../binaries-lin64/runtime"
+    Dir['../binaries-lin64/*'].each { |f| rm_rf f }
+    mkdir '../binaries-lin64/bin'
+    mkdir '../binaries-lin64/lib'
+    Dir["./cef_runtime/lin64/*"].each do |f|
+      if f =~ /.so$/
+        cp f, '../binaries-lin64/lib/'
+      else
+        cp_r f, '../binaries-lin64/bin/'
+      end
+    end
     Dir["./mruby-1.1.0/bin/*"].each do |f|
-      cp f, "../binaries-lin64/runtime"
+      cp f, "../binaries-lin64/bin"
     end
     rm_rf "../binaries-lin64/samples"
     cp_r "./samples", "../binaries-lin64/samples"
   end
+end
+
+namespace :install do
+  desc "Installs to /opt/lamina"
+  task :lin64 => 'binaries:lin64' do
+    mkdir '/opt/lamina' unless Dir.exists? '/opt/lamina'
+    Dir["../binaries-lin64/*"].each do |f|
+      cp_r f, "/opt/lamina"
+    end
+  end
+
 end
 
 namespace :git do

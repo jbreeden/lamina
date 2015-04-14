@@ -44,29 +44,37 @@ end
 
 namespace :binaries do
   desc "Move runtime & samples to ../binaries-win/"
-  task :win do
-    unless Dir.exists? "../binaries-win"
-      puts "Expected binaries-win folder at #{File.expand_path(File.dirname(__FILE__) + "/../binares-win")}"
-      exit
+  task :win => 'mruby:build' do
+    if Dir.exists? "../binaries-win"
+      Dir['../binaries-win/*'].each { |f| rm_rf f }
+    else
+      Dir.mkdir "../binaries-win"
     end
-    rm_rf "../binaries-win/runtime"
-    cp_r "./cef_runtime/win", "../binaries-win/runtime"
+
+    mkdir '../binaries-win/bin'
+
+    Dir["./cef_runtime/win/*"].each do |f|
+        cp_r f, '../binaries-win/bin'
+    end
+
     Dir["./mruby-1.1.0/bin/*"].each do |f|
-      cp f, "../binaries-win/runtime"
+      cp f, "../binaries-win/bin"
     end
     rm_rf "../binaries-win/samples"
     cp_r "./samples", "../binaries-win/samples"
   end
-  
+
   desc "Move runtime & samples to ../binaries-lin64/"
   task :lin64 => 'mruby:build' do
-    unless Dir.exists? "../binaries-lin64"
-      puts "Expected binaries-lin64 folder at #{File.expand_path(File.dirname(__FILE__) + "/../binares-lin64")}"
-      exit
+    if Dir.exists? "../binaries-lin64"
+      Dir['../binaries-lin64/*'].each { |f| rm_rf f }
+    else
+      Dir.mkdir "../binaries-lin64"
     end
-    Dir['../binaries-lin64/*'].each { |f| rm_rf f }
+
     mkdir '../binaries-lin64/bin'
     mkdir '../binaries-lin64/lib'
+
     Dir["./cef_runtime/lin64/*"].each do |f|
       if f =~ /.so$/
         cp f, '../binaries-lin64/lib/'
@@ -83,6 +91,14 @@ namespace :binaries do
 end
 
 namespace :install do
+  desc "Installs to C:\\opt\\lamina"
+  task :win => 'binaries:win' do
+    mkdir '/opt/lamina' unless Dir.exists? '/opt/lamina'
+    Dir["../binaries-win/*"].each do |f|
+      cp_r f, "/opt/lamina"
+    end
+  end
+
   desc "Installs to /opt/lamina"
   task :lin64 => 'binaries:lin64' do
     mkdir '/opt/lamina' unless Dir.exists? '/opt/lamina'
@@ -90,7 +106,6 @@ namespace :install do
       cp_r f, "/opt/lamina"
     end
   end
-
 end
 
 namespace :git do

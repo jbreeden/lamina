@@ -18,8 +18,11 @@ system like a native app.
 Installation
 ------------
 
-- [Download](https://github.com/jbreeden/lamina/archive/binaries-win.zip) and extract the binaries
-- Put the `runtime/` directory on your path
+On windows
+
+- Download the [windows binaries](https://github.com/jbreeden/lamina/archive/binaries-win.zip)
+- Extract to `C:\opt\lamina`
+- Put the `C:\opt\lamina\bin` directory on your path
 
 Application Types
 -----------------
@@ -126,4 +129,4 @@ Some third-part gems are also included to fill out the runtime library:
 Platform Support
 ----------------
 
-Windows only at the moment.
+Windows & 64-bit Linux.

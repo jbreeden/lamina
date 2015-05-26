@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LocalDebuggerCommand>C:\projects\lamina\binaries-win\runtime\lamina.exe</LocalDebuggerCommand>
-    <LocalDebuggerWorkingDirectory>C:\projects\lamina\dev\samples\javascript_interop\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerCommand>C:\opt\lamina\bin\lamina.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>C:\projects\lamina\dev\components\file-explorer</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerCommandArguments>
     </LocalDebuggerCommandArguments>

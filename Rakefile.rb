@@ -43,7 +43,7 @@ namespace :mruby do
 end
 
 namespace :binaries do
-  desc "Move runtime & samples to ../binaries-win/"
+  desc "Move binaries to ../binaries-win/"
   task :win => 'mruby:build' do
     if Dir.exists? "../binaries-win"
       Dir['../binaries-win/*'].each { |f| rm_rf f }
@@ -52,6 +52,7 @@ namespace :binaries do
     end
 
     mkdir '../binaries-win/bin'
+    mkdir '../binaries-win/js_extensions'
 
     Dir["./cef_runtime/win/*"].each do |f|
         cp_r f, '../binaries-win/bin'
@@ -60,11 +61,16 @@ namespace :binaries do
     Dir["./mruby-1.1.0/bin/*"].each do |f|
       cp f, "../binaries-win/bin"
     end
+
+    Dir["./js_extensions/*"].each do |f|
+      cp_r f, "../binaries-win/js_extensions"
+    end
+
     rm_rf "../binaries-win/samples"
     cp_r "./samples", "../binaries-win/samples"
   end
 
-  desc "Move runtime & samples to ../binaries-lin64/"
+  desc "Move binaries to ../binaries-lin64/"
   task :lin64 => 'mruby:build' do
     if Dir.exists? "../binaries-lin64"
       Dir['../binaries-lin64/*'].each { |f| rm_rf f }
@@ -74,6 +80,7 @@ namespace :binaries do
 
     mkdir '../binaries-lin64/bin'
     mkdir '../binaries-lin64/lib'
+    mkdir '../binaries-lin64/js_extensions'
 
     Dir["./cef_runtime/lin64/*"].each do |f|
       if f =~ /.so$/
@@ -82,9 +89,15 @@ namespace :binaries do
         cp_r f, '../binaries-lin64/bin/'
       end
     end
+
     Dir["./mruby-1.1.0/bin/*"].each do |f|
       cp f, "../binaries-lin64/bin"
     end
+
+    Dir["./js_extensions/*"].each do |f|
+      cp_r f, "../binaries-win/js_extensions"
+    end
+
     rm_rf "../binaries-lin64/samples"
     cp_r "./samples", "../binaries-lin64/samples"
   end

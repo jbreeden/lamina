@@ -1,0 +1,64 @@
+/*
+ * TODO: INCLUDES
+ */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+<% module_functions.each do |function| -%>
+/* <%= function['name'] %>
+ *
+ * Parameters:<%= " None" unless function['params'].any? %>
+<% if function['params'].any? -%>
+<%   function['params'].each do |param| -%>
+ * - <%= param['name'] %>: <%= param['type'] %>
+<%   end -%>
+<% end -%>
+ * Return Type: <%= function['return_type'] %>
+ */
+mrb_value
+mrb_<%= module_name %>_<%= function['name'] %>(mrb_state* mrb, mrb_value self) {
+<% if function['params'].any? -%>
+<%   function['params'].each do |param| -%>
+  mrb_value <%= param['name'] %>;
+<%   end -%>
+
+  mrb_get_args(mrb, "<%= 'o' * function['params'].length %>", <%= function['params'].map { |p| "&#{p['name']}" }.join(', ') %>);
+
+  /* TODO
+<%   function['params'].each do |param| -%>
+  <%= param['type'] %> native_<%= param['name'] %> = unwrap_native_object_from_mrb_value_somehow(<%= param['name'] %>);
+<%   end -%>
+  */
+<% end -%>
+
+  <%= function['return_type'] == 'void' ? '' : "#{function['return_type']} result = "  %><%= function['name'] %>(<%= function['params'].map { |p| "native_#{p['name']}" }.join(', ') %>)
+
+<% if function['return_type'] == 'void' -%>
+  return mrb_nil_value();
+<% else -%>
+  /* TODO
+  mrb_value ruby_result = wrap_result_as_ruby_object_somehow(result);
+  */
+  return ruby_result;
+<% end -%>
+}
+
+<% end -%>
+
+void mrb_<%= module_name %>_init(mrb_state* mrb, RClass* cef_module) {
+  RClass* <%= module_name %>_module = mrb_define_module("<%= module_name%>")
+
+  /*
+   * Functions
+   */
+<% module_functions.each do |function| -%>
+  mrb_define_class_method(mrb, <%= module_name %>_module, "<%= function['name'] %>", mrb_<%= module_name %>_<%= function['name'] %>, MRB_ARGS_ARG(<%= function['argc'] %>, 0));
+<% end -%>
+
+}
+
+#ifdef __cplusplus
+}
+#endif

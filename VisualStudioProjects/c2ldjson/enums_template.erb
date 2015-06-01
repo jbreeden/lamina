@@ -1,0 +1,18 @@
+module <%= module_name %>
+<% enums.each do |enum| -%>
+  @<%= enum['name'] %> = {
+<%   enum['constants'].uniq.each do |constant| -%>
+    :<%= constant['name'] %> => <%= constant['value'] %>
+<%   end -%>
+  }
+<% end -%>
+
+  def self.[](sym)
+    case sym
+<% enums.each do |enum| -%>
+      when :<%= enum['name'] %>
+        @<%= enum['name'] %>
+<% end -%>
+    end
+  end
+end

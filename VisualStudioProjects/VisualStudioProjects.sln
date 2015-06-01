@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mruby-apr", "mruby-apr\mrub
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mruby-lamina", "mruby-lamina\mruby-lamina.vcxproj", "{B781F33F-6E01-4C0D-9259-B78D08306B3D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "c2lsjson", "c2ldjson\c2lsjson.vcxproj", "{DC5D7E17-3867-4A50-B7AD-474786FF259C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -50,6 +52,14 @@ Global
 		{B781F33F-6E01-4C0D-9259-B78D08306B3D}.Release|Win32.Build.0 = Release|Win32
 		{B781F33F-6E01-4C0D-9259-B78D08306B3D}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
 		{B781F33F-6E01-4C0D-9259-B78D08306B3D}.RelWithDebInfo|Win32.Build.0 = Release|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.Debug|Win32.Build.0 = Debug|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.MinSizeRel|Win32.Build.0 = Release|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.Release|Win32.ActiveCfg = Release|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.Release|Win32.Build.0 = Release|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{DC5D7E17-3867-4A50-B7AD-474786FF259C}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,139 @@
+/*
+ * TODO: INCLUDES
+ */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+<% if self['fields'].any? -%>
+/*
+ * Fields
+ * /
+
+<%   self['fields'].select { |f| f['access'] == 'public' }.each do |field| -%>
+/* get_<%= field['name'] %>
+ *
+ * Return Type: <%= field['type'] %>
+ */
+mrb_value
+mrb_<%= module_name %>_<%= self['name'] %>_get_<%= field['name'] %>(mrb_state* mrb, mrb_value self) {
+  /* TODO
+  <%= self['name'] %> native_self = unwrap_self_somehow(self);
+  */
+
+  <%= field['type'] %> native_field = native_self.<%= field['name'] %>;
+
+  /* TODO
+  mrb_value ruby_field = wrap_field_as_mrb_value_somehow(native_field);
+  */
+
+  return ruby_field;
+}
+
+/* set_<%= field['name'] %>
+ *
+ * Parameters:
+ * - value: <%= field['type'] %>
+ * Return Type: void
+ */
+mrb_value
+mrb_<%= module_name %>_<%= self['name'] %>_set_<%= field['name'] %>(mrb_state* mrb, mrb_value self) {
+  /* TODO
+  <%= self['name'] %> native_self = unwrap_self_somehow(self);
+  */
+  mrb_value ruby_field
+
+  mrb_get_args(mrb, "o", &ruby_field);
+
+  /* TODO
+  <%= field['type'] %> native_field = unwrap_field_somehow(ruby_field);
+  */
+
+  native_self.<%= field['name'] %> = native_field;
+
+  return ruby_field;
+}
+
+<%   end -%>
+<% end -%>
+
+<% if self['member_functions'].any? -%>
+/*
+ * Methods
+ * /
+
+<%   self['member_functions'].select { |f| f['access'] == 'public' }.each do |function| -%>
+/* <%= function['name'] %>
+ *
+ * Parameters:<%= " None" unless function['params'].any? %>
+<%   if function['params'].any? -%>
+<%     function['params'].each do |param| -%>
+ * - <%= param['name'] %>: <%= param['type'] %>
+<%     end -%>
+<%   end -%>
+ * Return Type: <%= function['return_type'] %>
+ */
+mrb_value
+mrb_<%= module_name %>_<%= self['name'] %>_<%= function['name'] %>(mrb_state* mrb, mrb_value self) {
+  /* TODO
+  <%= self['name'] %> native_self = unwrap_self_somehow(self);
+  */
+
+<%   if function['params'].any? -%>
+<%     function['params'].each do |param| -%>
+  mrb_value <%= param['name'] %>;
+<%     end -%>
+
+  mrb_get_args(mrb, "<%= 'o' * function['params'].length %>", <%= function['params'].map { |p| "&#{p['name']}" }.join(', ') %>);
+
+  /* TODO
+<%     function['params'].each do |param| -%>
+  <%= param['type'] %> native_<%= param['name'] %> = unwrap_native_object_from_mrb_value_somehow(<%= param['name'] %>);
+<%     end -%>
+  */
+<%   end -%>
+
+  <%= function['return_type'] == 'void' ? 'native_self.' : "#{function['return_type']} result = native_self."  %><%= function['name'] %>(<%= function['params'].map { |p| "native_#{p['name']}" }.join(', ') %>)
+
+<%   if function['return_type'] == 'void' -%>
+  return mrb_nil_value();
+<%   else -%>
+  /* TODO
+  mrb_value ruby_result = wrap_result_as_ruby_object_somehow(result);
+  */
+  return ruby_result;
+<%   end -%>
+}
+
+<%   end -%>
+<% end -%>
+
+void mrb_<%= module_name %>_<%= self['name'] %>_init(mrb_state* mrb, RClass* cef_module) {
+  RClass* <%= module_name %>_module = mrb_define_module("<%= module_name %>")
+  RClass* <%= self['name'] %>_class = mrb_define_class_under("<%= self['name'] %>", <%= module_name %>_module)
+
+<% if self['fields'].any? -%>
+  /*
+   * Fields
+   */
+<%   self['fields'].select { |f| f['access'] == 'public' }.each do |field| -%>
+  mrb_define_method(mrb, <%= self['name'] %>_class, "<%= field['name'] %>", mrb_<%= module_name %>_<%= self['name'] %>_get_<%= field['name'] %>, MRB_ARGS_ARG(0, 0));
+  mrb_define_method(mrb, <%= self['name'] %>_class, "<%= field['name'] %>=", mrb_<%= module_name %>_<%= self['name'] %>_set_<%= field['name'] %>, MRB_ARGS_ARG(1, 0));
+<%   end -%>
+<% end -%>
+
+<% if self['member_functions'].any? -%>
+  /*
+   * Member Functions
+   */
+<%   self['member_functions'].each do |function| -%>
+  mrb_define_method(mrb, <%= self['name'] %>_class, "<%= function['name'] %>", mrb_<%= module_name %>_<%= self['name'] %>_<%= function['name'] %>, MRB_ARGS_ARG(<%= function['argc'] %>, 0));
+<%   end -%>
+<% end -%>
+
+}
+
+#ifdef __cplusplus
+}
+#endif

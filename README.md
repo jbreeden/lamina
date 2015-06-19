@@ -42,7 +42,7 @@ and run `lamina` in the directory containing that file.
 [Lamina module documentation](https://github.com/jbreeden/mruby-lamina/blob/master/doc/mrblib/lamina.md)
 for complete API details.
 
-_DANGER: _
+_DANGER:_
 
 _Keep in mind that lamina defines some JavaScript extensions, like the `ruby` function. This runs ruby code in the browser that can talk back to JavaScript.
 It call also talk to the local file system, spawn processes, etc. So it is not advised (and downright dangerous) to run code from arbitrary websites.
@@ -56,6 +56,9 @@ This allows you to utilize Ruby (as in MRI, JRuby, Rubinius...), Nodejs, or any 
 functionality to your application.
 
 The process goes like this:
+
+_(Err, well, it did. I'm using libapr for file locking from the lamina proc, which may use flock or fcntl for file locking. CRuby seems to use flock exclusively iirc. These locks are not compatible, so this scheme didn't work out. the examples pointed to here are now relying on the stdin of subprocesses to be closed - which indicates that the server has died. Since then I've figured out another way to have a ruby process [go suicidal when its parent dies](https://gist.github.com/jbreeden/ceb308e97db87464cbbd). It's still an inefficient solution, so I may wind up going with nanomsg or raw sockets for ipc, and just use a keep alive signal. Have a better idea? Let me know!)_
+
 - Create a `lamina_main.rb` file that spawns the server, and tells lamina to load its URL.
 - When the first instance of the app is launch, lamina automatically creates a `.lamina` file,
   and grabs a shared lock on it.

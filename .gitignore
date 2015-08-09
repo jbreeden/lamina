@@ -1,3 +1,5 @@
+lamina.app
+cef_distros/*/build
 runtime
 .lamina
 .lamina_options

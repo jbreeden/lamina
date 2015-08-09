@@ -1,10 +1,6 @@
 # `on_launch` will only be called the first time the app is launched.
 # If there is a running instance already, `on_relaunch` will be called instead
 
-File.open('./test.txt', 'w') do |f|
-  f.puts 'ran...'
-end
-
 Lamina.on_launch do
   Lamina.server_port = 8888
   Lamina.window_title = "Lamina JavaScript Integration Tests"

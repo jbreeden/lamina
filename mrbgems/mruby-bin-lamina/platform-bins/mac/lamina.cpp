@@ -59,7 +59,6 @@ extern char** global_argv;
 
 -(void)applicationDidFinishLaunching: (NSNotification *)aNotification
 {
-  printf("Finished launching\n");
   lamina_main();
 }
 
@@ -67,7 +66,6 @@ extern char** global_argv;
 
 int main(int argc, char *argv[])
 {
-  printf("In main\n");
   global_argc = argc;
   global_argv = argv;
   // return NSApplicationMain(argc, (const char **) argv);

@@ -28,7 +28,7 @@ MRuby::Gem::Specification.new('mruby-bin-lamina') do |spec|
   elsif OS.mac?
     # MRuby doesn't do anything with .m files, so I'm using .c and specifying the language with the -x flag
     FileUtils.cp "#{LaminaBinGem.dir}/platform-bins/mac/lamina.cpp", "#{LaminaBinGem.dir}/tools/lamina"
-    spec.cxx.include_paths << "/Users/jared/projects/cef-build/cef_binary_3.2171.1979_macosx64"
+    spec.cxx.include_paths << ENV['CEF_HOME']
     spec.cxx.flags << '-x objective-c++'
     spec.linker.flags << '-framework Cocoa'
   else

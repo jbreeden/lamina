@@ -7,9 +7,6 @@
 [submodule "mrbgems/mruby-apr"]
 	path = mrbgems/mruby-apr
 	url = https://github.com/jbreeden/mruby-apr
-[submodule "mrbgems/mruby-nanomsg"]
-	path = mrbgems/mruby-nanomsg
-	url = https://github.com/jbreeden/mruby-nanomsg
-[submodule "mrbgems/mruby-io"]
-	path = mrbgems/mruby-io
-	url = https://github.com/jbreeden/mruby-io
+[submodule "mruby"]
+	path = mruby
+	url = https://github.com/jbreeden/mruby

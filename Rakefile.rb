@@ -14,7 +14,7 @@ end
 namespace :mruby do
   desc "Build the mruby bundled with lamina"
   task :build do
-    Dir.chdir "mruby-1.1.0" do
+    Dir.chdir "mruby" do
       sh "ruby minirake"
     end
 
@@ -23,7 +23,7 @@ namespace :mruby do
     # Not getting the .exe extensions for executables.
     # I'll try to fix this later
     if ENV['OS'] =~ /windows/i
-      Dir.chdir "mruby-1.1.0/bin" do
+      Dir.chdir "mruby/bin" do
         mv 'mirb', 'mirb.exe'
         mv 'mruby', 'mruby.exe'
         mv 'mrbc', 'mrbc.exe'
@@ -36,7 +36,7 @@ namespace :mruby do
 
   desc "Clean the mruby bundled with lamina"
   task :clean do
-    Dir.chdir "mruby-1.1.0" do
+    Dir.chdir "mruby" do
       sh "ruby minirake clean"
     end
   end
@@ -58,7 +58,7 @@ namespace :binaries do
         cp_r f, '../binaries-win/bin'
     end
 
-    Dir["./mruby-1.1.0/bin/*"].each do |f|
+    Dir["./mruby/bin/*"].each do |f|
       cp f, "../binaries-win/bin"
     end
 
@@ -90,7 +90,7 @@ namespace :binaries do
       end
     end
 
-    Dir["./mruby-1.1.0/bin/*"].each do |f|
+    Dir["./mruby/bin/*"].each do |f|
       cp f, "../binaries-lin64/bin"
     end
 

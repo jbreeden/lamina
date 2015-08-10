@@ -1,4 +1,4 @@
-lamina*
+lamina.app
 cef_distros/*/build
 mrbgems/mruby-bin-lamina/tools/
 runtime

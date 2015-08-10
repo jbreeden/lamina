@@ -21,7 +21,7 @@ MRuby::Gem::Specification.new('mruby-bin-lamina') do |spec|
 
   # Clear the tools folder so we can copy over the right file for the current platform
   FileUtils.rm_rf("#{LaminaBinGem.dir}/tools/lamina") if Dir.exists?("#{LaminaBinGem.dir}/tools/lamina")
-  FileUtils.mkdir("#{LaminaBinGem.dir}/tools/lamina")
+  FileUtils.mkdir_p("#{LaminaBinGem.dir}/tools/lamina")
 
   if OS.windows?
     FileUtils.cp "#{LaminaBinGem.dir}/platform-bins/win/lamina.cpp", "#{LaminaBinGem.dir}/tools/lamina"

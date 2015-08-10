@@ -39,6 +39,22 @@ if OS.mac?
     sh "install_name_tool -change \"@executable_path/Chromium Embedded Framework\" \"@executable_path/../../../../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"#{app_name}.app/Contents/Frameworks/#{app_name} Helper.app/Contents/MacOS/#{app_name} Helper\""
     sh "BUILT_PRODUCTS_DIR=#{app_dir} CONTENTS_FOLDER_PATH=Contents #{CEF.dir}/tools/make_more_helpers.sh Frameworks #{app_name}"
   end
+elsif OS.linux?
+  def package
+    app_dir = "lamina"
+    app_name = "lamina"
+    app_location = "mruby/bin/lamina"
+
+    rm_rf app_dir if Dir.exists?(app_dir)
+    mkdir app_dir
+    Dir["#{CEF.dir}/Release/*.so"].concat(Dir["#{CEF.dir}/Resources/*"]).each do |file|
+      cp_r file, app_dir
+    end
+    cp app_location, "#{app_dir}/#{app_name}"
+    sh "chmod a+x #{app_dir}/#{app_name}"
+  end
 else
-  raise "Not defined for this platform"
+  def package
+    raise "Not defined for this platform"
+  end
 end

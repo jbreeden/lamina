@@ -1,5 +1,6 @@
-lamina.app
+lamina*
 cef_distros/*/build
+mrbgems/mruby-bin-lamina/tools/
 runtime
 .lamina
 .lamina_options

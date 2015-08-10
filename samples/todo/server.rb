@@ -7,5 +7,5 @@ end
 
 Thread.new do
   $stdin.read
-  exit
+  Sinatra::Application.quit!
 end

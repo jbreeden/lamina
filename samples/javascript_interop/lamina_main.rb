@@ -9,10 +9,10 @@ Lamina.on_launch do
   Lamina.remote_debugging_port = 8889
   Lamina.url = "http://localhost:#{Lamina.server_port}"
 
-  IO.popen ["ruby", "./server.rb", "-p", "8888"]
+  IO.popen("ruby ./server.rb -p 8888", 'w')
   # If you're using Webrick, the server may need a sec to startup.
   # Quick-and-dirty hack to avoid a load error is just to sleep.
-  # sleep 2
+  APR::apr_sleep 200
 end
 
 Lamina.on_relaunch do

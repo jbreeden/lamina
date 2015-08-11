@@ -1,10 +1,9 @@
 #include "mruby_lamina.h"
 
-extern int global_argc;
-extern char** global_argv;
-
 int main(int argc, char** argv) {
-  global_argc = argc;
-  global_argv = argv;
+  g_argc = argc;
+  g_argv = argv;
+  g_command_line = CefCommandLine::CreateCommandLine();
+  g_command_line->InitFromArgv(argc, argv);
   return lamina_main();
 }

@@ -1,10 +1,8 @@
 #include "mruby_lamina.h"
 #include <stdio.h>
 #import "include/cef_application_mac.h"
+#include "include/cef_command_line.h"
 #import <Cocoa/Cocoa.h>
-
-extern int global_argc;
-extern char** global_argv;
 
 // Provide the CefAppProtocol implementation required by CEF.
 @interface LaminaApplication : NSApplication<CefAppProtocol> {
@@ -66,8 +64,10 @@ extern char** global_argv;
 
 int main(int argc, char *argv[])
 {
-  global_argc = argc;
-  global_argv = argv;
+  g_argc = argc;
+  g_argv = argv;
+  g_command_line = CefCommandLine::CreateCommandLine();
+  g_command_line->InitFromArgv(argc, argv);
   // return NSApplicationMain(argc, (const char **) argv);
   @autoreleasepool {
     NSApplication * application = [LaminaApplication sharedApplication];

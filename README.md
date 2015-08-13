@@ -3,7 +3,7 @@ DEPRECATED
 
 This project has been refactored, restructed, and renamed as [Rubium](http://github.com/jbreeden/rubium).
 
-Rubium support Mac, Windows, & Linux. The refactoring removed a lot of unneeded code, and simplified many of the core concepts such as loading and configuring an application.
+Rubium supports Mac, Windows, & Linux. The refactoring removed a lot of unneeded code, and simplified many of the core concepts such as loading and configuring an application.
 
 This repo was a prototype of the initial idea (embedding MRuby into a Chromium browser). As tends to happen with prototypes, it came time to throw it away and make a fresh start. This repo remains mainly for git history.
 
